@@ -1,5 +1,5 @@
 # Modern Calc
-![screenshot](https://github.com/kaer/gnome-shell-extension-modern-calc/raw/master/modern-calc@kaer/images/modern-calc-v0.0.1.png)
+![screenshot](https://github.com/kaer/gnome-shell-extension-modern-calc/raw/master/modern-calc@kaer/images/modern-calc-v1.png)
 
 ## Description
 
