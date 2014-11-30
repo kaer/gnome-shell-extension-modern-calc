@@ -1,0 +1,8 @@
+{
+  "shell-version": ["3.10"],
+  "uuid": "modern-calc@kaer",
+  "name": "Modern Calc",
+  "description": "A full featured calculator for gnome-shell and is under development and should not be used for production yet.",
+  "url": "https://github.com/kaer/gnome-shell-extension-modern-calc",
+  "version": 1
+}
