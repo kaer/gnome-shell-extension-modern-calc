@@ -32,6 +32,30 @@
     border-left: 1px solid #000000;
 }
 
+.modern-calc .toolbar {
+ 
+}
+
+.modern-calc .toolbar .toolbar-button{
+    padding: 4px;
+}
+
+
+
+.modern-calc .module-container {
+    
+}
+
+.module {
+
+}
+/* CALC MODULE */
+.calc-module {
+}
+/* UNIT CONVERTOR */
+.unit-convertor-module {
+}
+
 /* HEADER ------------------------------------------------------------------ */
 .header-group {
 }
