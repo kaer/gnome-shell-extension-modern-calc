@@ -40,10 +40,12 @@ const Me = ExtensionUtils.getCurrentExtension();
 const AppHeader = Me.imports.app_header;
 const Dialog = Me.imports.dialog;
 const Utils = Me.imports.utils;
+const Constants = Me.imports.constants;
+const PrefsKeys = Me.imports.prefs_keys;
 
 // will be loaded on demand
 let CalculatorModule;
-let UnitConvertorModule;
+let UnitConvertorModule;    
 
 const ModernCalc = new Lang.Class({
     Name: "ModernCalc",
@@ -51,21 +53,21 @@ const ModernCalc = new Lang.Class({
     
     _init: function() {
 
-        this._prefs = {  //TODO get from preferences file
-            calculator_enabled: 1,
-            unit_convertor_enabled: 1,
-            default_module: 'calculator'
-        };
+        this._preferences = Utils.getSettings();
 
         let params = {
-            width_percents: 26,
+            width_percents: this._preferences.get_int(PrefsKeys.WINDOW_WIDTH_VALUE_KEY),
             height_percents: 100, 
             animation_time: 0.5,
             style_class: 'modern-calc',
         };
         this.parent(params);
-        
-        
+
+        if(this._preferences.get_boolean(PrefsKeys.ENABLE_TRANSPARENCY_KEY)){
+            this.actor.opacity = this._preferences.get_int(PrefsKeys.WINDOW_OPACITY_VALUE_KEY);
+        }
+
+
         this._appHeader = null;
 
 
@@ -73,8 +75,8 @@ const ModernCalc = new Lang.Class({
         this._activeModule = false;
 
         this._prepareInterface();
-        
     },
+
     _prepareInterface: function(){
         // add header
         this._appHeader = new AppHeader.AppHeader();
@@ -117,12 +119,12 @@ const ModernCalc = new Lang.Class({
         let moduleIndex = 0;
         let module_to_activate = false;
         let loaded_module_name;
-        let default_module = this.get_preference('default_module');
+        let default_module = this._preferences.get_string(PrefsKeys.DEFAULT_MODULE_KEY);
 
         this._loadedModules = new Array();
 
-        
-        if(this.get_preference('calculator_enabled') == 1){
+
+        if(this._preferences.get_boolean(PrefsKeys.CALCULATOR_ENABLED_KEY) == 1){
             CalculatorModule = Me.imports.calculator_module;
 
             this._loadedModules[moduleIndex] =  new CalculatorModule.CalculatorModule({
@@ -137,7 +139,7 @@ const ModernCalc = new Lang.Class({
             moduleIndex++;
         }
 
-        if(this.get_preference('unit_convertor_enabled') == 1){
+        if(this._preferences.get_boolean(PrefsKeys.UNIT_CONVERTOR_ENABLED_KEY) == 1){
             moduleIndex++;
             UnitConvertorModule = Me.imports.unit_convertor_module;
 
@@ -219,20 +221,15 @@ const ModernCalc = new Lang.Class({
         }
     },
 
-    get_preference: function(preference_name){
-        if(this._prefs){
-            if(this._prefs.hasOwnProperty(preference_name)){
-                return this._prefs[preference_name];
-            }
-        }
-        return undefined;
-    },
-
     destroy: function(){
         this._toolbar.destroy();
         this._moduleContainer.destroy();
 
         this.parent();
+    },
+
+    get preferences(){
+        return this._preferences;
     },
 
     get active_module(){

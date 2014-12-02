@@ -76,14 +76,9 @@ const IndicatorButton = new Lang.Class({
         let preferences_item = new PopupMenu.PopupMenuItem("Preferences");
         preferences_item.connect("activate", Lang.bind(this, function() {
             this._modernCalc.hide();
-            this._openPreferences();
-
+            Utils.launch_extension_prefs(Me.uuid);
         }));
         this.menu.addMenuItem(preferences_item);        
-    },
-
-    _openPreferences: function () {
-        Utils.launch_extension_prefs(Me.uuid);
     },
 
     destroy: function() {

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.modern-calc" path="/org/gnome/shell/extensions/modern-calc/">
+    <!-- appearance -->
+    <key type="s" name="theme">
+        <default>'default'</default>
+    </key>
+
+    <key type="b" name="enable-transparency">
+        <default>true</default>
+    </key>
+
+    <key type="i" name="opacity-value">
+        <default>240</default>
+    </key>
+    
+    <key type="i" name="window-width-value">
+        <default>26</default>
+    </key>
+
+    <!-- modules -->
+    <key type="s" name="default-module">
+        <default>'calculator'</default>
+    </key>
+
+    <key type="b" name="calculator-enabled">
+        <default>true</default>
+    </key>
+
+    <key type="b" name="unit-convertor-enabled">
+        <default>true</default>
+    </key>
+
+  </schema>
+</schemalist>
