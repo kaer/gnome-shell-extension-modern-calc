@@ -187,11 +187,16 @@ const ModernCalc = new Lang.Class({
   
         if(module_name != false){
 
+            let toolbarButton;
+
             // remove last shown module (at the moment yet active module)
             if(this._activeModule){    
 
                 //TODO animate
                 this._moduleContainer.remove_child(this._activeModule.actor);
+                
+                toolbarButton = this._activeModule.get_toolbar_button();
+                toolbarButton.remove_style_pseudo_class('active');
             }
 
             let module = false;
@@ -213,7 +218,9 @@ const ModernCalc = new Lang.Class({
                     y_align: St.Align.START
                 });
 
-                //TODO set the module button as active
+                // highlight module's toolbar button
+                toolbarButton = module.get_toolbar_button();
+                toolbarButton.add_style_pseudo_class('active');
 
                 // set the active module
                 this._activeModule = module;

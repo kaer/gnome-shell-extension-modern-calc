@@ -33,22 +33,29 @@
 }
 
 .modern-calc .toolbar {
- 
+    background: rgba(50,50,50, 0.2);
 }
 
-.modern-calc .toolbar .toolbar-button{
+.modern-calc .toolbar StButton.toolbar-button {
     padding: 4px;
+    color: rgba(147,167,172, 0.8);
 }
 
-
+.modern-calc .toolbar StButton.toolbar-button:hover{
+    background: rgba(111,138,145, 0.2);
+    color: #cbcbcb;
+}
+.modern-calc .toolbar StButton.toolbar-button:active {
+    background: rgba(141,178,185, 0.2);
+    color: #cbcbcb;
+}
 
 .modern-calc .module-container {
-    
 }
 
 .module {
-
 }
+
 /* CALC MODULE */
 .calc-module {
 }
