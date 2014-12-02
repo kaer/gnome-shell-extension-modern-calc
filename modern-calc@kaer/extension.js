@@ -146,18 +146,3 @@ function disable() {
         appButton = null;
     }
 }
-
-
-// FUNCTIONS --------------------------------------------------------------------------------------
-
-const MessageTray = imports.ui.messageTray;
-function showMessage(message) {
-    let source = new MessageTray.SystemNotificationSource({style_class:'msg-style'});
-    
-    Main.messageTray.add(source);
-    
-    let notification = new MessageTray.Notification(source,'Modern Calc',message);
-    notification.setTransient(true);
-    source.notify(notification);
-}
-

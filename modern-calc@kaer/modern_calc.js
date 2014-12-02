@@ -43,6 +43,8 @@ const Utils = Me.imports.utils;
 const Constants = Me.imports.constants;
 const PrefsKeys = Me.imports.prefs_keys;
 
+const Notify = Utils.showMessage;
+
 // will be loaded on demand
 let CalculatorModule;
 let UnitConvertorModule;    
@@ -225,8 +227,24 @@ const ModernCalc = new Lang.Class({
 
                 // set the active module
                 this._activeModule = module;
+
+                if(this.is_open){
+                    this._activeModule.on_activate();    
+                }
+                
             }
         }
+    },
+
+    _onShow: function(){
+       if(this._activeModule !== false){
+            // execute module's on_activate instructions
+           this._activeModule.on_activate();
+        }
+    },
+
+    show: function(){
+        this.parent(true, Lang.bind(this, this._onShow));
     },
 
     destroy: function(){

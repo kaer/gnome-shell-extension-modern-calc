@@ -139,6 +139,9 @@ const CalculatorModule = new Lang.Class({
         }
     },
 
+    on_activate: function(){
+        this.display.focus_entry();
+    },
 
     destroy: function(){
         his._history.destroy();

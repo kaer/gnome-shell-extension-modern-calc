@@ -85,11 +85,15 @@ const Display = new Lang.Class({
 
             }
 
-            this._expression_entry.grab_key_focus();
+            this.focus_entry();
             this._expression_entry.clutter_text.insert_text(value, cursor_pos);
             this._lastInsertedChar = value;
         }
 
+    },
+
+    focus_entry: function(){
+        this._expression_entry.grab_key_focus();
     },
 
     _entryKeyPress: function(actor, event) {
@@ -136,7 +140,7 @@ const Display = new Lang.Class({
 
                 if(cursor_pos>0){
                     /*
-                    this._expression_entry.grab_key_focus();
+                    this.focus_entry();
                     */
                 }
                 
@@ -169,5 +173,3 @@ const Display = new Lang.Class({
     }
     
 });
-
-//Signals.addSignalMethods(Display.prototype);
