@@ -37,3 +37,7 @@ const ENABLE_REVEAL_ANIMATION_KEY = 'enable-reveal-animation';
 const DEFAULT_MODULE_KEY = 'default-module';
 const CALCULATOR_ENABLED_KEY = 'calculator-enabled';
 const UNIT_CONVERTOR_ENABLED_KEY = 'unit-convertor-enabled';
+
+// shortcuts
+const ENABLE_SHORTCUTS_KEY = 'enable-shortcuts';
+const SHOW_APP_SHORTCUT_KEY = 'show-app-shortcut';

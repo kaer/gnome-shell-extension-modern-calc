@@ -215,6 +215,128 @@ const PrefsGrid = new GObject.Class({
     }
 });
 
+const KeybindingsWidget = new GObject.Class({
+    Name: 'Keybindings.Widget',
+    GTypeName: 'KeybindingsWidget',
+    Extends: Gtk.Box,
+
+    _init: function(keybindings) {
+        this.parent();
+        this.set_orientation(Gtk.Orientation.VERTICAL);
+
+        this._keybindings = keybindings;
+
+        let scrolled_window = new Gtk.ScrolledWindow();
+        scrolled_window.set_policy(
+            Gtk.PolicyType.AUTOMATIC,
+            Gtk.PolicyType.AUTOMATIC
+        );
+
+        this._columns = {
+            NAME: 0,
+            ACCEL_NAME: 1,
+            MODS: 2,
+            KEY: 3
+        };
+
+        this._store = new Gtk.ListStore();
+        this._store.set_column_types([
+            GObject.TYPE_STRING,
+            GObject.TYPE_STRING,
+            GObject.TYPE_INT,
+            GObject.TYPE_INT
+        ]);
+
+        this._tree_view = new Gtk.TreeView({
+            model: this._store,
+            hexpand: true,
+            vexpand: true
+        });
+        this._tree_view.get_selection().set_mode(Gtk.SelectionMode.SINGLE);
+
+        let action_renderer = new Gtk.CellRendererText();
+        let action_column = new Gtk.TreeViewColumn({
+            'title': 'Action',
+            'expand': true
+        });
+        action_column.pack_start(action_renderer, true);
+        action_column.add_attribute(action_renderer, 'text', 1);
+        this._tree_view.append_column(action_column);
+
+        let keybinding_renderer = new Gtk.CellRendererAccel({
+            'editable': true,
+            'accel-mode': Gtk.CellRendererAccelMode.GTK
+        });
+        keybinding_renderer.connect('accel-edited',
+            Lang.bind(this, function(renderer, iter, key, mods) {
+                let value = Gtk.accelerator_name(key, mods);
+                let [success, iterator ] =
+                    this._store.get_iter_from_string(iter);
+
+                if(!success) {
+                    printerr("Can't change keybinding");
+                }
+
+                let name = this._store.get_value(iterator, 0);
+
+                this._store.set(
+                    iterator,
+                    [this._columns.MODS, this._columns.KEY],
+                    [mods, key]
+                );
+                Utils.SETTINGS.set_strv(name, [value]);
+            })
+        );
+
+        let keybinding_column = new Gtk.TreeViewColumn({
+            'title': 'Modify'
+        });
+        keybinding_column.pack_end(keybinding_renderer, false);
+        keybinding_column.add_attribute(
+            keybinding_renderer,
+            'accel-mods',
+            this._columns.MODS
+        );
+        keybinding_column.add_attribute(
+            keybinding_renderer,
+            'accel-key',
+            this._columns.KEY
+        );
+        this._tree_view.append_column(keybinding_column);
+
+        scrolled_window.add(this._tree_view);
+        this.add(scrolled_window);
+
+        this._refresh();
+    },
+
+    _refresh: function() {
+        this._store.clear();
+
+        for(let settings_key in this._keybindings) {
+            let [key, mods] = Gtk.accelerator_parse(
+                Utils.SETTINGS.get_strv(settings_key)[0]
+            );
+
+            let iter = this._store.append();
+            this._store.set(iter,
+                [
+                    this._columns.NAME,
+                    this._columns.ACCEL_NAME,
+                    this._columns.MODS,
+                    this._columns.KEY
+                ],
+                [
+                    settings_key,
+                    this._keybindings[settings_key],
+                    mods,
+                    key
+                ]
+            );
+        }
+    }
+});
+
 const PrefsWidget = new GObject.Class({
     Name: 'Prefs.Widget',
     GTypeName: 'PrefsWidget',
@@ -234,10 +356,11 @@ const PrefsWidget = new GObject.Class({
 
         let appearance_page = this._get_appearance_page();
         let module_page = this._get_modules_page();
-        
+        let shortcuts_page = this._get_shortcuts_page();
 
         notebook.append_page(appearance_page.page, appearance_page.label);
         notebook.append_page(module_page.page, module_page.label);
+        notebook.append_page(shortcuts_page.page, shortcuts_page.label);
 
         this.add(notebook);
     },
@@ -343,6 +466,42 @@ const PrefsWidget = new GObject.Class({
             PrefsKeys.UNIT_CONVERTOR_ENABLED_KEY
         );
 
+
+        let result = {
+            label: page_label,
+            page: page
+        };
+        return result;
+    },
+
+
+    _get_shortcuts_page: function() {
+        let page_label = new Gtk.Label({
+            label: 'Shortcuts'
+        });
+        let page = new PrefsGrid(this._settings);
+
+        let enable_shortcuts = page.add_boolean(
+            'Shortcuts:',
+            PrefsKeys.ENABLE_SHORTCUTS_KEY
+        );
+        enable_shortcuts.connect('notify::active',
+            Lang.bind(this, function(s) {
+                let active = s.get_active();
+                keybindings_widget.set_sensitive(active);
+            })
+        );
+
+        let shortcuts_enabled = this._settings.get_boolean(
+            PrefsKeys.ENABLE_SHORTCUTS_KEY
+        );
+
+        let keybindings = {};
+        keybindings[PrefsKeys.SHOW_APP_SHORTCUT_KEY] = 'Show/hide the extension';
+
+        let keybindings_widget = new KeybindingsWidget(keybindings);
+        keybindings_widget.set_sensitive(shortcuts_enabled);
+        page.add_item(keybindings_widget)
 
         let result = {
             label: page_label,

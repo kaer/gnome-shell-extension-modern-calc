@@ -39,9 +39,8 @@ const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const ModernCalc = Me.imports.modern_calc;
+const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
-
-const ENABLE_INDICATOR_KEY = 'enable-indicator';
 
 const IndicatorButton = new Lang.Class({
     Name: 'IndicatorButton',
@@ -56,6 +55,13 @@ const IndicatorButton = new Lang.Class({
         this.actor.add_child(icon);
 
         this._createContextMenu();
+
+        if(Utils.getSettings().get_boolean(PrefsKeys.ENABLE_INDICATOR_KEY)){
+            this._showIndicator();
+        }
+        this._keybindingsEnabled = false;
+
+        this._enableKeybindings();
     },
 
     _onButtonPress: function(actor, event) {
@@ -83,7 +89,39 @@ const IndicatorButton = new Lang.Class({
         this.menu.addMenuItem(preferences_item);        
     },
 
+    _enableKeybindings: function() {
+        this._keybindingsEnabled = Utils.SETTINGS.get_boolean(PrefsKeys.ENABLE_SHORTCUTS_KEY);
+
+        if(this._keybindingsEnabled){
+
+            Main.wm.addKeybinding(
+                PrefsKeys.SHOW_APP_SHORTCUT_KEY,
+                Utils.SETTINGS,
+                Meta.KeyBindingFlags.NONE,
+                Shell.KeyBindingMode.NORMAL |
+                Shell.KeyBindingMode.MESSAGE_TRAY |
+                Shell.KeyBindingMode.OVERVIEW,
+                Lang.bind(this, function() {
+                    this._modernCalc.toggle();
+                })
+            );
+
+        }
+    },
+
+    _removeKeybindings: function() {
+        if(this._keybindingsEnabled){
+            Main.wm.removeKeybinding(PrefsKeys.SHOW_APP_SHORTCUT_KEY);
+        }
+    },
+
+    _showIndicator: function(){
+        Main.panel.addToStatusArea('ModernCalcIndicator', this);
+    },
+
+
     destroy: function() {
+        this._removeKeybindings();
         this._modernCalc.destroy();
         this.parent();
     }
@@ -92,19 +130,13 @@ const IndicatorButton = new Lang.Class({
 
 // OVERRIDES --------------------------------------------------------------------------------------
 let appButton = null;
-let standaloneApp = null;
 function init(extension) { 
 
 }
 
 function enable() {
-    if(Utils.getSettings().get_boolean(ENABLE_INDICATOR_KEY)){
-        if(appButton === null) {
-            appButton = new IndicatorButton();
-            Main.panel.addToStatusArea('ModernCalcIndicator', appButton);
-        }
-    } else {
-        standaloneApp = new ModernCalc.ModernCalc();
+    if(appButton === null) {
+        appButton = new IndicatorButton();
     }
 }
 
@@ -112,11 +144,6 @@ function disable() {
     if(appButton !== null) {
         appButton.destroy();
         appButton = null;
-    }
-
-    if(standaloneApp !== null) {
-        standaloneApp.destroy();
-        standaloneApp = null;
     }
 }
 

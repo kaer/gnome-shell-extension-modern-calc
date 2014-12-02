@@ -39,5 +39,14 @@
         <default>true</default>
     </key>
 
+    <!-- shortcuts -->
+    <key type="b" name="enable-shortcuts">
+        <default>false</default>
+    </key>
+
+    <key type="as" name="show-app-shortcut">
+        <default><![CDATA[['<Super>C']]]></default>
+    </key>
+
   </schema>
 </schemalist>
