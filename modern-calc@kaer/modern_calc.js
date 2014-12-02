@@ -80,12 +80,12 @@ const ModernCalc = new Lang.Class({
 
     _prepareInterface: function(){
         // add header
-        this._appHeader = new AppHeader.AppHeader();
+        /*this._appHeader = new AppHeader.AppHeader();
         this.boxLayout.add(this._appHeader.actor, {
             expand: false,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.MIDDLE
-        });
+        });*/
 
         // add toolbar
         this._toolbar = new St.BoxLayout({
