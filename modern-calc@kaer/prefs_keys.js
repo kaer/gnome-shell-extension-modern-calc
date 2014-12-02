@@ -30,6 +30,7 @@ const THEME_KEY = 'theme';
 const ENABLE_TRANSPARENCY_KEY = 'enable-transparency';
 const WINDOW_OPACITY_VALUE_KEY = 'opacity-value';
 const WINDOW_WIDTH_VALUE_KEY = 'window-width-value'; 
+const ENABLE_REVEAL_ANIMATION_KEY = 'enable-reveal-animation';
 
 // modules
 const DEFAULT_MODULE_KEY = 'default-module';

@@ -59,6 +59,7 @@ const ModernCalc = new Lang.Class({
             width_percents: this._preferences.get_int(PrefsKeys.WINDOW_WIDTH_VALUE_KEY),
             height_percents: 100, 
             animation_time: 0.5,
+            enable_reveal_animation: this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY),
             style_class: 'modern-calc',
         };
         this.parent(params);

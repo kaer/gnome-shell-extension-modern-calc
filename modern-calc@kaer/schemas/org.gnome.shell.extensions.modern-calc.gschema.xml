@@ -17,6 +17,10 @@
     <key type="i" name="window-width-value">
         <default>26</default>
     </key>
+    
+    <key type="b" name="enable-reveal-animation">
+        <default>true</default>
+    </key>
 
     <!-- modules -->
     <key type="s" name="default-module">

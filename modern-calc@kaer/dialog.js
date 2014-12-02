@@ -48,6 +48,7 @@ const Dialog = new Lang.Class({
             width_percents: 45,
             height_percents: 95,
             animation_time: 0.5,
+            enable_reveal_animation: true,
             style_class: ''
         });
         this.actor = new St.BoxLayout({
@@ -169,7 +170,7 @@ const Dialog = new Lang.Class({
         this.actor.show();
         this.resize();
 
-        if(animation) {
+        if(this.params.enable_reveal_animation && animation) {
             Tweener.removeTweens(this.actor);
             Tweener.addTween(this.actor, {
                 time: this.params.animation_time / St.get_slow_down_factor(),
@@ -181,7 +182,7 @@ const Dialog = new Lang.Class({
             });
         }
         else {
-            this.actor.y = this._target_y;
+            this.actor.x = this._target_x;
             if(typeof on_complete === 'function') on_complete();
         }
 
@@ -199,7 +200,7 @@ const Dialog = new Lang.Class({
             ? true
             : animation;
 
-        if(animation) {
+        if(this.params.enable_reveal_animation && animation) {
             Tweener.removeTweens(this.actor);
             Tweener.addTween(this.actor, {
                 time: this.params.animation_time / St.get_slow_down_factor(),
@@ -213,7 +214,7 @@ const Dialog = new Lang.Class({
         }
         else {
             this.actor.hide();
-            this.actor.y = this._hidden_y;
+            this.actor.x = this._hidden_x;
             if(typeof on_complete === 'function') on_complete();
         }
     },
