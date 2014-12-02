@@ -41,6 +41,8 @@ const Me = ExtensionUtils.getCurrentExtension();
 const ModernCalc = Me.imports.modern_calc;
 const Utils = Me.imports.utils;
 
+const ENABLE_INDICATOR_KEY = 'enable-indicator';
+
 const IndicatorButton = new Lang.Class({
     Name: 'IndicatorButton',
     Extends: PanelMenu.Button,
@@ -90,15 +92,19 @@ const IndicatorButton = new Lang.Class({
 
 // OVERRIDES --------------------------------------------------------------------------------------
 let appButton = null;
-
+let standaloneApp = null;
 function init(extension) { 
 
 }
 
 function enable() {
-    if(appButton === null) {
-        appButton = new IndicatorButton();
-        Main.panel.addToStatusArea('ModernCalcIndicator', appButton);
+    if(Utils.getSettings().get_boolean(ENABLE_INDICATOR_KEY)){
+        if(appButton === null) {
+            appButton = new IndicatorButton();
+            Main.panel.addToStatusArea('ModernCalcIndicator', appButton);
+        }
+    } else {
+        standaloneApp = new ModernCalc.ModernCalc();
     }
 }
 
@@ -106,6 +112,11 @@ function disable() {
     if(appButton !== null) {
         appButton.destroy();
         appButton = null;
+    }
+
+    if(standaloneApp !== null) {
+        standaloneApp.destroy();
+        standaloneApp = null;
     }
 }
 

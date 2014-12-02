@@ -266,6 +266,11 @@ const PrefsWidget = new GObject.Class({
         );
 
         page.add_boolean(
+            'Show indicator icon:',
+            PrefsKeys.ENABLE_INDICATOR_KEY
+        );
+
+        page.add_boolean(
             'Enable reveal animation:',
             PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY
         );

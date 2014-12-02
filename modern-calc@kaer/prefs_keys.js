@@ -27,6 +27,7 @@
 
 // appearance
 const THEME_KEY = 'theme';
+const ENABLE_INDICATOR_KEY = 'enable-indicator';
 const ENABLE_TRANSPARENCY_KEY = 'enable-transparency';
 const WINDOW_OPACITY_VALUE_KEY = 'opacity-value';
 const WINDOW_WIDTH_VALUE_KEY = 'window-width-value'; 

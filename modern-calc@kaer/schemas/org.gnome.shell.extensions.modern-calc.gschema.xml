@@ -5,6 +5,10 @@
     <key type="s" name="theme">
         <default>'default'</default>
     </key>
+    
+    <key type="b" name="enable-indicator">
+        <default>true</default>
+    </key>
 
     <key type="b" name="enable-transparency">
         <default>true</default>
