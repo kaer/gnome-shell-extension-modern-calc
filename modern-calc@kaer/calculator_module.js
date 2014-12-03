@@ -92,7 +92,6 @@ const CalculatorModule = new Lang.Class({
         this._basicCalcButtonGrid = null;
 
         this.parent(parentParams);
-        
 
         this.actor.connect('key-press-event', Lang.bind(this, this._onKeyPressEvent));
     },
@@ -184,53 +183,67 @@ const CalculatorModule = new Lang.Class({
     calculate: function(){ 
 
         this.display.waitingMode();
-
         let expression = this.display.get_entry_data();
-
-        //let lastChar = this.display.last_inserted_char();
-        
-        // DO NOT change the case of text because some symbols like PI
-        // are misunderstood by the calculator program
-        //expression = expression.toUpperCase();
-
-        //TODO replace decimal separator by user's default decimal separator
-        //expression = expression.replace(/,/g, ".");
-
-        // replace ANS by the last answer
-        if(
-            //lastChar.toUpperCase() != 'ANS' &&
-            expression.indexOf('ANS') != -1 || expression.indexOf('ans') !=-1){
-
-            //TODO para cada ANS que existir na expressao,
-            // verificar se antes e depois existe um operacao válida
-            // tipo +-*/
-            // excecoes ANS²,  √ANS 
-            
-            let lastAnswerResult = this.history.last_calculus_answer();
-            //TODO dependendo como for deverá colocar ANS em notacao cientifica
-            if(lastAnswerResult != undefined){
-                
-                expression = expression.replace('ANS', lastAnswerResult);
-            }
-        }
-
-        // valid symbols
-        //π pi
-        //√ sqrt
-        //² squares
 
         let calc_res = this._calculateResult(expression);
         
         this.display.set_current_result(calc_res);
     },
 
-    //TODO see why gnome-calculator removes commas and periods of decimal numbers
-    _calculateResult: function(expression) {
+    _formatInput: function(expression){
+        //NOTICE: DO NOT change the case of text because some symbols like PI
+        // are misunderstood by the calculator program
+
+        // valid symbols: √, π, ², ³
+        // valid texts: sqrt, pi and others valid for gnome-calculator
+
+
         // Join everything together, then replace commas with periods to support
         // Using a comma as a decimal point
-        let expr = expression.split(" ").join("").replace(/,/g, ".");
-        let finalBase = 10;
+        expression = expression.split(" ").join("").replace(/,/g, ".");
 
+
+        // replace ANS by the last answer
+        if(expression.indexOf('ANS') != -1 || expression.indexOf('ans') !=-1){
+
+            // exceptions ANS²,  √ANS 
+            let syntaxError = false;
+
+            //TODO for each ANS see if before and after there is number or letter
+            // to avoid joining numbers with the ANS
+
+            // don't replace ANS(s) to invalidate the expression if
+            // ANS is preceded or succeded by illegal characters
+            //if(!syntaxError){
+                let lastAnswerResult = this.history.last_calculus_answer();
+                //TODO maybe ANS should be put in scientific notation
+                if(lastAnswerResult != undefined){
+                    
+                    expression = expression.replace(/ANS/gi, lastAnswerResult);
+                }
+            //}
+        }
+
+
+        // pi
+        expression = expression.replace('pi', 'π');
+
+        return expression;
+    },
+
+    _formatOutput: function(result){
+
+        result = result.replace("\u2212", '-');
+
+        return result;
+    },
+
+    //TODO see why gnome-calculator removes commas and periods of decimal numbers
+    _calculateResult: function(expression) {
+        
+        let formattedExpression = this._formatInput(expression);
+        let expr  = formattedExpression;        
+        let finalBase = 10;
 
         if (this._validExpression(expr)) {
             expr = expr.replace(/'pi'/gi, "\u03C0");
@@ -240,10 +253,10 @@ const CalculatorModule = new Lang.Class({
             expr = expr.replace(radians, "$1((180/\u03C0) *");
             expr = expr.replace(radians2, "(\u03C0/180) * a$1(");
          
-            /*if(changeBase.test(expr)) {
+            if(changeBase.test(expr)) {
                 finalBase = bases[changeBase.exec(expr)[1]];
                 expr = expr.replace(changeBase, "");
-            }*/
+            }
 
             try {
 
@@ -268,17 +281,24 @@ const CalculatorModule = new Lang.Class({
                         }
                     }
 
-                    // push to history the valid calculus
-                    this.history.push_calculus({'expression':expr, 'result': result});
+                    let formmatedResult = this._formatOutput(result);
 
-                    return {'status': 'success','expression': expr, 'result': result};
+                    let response = {'expression': formattedExpression, 'result': formmatedResult};
+
+                    // push to history the valid calculus
+                    this.history.push_calculus(response);
+
+                    response.status = 'success';
+
+                    return response;
                 }
 
             } catch(exp) {
-                return {'status': 'error','expression': expr, 'result': exp};
+                return {'status': 'error','expression': formattedExpression, 'result': exp};
             }
         }
-        return {'status': 'error','expression': expr, 'result': 'Invalid Syntax'};
+
+        return {'status': 'error','expression': formattedExpression, 'result': 'Invalid Syntax'};
     },
 
 
