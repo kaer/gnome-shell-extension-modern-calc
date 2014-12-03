@@ -399,17 +399,33 @@ const PrefsWidget = new GObject.Class({
         );
 
         page.add_boolean(
-            'Enable transparency:',
+            'Enable general transparency:',
             PrefsKeys.ENABLE_TRANSPARENCY_KEY
         );
 
         page.add_range(
-            'Opacity:',
+            'General opacity [%]:',
             PrefsKeys.WINDOW_OPACITY_VALUE_KEY,
             {
-                min: 120,
-                max: 255,
-                step: 5,
+                min: 20,
+                max: 100,
+                step: 1,
+                size: 250
+            }
+        );
+
+        page.add_boolean(
+            'Enable background transparency:',
+            PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY
+        );
+
+        page.add_range(
+            'Background opacity [%]:',
+            PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY,
+            {
+                min: 0,
+                max: 100,
+                step: 1,
                 size: 250
             }
         );

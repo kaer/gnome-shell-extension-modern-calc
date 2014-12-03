@@ -70,6 +70,10 @@ const ModernCalc = new Lang.Class({
             this.actor.opacity = this._preferences.get_int(PrefsKeys.WINDOW_OPACITY_VALUE_KEY);
         }
 
+        if(this._preferences.get_boolean(PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY)){
+            this._setBackgroundOpacity();
+        }
+
 
         this._appHeader = null;
 
@@ -234,6 +238,14 @@ const ModernCalc = new Lang.Class({
                 
             }
         }
+    },
+
+    _setBackgroundOpacity: function() {
+        let opacity = this._preferences.get_int(PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY);
+        opacity = opacity / 100;
+        let currBC  = this.boxLayout.get_theme_node().get_background_color();
+        let background = 'rgba('+currBC.red+','+currBC.green+','+currBC.blue+','+opacity+ ')';
+        this.boxLayout.set_style('background-color:'+ background);
     },
 
     _onShow: function(){

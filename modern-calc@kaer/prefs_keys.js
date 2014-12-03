@@ -32,6 +32,8 @@ const ENABLE_TRANSPARENCY_KEY = 'enable-transparency';
 const WINDOW_OPACITY_VALUE_KEY = 'opacity-value';
 const WINDOW_WIDTH_VALUE_KEY = 'window-width-value'; 
 const ENABLE_REVEAL_ANIMATION_KEY = 'enable-reveal-animation';
+const ENABLE_BACKGROUND_TRANSPARENCY_KEY = 'enable-background-transparency';
+const BACKGROUND_OPACITY_VALUE_KEY = 'background-opacity-value';
 
 // modules
 const DEFAULT_MODULE_KEY = 'default-module';

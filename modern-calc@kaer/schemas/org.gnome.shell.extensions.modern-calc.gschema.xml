@@ -11,11 +11,11 @@
     </key>
 
     <key type="b" name="enable-transparency">
-        <default>true</default>
+        <default>false</default>
     </key>
 
     <key type="i" name="opacity-value">
-        <default>240</default>
+        <default>100</default>
     </key>
     
     <key type="i" name="window-width-value">
@@ -24,6 +24,14 @@
     
     <key type="b" name="enable-reveal-animation">
         <default>true</default>
+    </key>
+
+    <key type="b" name="enable-background-transparency">
+        <default>true</default>
+    </key>
+
+    <key type="i" name="background-opacity-value">
+        <default>95</default>
     </key>
 
     <!-- modules -->
