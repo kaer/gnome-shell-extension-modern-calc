@@ -3,7 +3,7 @@
   "uuid": "modern-calc@kaer",
   "name": "Modern Calc",
   "settings-schema": "org.gnome.shell.extensions.modern-calc",
-  "description": "A full featured calculator for gnome-shell and is under development and should not be used for production yet.",
+  "description": "A full featured calculator for gnome-shell, this extension may contain some bugs because is in alpha version (unstable).",
   "url": "https://github.com/kaer/gnome-shell-extension-modern-calc",
-  "version": 1
+  "version": 2
 }

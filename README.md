@@ -1,5 +1,5 @@
 # Modern Calc
-![screenshot](https://github.com/kaer/gnome-shell-extension-modern-calc/raw/master/modern-calc@kaer/images/modern-calc-v1.png)
+![screenshot](https://github.com/kaer/gnome-shell-extension-modern-calc/raw/master/modern-calc@kaer/images/modern-calc-v2.png)
 
 ## Description
 
@@ -14,9 +14,7 @@ This extension is under development and help is wanted. If you are a designer an
 The extension is in experimental state and should not be used for production.
 
 knowing issues:
-	- doesn't solve numbers with decimal point
-	- sometimes the result are converted to another base instead decimal (like octal)
-
+ - in some systems the decimal mark is ignored and the number is interpreted as an integer because a bug in some part of the system, updated systems may be without this bug.
 
 ## Dependencies
 

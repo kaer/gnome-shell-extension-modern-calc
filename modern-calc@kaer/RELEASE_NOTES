@@ -1,0 +1,18 @@
+version 2
+
+ - the extension now is module base
+ - user settings was created
+ - option to configure window's width
+ - option to configure window's opacity
+ - option to disable window's reveal animation
+ - option to enable/disable modules
+ - shortcuts definition
+ - option to hide the extension icon
+ - shortcut to show/hide the extension
+ - when the extension is opened the expression field receives focus
+ - the calculator core was improved
+
+
+
+version 1
+ - extension with a basic calculator
