@@ -111,6 +111,7 @@ const CalculusHistory = new Lang.Class({
         this._btnUseExpr = new St.Button({
             label: 'Use', style_class: 'history-use-expr'
         });
+        this._btnUseExpr.connect("clicked", Lang.bind(this, this._useHistoryItem));
 
         this._ansTitle = new St.Label({
             style_class: 'ans-label',
@@ -367,6 +368,16 @@ const CalculusHistory = new Lang.Class({
             });
 
 
+            this._showLastHistoryItem();
+        }
+    },
+
+    _useHistoryItem: function (){
+        let histItem = this._getHistoryItem(this._historyPos);
+
+        if(histItem != undefined){
+            this.params.calc_app.display.clear_entry();
+            this.params.calc_app.display.expression_entry.text = histItem.expression;
             this._showLastHistoryItem();
         }
     },
