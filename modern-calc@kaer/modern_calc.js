@@ -249,14 +249,24 @@ const ModernCalc = new Lang.Class({
     },
 
     _onShow: function(){
-       if(this._activeModule !== false){
+        if(this._activeModule !== false){
             // execute module's on_activate instructions
-           this._activeModule.on_activate();
+            this._activeModule.on_activate();
+        }
+    },
+
+    _onHide: function(){
+        if(this._activeModule !== false){
+            this._activeModule.on_deactivate();
         }
     },
 
     show: function(){
         this.parent(true, Lang.bind(this, this._onShow));
+    },
+
+    hide: function(){
+        this.parent(true, Lang.bind(this, this._onHide));
     },
 
     destroy: function(){

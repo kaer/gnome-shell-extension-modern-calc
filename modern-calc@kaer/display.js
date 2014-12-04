@@ -69,11 +69,32 @@ const Display = new Lang.Class({
         });
     },
 
+
+
     insert_data: function(value){
+        if(value == undefined) return;
+
         //TODO improve
         if(this._expression_entry){
-            // cursor pos
-            let cursor_pos = this._expression_entry.clutter_text.get_cursor_position();
+
+            // EXP (fill with n zeros) if it is a number
+            // otherwise EXP function will be ignored
+            if(this.params.calc_app.has_exp_flag){
+                this.params.calc_app.remove_exp_flag();
+
+                // verify if value is a number and greater than 0
+                if (/^[0-9]$/.test(value) && value > 0){
+
+                    let zeroes = '';
+
+                    for(let i=0; i<value; i++){ zeroes += '0'; }
+
+                    this._insert_value(zeroes);
+                    return;
+                }
+            }
+
+
             
             let entryValue = this._expression_entry.text;
 
@@ -85,11 +106,17 @@ const Display = new Lang.Class({
 
             }
 
-            this.focus_entry();
-            this._expression_entry.clutter_text.insert_text(value, cursor_pos);
-            this._lastInsertedChar = value;
+            this._insert_value(value);
         }
 
+    },
+
+    _insert_value: function(value){
+        let cursor_pos = this._expression_entry.clutter_text.get_cursor_position();
+            
+        this.focus_entry();
+        this._expression_entry.clutter_text.insert_text(value, cursor_pos);
+        this._lastInsertedChar = value;
     },
 
     focus_entry: function(){

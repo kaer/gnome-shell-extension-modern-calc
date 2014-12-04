@@ -99,6 +99,10 @@ const ModernCalcModule = new Lang.Class({
 
     },
 
+    on_deactivate: function(){
+
+    },
+
     destroy: function(){
         this._actor.destroy();
     },

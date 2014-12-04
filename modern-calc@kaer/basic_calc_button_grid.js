@@ -115,8 +115,7 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnExp = new St.Button({
             label: 'EXP', style_class: 'normal-button'
         });
-        //TODO implement
-        //this._btnExp.connect("clicked", Lang.bind(this, this.btn_num_click));
+        this._btnExp.connect("clicked", Lang.bind(this, this._btnExpClick));
 
         this._btnDecimalSep = new St.Button({
             label: '.', style_class: 'normal-button'  //TODO trocar ponto por virg dependendo da loc de exibição do usuário
@@ -221,6 +220,10 @@ const BasicCalcButtonGrid = new Lang.Class({
         if(this.params.calc_app.display){
             this.params.calc_app.display.insert_data(value);
         }
+    },
+
+    _btnExpClick: function(){
+        this.params.calc_app.flag_exp();
     },
 
     _btnClearLastCharClick: function(){

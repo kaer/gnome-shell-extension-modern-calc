@@ -94,6 +94,8 @@ const CalculatorModule = new Lang.Class({
         this.parent(parentParams);
 
         this.actor.connect('key-press-event', Lang.bind(this, this._onKeyPressEvent));
+
+        this._expFlag = false;
     },
 
     _prepareInterface: function(){
@@ -130,6 +132,14 @@ const CalculatorModule = new Lang.Class({
        
     },
 
+    flag_exp: function(){
+        this._expFlag = true;
+    },
+
+    remove_exp_flag: function(){
+        this._expFlag = false;
+    },
+
     _onKeyPressEvent: function(actor, event) {
         let key = event.get_key_symbol();
         if(key == Clutter.KEY_Return || key == Clutter.KEY_KP_Enter || key == Clutter.KEY_ISO_Enter){
@@ -140,6 +150,10 @@ const CalculatorModule = new Lang.Class({
 
     on_activate: function(){
         this.display.focus_entry();
+    },
+
+    on_deactivate: function(){
+        this._expFlag = false;
     },
 
     destroy: function(){
@@ -308,7 +322,11 @@ const CalculatorModule = new Lang.Class({
 
     get history(){
         return this._history;
-    }
+    },
+
+    get has_exp_flag(){
+        return this._expFlag;
+    },
 
 
 });
