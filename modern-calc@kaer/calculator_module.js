@@ -41,12 +41,15 @@ const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const ModernCalcModule = Me.imports.modern_calc_module;
 const BasicCalcButtonGrid = Me.imports.basic_calc_button_grid;
 const CalculusHistory = Me.imports.calculus_history;
+const Clipboard = St.Clipboard.get_default();
 const Display = Me.imports.display;
+const ModernCalcModule = Me.imports.modern_calc_module;
+const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
 
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
 
 let octal = /(^|\s|[^0-9a-fA-Fxb\.]+)0([0-7]+)/g;
@@ -148,12 +151,58 @@ const CalculatorModule = new Lang.Class({
         }
     },
 
+    _enableKeybindings: function() {
+
+        if(this.params.app && this.params.app.preferences.get_boolean(PrefsKeys.ENABLE_SHORTCUTS_KEY)){
+
+            // clear
+            /*Main.wm.addKeybinding(
+                PrefsKeys.CALC_CLEAR_SHORTCUT_KEY,
+                Utils.SETTINGS,
+                Meta.KeyBindingFlags.NONE,
+                Shell.KeyBindingMode.NORMAL |
+                Shell.KeyBindingMode.MESSAGE_TRAY |
+                Shell.KeyBindingMode.OVERVIEW,
+                Lang.bind(this, function() {
+                   this._display.clear_entry();
+                })
+            );
+
+            // copy displayed result
+            Main.wm.addKeybinding(
+                PrefsKeys.CALC_COPY_RESULT_SHORTCUT_KEY,
+                Utils.SETTINGS,
+                Meta.KeyBindingFlags.NONE,
+                Shell.KeyBindingMode.NORMAL |
+                Shell.KeyBindingMode.MESSAGE_TRAY |
+                Shell.KeyBindingMode.OVERVIEW,
+                Lang.bind(this, function() {
+                    let result_value = this._display.get_result();
+                    Clipboard.set_text(CLIPBOARD_TYPE, result_value);
+                })
+            );*/
+
+            this.keybindings_enabled = true;
+        }
+    },
+
+    _removeKeybindings: function() {
+        if(this.keybindings_enabled){
+
+            Main.wm.removeKeybinding(PrefsKeys.CALC_CLEAR_SHORTCUT_KEY);
+            Main.wm.removeKeybinding(PrefsKeys.CALC_COPY_RESULT_SHORTCUT_KEY);
+            this.keybindings_enabled = false;
+        }
+    },
+
     on_activate: function(){
         this.display.focus_entry();
+        this.parent();
     },
 
     on_deactivate: function(){
         this._expFlag = false;
+        this.parent();
     },
 
     destroy: function(){

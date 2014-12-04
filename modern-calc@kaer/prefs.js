@@ -514,6 +514,10 @@ const PrefsWidget = new GObject.Class({
 
         let keybindings = {};
         keybindings[PrefsKeys.SHOW_APP_SHORTCUT_KEY] = 'Show/hide the extension';
+        // calc
+        keybindings[PrefsKeys.CALC_CLEAR_SHORTCUT_KEY] = 'Calculator: clear expression';
+        keybindings[PrefsKeys.CALC_COPY_RESULT_SHORTCUT_KEY] = 'Calculator: copy displayed result';
+
 
         let keybindings_widget = new KeybindingsWidget(keybindings);
         keybindings_widget.set_sensitive(shortcuts_enabled);

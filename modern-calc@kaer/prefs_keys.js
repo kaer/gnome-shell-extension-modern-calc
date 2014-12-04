@@ -43,3 +43,6 @@ const UNIT_CONVERTOR_ENABLED_KEY = 'unit-convertor-enabled';
 // shortcuts
 const ENABLE_SHORTCUTS_KEY = 'enable-shortcuts';
 const SHOW_APP_SHORTCUT_KEY = 'show-app-shortcut';
+
+const CALC_CLEAR_SHORTCUT_KEY = 'calc-clear-shortcut';
+const CALC_COPY_RESULT_SHORTCUT_KEY = 'calc-copy-result-shortcut';

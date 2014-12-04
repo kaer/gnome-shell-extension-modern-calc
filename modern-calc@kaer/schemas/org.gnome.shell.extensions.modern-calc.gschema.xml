@@ -56,5 +56,12 @@
         <default><![CDATA[['<Super>C']]]></default>
     </key>
 
+    <key type="as" name="calc-clear-shortcut">
+        <default><![CDATA[['<Ctrl><Del>']]]></default>
+    </key>
+    <key type="as" name="calc-copy-result-shortcut">
+        <default><![CDATA[['<Ctrl><Shift>C']]]></default>
+    </key>
+
   </schema>
 </schemalist>

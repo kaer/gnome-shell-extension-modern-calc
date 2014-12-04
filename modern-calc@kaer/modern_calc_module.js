@@ -56,6 +56,8 @@ const ModernCalcModule = new Lang.Class({
 
         this._moduleName = this.params.module_name;
 
+        this.keybindings_enabled = false;
+
         // the button wich will be integrated to app toolbar
         this._prepareToolbarButton(this.params.toolbar_button_label);
 
@@ -65,6 +67,7 @@ const ModernCalcModule = new Lang.Class({
         });
 
         this._prepareInterface();
+
 
     },
 
@@ -95,12 +98,20 @@ const ModernCalcModule = new Lang.Class({
         return this._moduleName;
     },
 
-    on_activate: function(){
+    _enableKeybindings: function() {
 
     },
 
-    on_deactivate: function(){
+    _removeKeybindings: function() {
 
+    },
+
+    on_activate: function(){
+        this._enableKeybindings();
+    },
+
+    on_deactivate: function(){
+        this._removeKeybindings();
     },
 
     destroy: function(){
