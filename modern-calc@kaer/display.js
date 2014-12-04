@@ -70,11 +70,11 @@ const Display = new Lang.Class({
     },
 
 
-
+    //TODO improve
     insert_data: function(value){
         if(value == undefined) return;
 
-        //TODO improve
+        
         if(this._expression_entry){
 
             // EXP (fill with n zeros) if it is a number
@@ -88,7 +88,6 @@ const Display = new Lang.Class({
                     let zeroes = '';
 
                     for(let i=0; i<value; i++){ zeroes += '0'; }
-
                     this._insert_value(zeroes);
                     return;
                 }
@@ -106,17 +105,22 @@ const Display = new Lang.Class({
 
             }
 
-            this._insert_value(value);
+            this._insert_value(value, true);
         }
 
     },
 
-    _insert_value: function(value){
+    _insert_value: function(value, memorize_last_char){
         let cursor_pos = this._expression_entry.clutter_text.get_cursor_position();
             
         this.focus_entry();
         this._expression_entry.clutter_text.insert_text(value, cursor_pos);
-        this._lastInsertedChar = value;
+
+        if(memorize_last_char){
+            this._lastInsertedChar = value;
+        } else {
+            this._lastInsertedChar = '';
+        }
     },
 
     focus_entry: function(){
