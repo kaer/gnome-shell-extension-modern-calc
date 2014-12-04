@@ -96,6 +96,22 @@ const CalculusHistory = new Lang.Class({
         this._btnHistMovNext.connect("clicked", Lang.bind(this, this._historyMoveNext));
 
 
+        this._exprTitle = new St.Label({
+            style_class: 'expr-label',
+            text: 'Expr.',
+            visible: true
+        });
+
+        this._exprValue = new St.Label({
+            style_class: 'expr-value',
+            text: '',
+            visible: true
+        });
+
+        this._btnUseExpr = new St.Button({
+            label: 'Use', style_class: 'history-use-expr'
+        });
+
         this._ansTitle = new St.Label({
             style_class: 'ans-label',
             text: 'ANS',
@@ -116,6 +132,11 @@ const CalculusHistory = new Lang.Class({
 
         this._buttonContainer = new St.BoxLayout({
             style_class: 'button-container',
+            vertical: false
+        });
+
+        this._exprContainer = new St.BoxLayout({
+            style_class: 'expr-container',
             vertical: false
         });
 
@@ -148,6 +169,22 @@ const CalculusHistory = new Lang.Class({
             x_align: St.Align.START
         });
 
+        this._exprContainer.add(this._exprTitle, { 
+            expand: false,
+            y_align: St.Align.START,
+            x_align: St.Align.START
+        });
+        this._exprContainer.add(this._exprValue, { 
+            expand: true,
+            y_align: St.Align.START,
+            x_align: St.Align.START
+        });
+
+        this._exprContainer.add(this._btnUseExpr, { 
+            expand: false,
+            y_align: St.Align.START,
+            x_align: St.Align.START
+        });
 
         this._ansContainer.add(this._ansTitle, { 
             expand: false,
@@ -168,13 +205,18 @@ const CalculusHistory = new Lang.Class({
             x_align: St.Align.START
         });
 
+        this._hideableContainer.add(this._exprContainer, { 
+            expand: true,
+            y_align: St.Align.START,
+            x_align: St.Align.START
+        });
+
         this._hideableContainer.add(this._ansContainer, { 
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
         
-
         this.actor.add_child(this._hideableContainer, { 
             expand: true,
             y_align: St.Align.START,
@@ -182,31 +224,102 @@ const CalculusHistory = new Lang.Class({
         });
 
     },
+
+    _enable_button: function(button){
+        //TODO checar o tipo
+        if(button !== null){
+            button.set_reactive(true);
+            button.remove_style_pseudo_class('disabled');
+        }
+    },
+
+    _disable_button: function(button){
+        //TODO checar o tipo
+        if(button !== null){
+            button.set_reactive(false);
+            button.add_style_pseudo_class('disabled');
+        }
+    },
    
     _refreshUI: function(){
 
-        let response = 'undefined';
+        let histItem = {
+            expression: '',
+            result: 'undefined'
+        };
 
-        if(this._historyPos!= undefined && this._calculus_history){
-            let histItem = this._getHistoryItem(this._historyPos);
-            if(histItem != undefined){
-                response = histItem.result;
+        if(this._historyPos != undefined && this._calculus_history){
+            let item = this._getHistoryItem(this._historyPos);
+            if(item != undefined){
+                histItem = item;
             }
         }
-        //TODO see a way to disable buttons
-        //this._historyMovePrev.set_active(false);
-        //this._historyMoveNext.set_active(false);
-        //this._btnHistClear.set_active(false);
+        this._exprValue.text = histItem.expression;
+        this._ansValue.text = histItem.result;
 
-        this._ansValue.text = response;
+
+        // switch buttons -------------------------------------------------------
+       if(this._calculus_history != false && this._calculus_history.length > 0){
+
+            if(this._calculus_history.length == 1){
+                this._disable_button(this._btnHistMovPrev);
+                this._disable_button(this._btnHistMovNext);
+            } else {
+
+                // first pos
+                if(this._historyPos == 0){
+                    this._disable_button(this._btnHistMovPrev);
+                } else {
+                    this._enable_button(this._btnHistMovPrev);
+                }
+
+                // last pos
+                if(this._historyPos == this._calculus_history.length-1){
+                    this._disable_button(this._btnHistMovNext);
+                } else {
+                    this._enable_button(this._btnHistMovNext);
+                }
+            }
+
+            this._enable_button(this._btnHistClear);
+            this._enable_button(this._btnUseExpr);
+
+        } else {
+            this._disable_button(this._btnHistClear);
+            this._disable_button(this._btnHistMovPrev);
+            this._disable_button(this._btnHistMovNext);
+            this._disable_button(this._btnUseExpr);
+        }
     },
 
     _historyMovePrev: function(){
-        
+
+        if(this._calculus_history != false && this._calculus_history.length > 0){
+
+            if(this._historyPos > 0){
+                this._historyPos--;
+            }            
+
+        } else {
+            this._historyPos = undefined;
+        }
+
+        this._refreshUI();
     },
 
     _historyMoveNext: function(){
-        
+
+        if(this._calculus_history != false && this._calculus_history.length > 0){
+
+            if(this._historyPos < this._calculus_history.length-1){
+                this._historyPos++;
+            }
+
+        } else {
+            this._historyPos = undefined;
+        }
+
+        this._refreshUI();
     },
 
 
