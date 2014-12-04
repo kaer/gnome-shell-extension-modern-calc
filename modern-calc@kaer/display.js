@@ -76,23 +76,26 @@ const Display = new Lang.Class({
 
         
         if(this._expression_entry){
-
+            
             // EXP (fill with n zeros) if it is a number
             // otherwise EXP function will be ignored
             if(this.params.calc_app.has_exp_flag){
                 this.params.calc_app.remove_exp_flag();
 
-                // verify if value is a number and greater than 0
-                if (/^[0-9]$/.test(value) && value > 0){
+                // fill with zeros if the last inserted char is a number
+                if(this.last_inserted_char !== undefined && /^[0-9]+$/.test(this.last_inserted_char)){
 
-                    let zeroes = '';
+                    // verify if value is a number and greater than 0
+                    if (/^[0-9]$/.test(value) && value > 0){
 
-                    for(let i=0; i<value; i++){ zeroes += '0'; }
-                    this._insert_value(zeroes);
-                    return;
+                        let zeroes = '';
+
+                        for(let i=0; i<value; i++){ zeroes += '0'; }
+                            this._insert_value(zeroes, true);
+                        return;
+                    }
                 }
             }
-
 
             
             let entryValue = this._expression_entry.text;
@@ -182,8 +185,8 @@ const Display = new Lang.Class({
     clear_entry: function(){
         if(this._expression_entry){
             this._expression_entry.text = '';
-
             this._display_result.text = '0';
+            this._lastInsertedChar = undefined;
         }
     },
 
