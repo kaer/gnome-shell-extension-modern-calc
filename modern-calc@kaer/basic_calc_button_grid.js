@@ -130,7 +130,8 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnClearLastChar.connect("clicked", Lang.bind(this, this._btnClearLastCharClick));
 
         this._btnclearExpression = new St.Button({
-            label: 'Clear', style_class: 'delete-button'  //TODO put a symbol
+            child: new St.Icon({icon_name: 'edit-clear-symbolic', style_class: 'button-icon'}),
+            label: 'Clear', style_class: 'delete-button'
         });
         this._btnclearExpression.connect("clicked", Lang.bind(this, this._btnClearExpressionClick));
 
@@ -170,11 +171,13 @@ const BasicCalcButtonGrid = new Lang.Class({
 
         // clipboard buttons
         this._btnCopyToClipboard = new St.Button({
+            child: new St.Icon({icon_name: 'edit-copy-symbolic', style_class: 'button-icon'}),
             label: 'copy', style_class: 'clipboard-button'
         });
         this._btnCopyToClipboard.connect("clicked", Lang.bind(this, this._btnClipboardCopyClick));
 
         this._btnPasteFromClipboard = new St.Button({
+            child: new St.Icon({icon_name: 'edit-paste-symbolic', style_class: 'button-icon'}),
             label: 'paste', style_class: 'clipboard-button'
         });
         this._btnPasteFromClipboard.connect("clicked", Lang.bind(this, this._btnClipboardPasteClick));

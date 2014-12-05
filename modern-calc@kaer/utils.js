@@ -34,9 +34,7 @@ const Gio = imports.gi.Gio;
 
 
 const SETTINGS = getSettings();
-const ICONS = {
-    indicator: 'list-add-symbolic', //TODO change by a calculator icon
-};
+
 
 
 function launch_extension_prefs(uuid) {

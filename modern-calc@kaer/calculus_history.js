@@ -74,7 +74,8 @@ const CalculusHistory = new Lang.Class({
         });
 
         // buttons
-        this._btnHistClear = new St.Button({
+        this._btnHistClear = new St.Button({ //TODO how to not hide the button text when it have an icon
+            child: new St.Icon({icon_name: 'user-trash-symbolic', style_class: 'button-icon'}),
             label: 'clear history', style_class: 'history-btn-clear'
         });
 
@@ -86,11 +87,13 @@ const CalculusHistory = new Lang.Class({
 
         // history buttons
         this._btnHistMovPrev = new St.Button({
+            child: new St.Icon({icon_name: 'go-previous-symbolic', style_class: 'button-icon'}),
             label: 'prev', style_class: 'history-btn-mover'
         });
         this._btnHistMovPrev.connect("clicked", Lang.bind(this, this._historyMovePrev));
 
         this._btnHistMovNext = new St.Button({
+            child: new St.Icon({icon_name: 'go-next-symbolic', style_class: 'button-icon'}),
             label: 'next', style_class: 'history-btn-mover'
         });
         this._btnHistMovNext.connect("clicked", Lang.bind(this, this._historyMoveNext));

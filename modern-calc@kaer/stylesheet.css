@@ -108,6 +108,9 @@
     border-top: 1px;
     border-right: 1px;
 }
+.history-group .button-container .button-icon {
+    icon-size: 16px;
+}
 
 .history-group .history-btn-mover  {
     width: 50px;
@@ -221,6 +224,10 @@
 .bc-button-group {
     
 }
+.bc-button-group .button-icon {
+    icon-size: 24px;
+}
+
 .bc-button-group StButton,
 .bc-button-group StButton.normal-button
 {
@@ -250,10 +257,10 @@
 
 .bc-button-group .clipboard-button {
     font-size: 14px;
-    background: rgba(183,196,200, 0.7);
+    background: rgba(143,156,160, 0.5);
 }
 .bc-button-group .clipboard-button:hover {
-    background: rgba(183,196,200, 0.9);
+    background: rgba(143,156,160, 0.7);
 }
 
 

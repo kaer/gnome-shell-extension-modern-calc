@@ -51,7 +51,7 @@ const IndicatorButton = new Lang.Class({
         
         this._modernCalc = new ModernCalc.ModernCalc();
 
-        let icon = new St.Icon({icon_name: Utils.ICONS.indicator, style_class: 'system-status-icon'});
+        let icon = new St.Icon({icon_name: 'accessories-calculator-symbolic', style_class: 'system-status-icon'});
         this.actor.add_child(icon);
 
         this._createContextMenu();
