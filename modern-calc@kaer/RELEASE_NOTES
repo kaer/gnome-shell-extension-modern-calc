@@ -1,4 +1,13 @@
+version 3 
+ - option to change background opacity
+ - possibility to use expressions of previous calculus (history navigation)
+ - EXP function was added
+ - keybinds for modules
+ - and some bug fixes
+
 version 2
+
+
 
  - the extension now is module base
  - user settings was created
