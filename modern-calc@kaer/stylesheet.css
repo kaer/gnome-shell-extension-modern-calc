@@ -28,6 +28,7 @@
 .modern-calc {
     background: #000000;
     padding: 10px;
+    padding-bottom: 0px;
     color: #cbcbcb;
     border-left: 1px solid #000000;
 }
@@ -289,3 +290,18 @@
 .bc-button-group .ans-button:hover {
     background: rgba(143,156,160, 0.7);
 }
+
+/* STATUS BAR */
+.status-bar {
+    border-top: 1px solid rgba(219,226,227,0.04); 
+    color: #ababab;
+    font-size: 12px;
+    height: 25px;
+}
+
+.status-bar .icon {
+    icon-size: 16px; width: 25px; }
+.status-bar .icon:warning { color: orange; }
+.status-bar .icon:error { color: red; }
+
+.status-bar .message { padding: 5px 2px 2px 3px; }

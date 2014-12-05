@@ -42,6 +42,7 @@ const Dialog = Me.imports.dialog;
 const Utils = Me.imports.utils;
 const Constants = Me.imports.constants;
 const PrefsKeys = Me.imports.prefs_keys;
+const StatusBar = Me.imports.status_bar;
 
 const Notify = Utils.showMessage;
 
@@ -76,7 +77,7 @@ const ModernCalc = new Lang.Class({
 
 
         this._appHeader = null;
-
+        this._statusBar = null;
 
         this._loadedModules = false;
         this._activeModule = false;
@@ -129,7 +130,21 @@ const ModernCalc = new Lang.Class({
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
         });
-       
+
+        // spacer
+        this.boxLayout.add(new St.Label({ text: '' }), {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        // status
+        this._statusBar = new StatusBar.StatusBar({ calc_app: this });
+        this.boxLayout.add(this._statusBar.actor, {
+            expand: false,
+            x_align: St.Align.START,
+            y_align: St.Align.END
+        });
     },
 
     _loadModules: function(){
@@ -303,6 +318,10 @@ const ModernCalc = new Lang.Class({
 
     get preferences(){
         return this._preferences;
+    },
+
+    get status_bar(){
+        return this._statusBar;
     },
 
     get active_module(){

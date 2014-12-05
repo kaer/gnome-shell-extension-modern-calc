@@ -245,12 +245,21 @@ const CalculatorModule = new Lang.Class({
 
     calculate: function(){ 
 
-        this.display.waitingMode();
-        let expression = this.display.get_entry_data();
+        // wait information
+        this.display.clear_result();
+        this.set_status_message('information', 'Waiting answer...');
 
+        let expression = this.display.get_entry_data();
         let calc_res = this._calculateResult(expression);
-        
         this.display.set_current_result(calc_res);
+
+        // status info
+        if(calc_res.status == 'error'){
+            this.set_status_message('error', calc_res.result); 
+        } else {
+            this.clear_status_message();    
+        }
+        
     },
 
     _formatInput: function(expression){
@@ -364,6 +373,17 @@ const CalculatorModule = new Lang.Class({
         return {'status': 'error','expression': formattedExpression, 'result': 'Invalid Syntax'};
     },
 
+    set_status_message: function(msg_type, msg){
+        if(this.params.app && msg_type != undefined && msg != undefined){
+            this.params.app.status_bar.set_message(msg_type, msg);
+        }
+    },
+
+    clear_status_message: function(){
+        if(this.params.app){
+            this.params.app.status_bar.clear_message();
+        }
+    },
 
     get display(){
         return this._display;

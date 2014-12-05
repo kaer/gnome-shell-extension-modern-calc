@@ -46,6 +46,7 @@ const Display = new Lang.Class({
         
         
         this._expression_entry.clutter_text.connect('key-press-event', Lang.bind(this, this._entryKeyPress));
+        this._expression_entry.clutter_text.connect('text-changed', Lang.bind(this, this._expressionChanged));
 
         this._display_result = new St.Label({
             style_class: 'display-result',
@@ -130,6 +131,12 @@ const Display = new Lang.Class({
         this._expression_entry.grab_key_focus();
     },
 
+    _expressionChanged: function(){
+        if(this.params.calc_app){
+            this.params.calc_app.clear_status_message();
+        }
+    },
+
     _entryKeyPress: function(actor, event) {
         let key = event.get_key_symbol();
         // Enter
@@ -138,10 +145,6 @@ const Display = new Lang.Class({
                 this.params.calc_app.calculate();
             }
         }
-    },
-
-    waitingMode: function(){
-        this._display_result.text = 'Waiting answer...';
     },
 
     get_entry_data: function(){
@@ -160,6 +163,10 @@ const Display = new Lang.Class({
 
     get_result: function(){
         return this._display_result.text;
+    },
+
+    clear_result: function(){
+        this._display_result.text = '';
     },
 
     delete_before_cursor: function(){

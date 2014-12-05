@@ -220,8 +220,23 @@ const BasicCalcButtonGrid = new Lang.Class({
     },
 
     _pushValue: function(value){
-        if(this.params.calc_app.display){
-            this.params.calc_app.display.insert_data(value);
+
+        let calc_app = this.params.calc_app;
+        if(calc_app != false){
+
+            if(/ANS/gi.test(value) == false){
+                
+                calc_app.display.insert_data(value);
+
+            } else {
+
+                // ANS
+                if(calc_app.history.last_calculus_answer() == undefined){
+                    calc_app.set_status_message('warning', 'ANS still undefined');
+                } else{
+                    calc_app.display.insert_data(value);
+                }
+            }
         }
     },
 
@@ -237,8 +252,11 @@ const BasicCalcButtonGrid = new Lang.Class({
     },
 
     _btnClearExpressionClick: function(){
-        if(this.params.calc_app.display){
-            this.params.calc_app.display.clear_entry();
+        let calc_app = this.params.calc_app;
+
+        if(calc_app != false){
+            calc_app.display.clear_entry();
+            calc_app.clear_status_message();
         }
     },
 
