@@ -284,8 +284,8 @@
 }
 
 .bc-button-group .ans-button {
-    background: rgba(117,137,142, 0.7);
+    background: rgba(143,156,160, 0.5);
 }
 .bc-button-group .ans-button:hover {
-    background: rgba(117,137,142, 0.9);
+    background: rgba(143,156,160, 0.7);
 }
