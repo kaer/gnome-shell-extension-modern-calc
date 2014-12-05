@@ -98,6 +98,17 @@ const ModernCalc = new Lang.Class({
             style_class: 'toolbar',
             vertical: false
         });
+
+        this._prefButton = new St.Button({
+            child: new St.Icon({ icon_name: 'emblem-system-symbolic', style_class: 'button-icon' }),
+            label: 'Settings', style_class: 'toolbar-button'
+        });
+        this._prefButton.connect("clicked", Lang.bind(this, function(){
+            Utils.launch_extension_prefs(Me.uuid);
+            this.hide();
+        }));
+
+
         this.boxLayout.add(this._toolbar, {
             expand: false,
             x_align: St.Align.MIDDLE,
@@ -188,6 +199,20 @@ const ModernCalc = new Lang.Class({
                 }
             }
         }
+
+        // spacer
+        this._toolbar.add(new St.Label({ text: '' }), {
+                expand: true,
+                x_align: St.Align.MIDDLE,
+                y_align: St.Align.MIDDLE
+            });
+
+        // preferences button
+        this._toolbar.add(this._prefButton, {
+                expand: false,
+                x_align: St.Align.END,
+                y_align: St.Align.START
+            });
     },
 
     show_module: function(module_name){

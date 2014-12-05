@@ -36,6 +36,10 @@
     background: rgba(50,50,50, 0.2);
 }
 
+.modern-calc .toolbar .button-icon {
+    icon-size: 16px;
+}
+
 .modern-calc .toolbar StButton.toolbar-button {
     padding: 4px;
     color: rgba(147,167,172, 0.8);
