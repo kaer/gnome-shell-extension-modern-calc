@@ -202,7 +202,7 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnTimes.connect("clicked", Lang.bind(this, function(){ this._pushValue('*');}));
 
         this._btnDiv = new St.Button({
-            label: '/', style_class: 'normal-button'  //TODO put an icon
+            label: '\u00F7', style_class: 'normal-button'  //TODO put an icon
         });
         this._btnDiv.connect("clicked", Lang.bind(this, function(){ this._pushValue('/');}));
 
