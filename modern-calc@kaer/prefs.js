@@ -461,8 +461,8 @@ const PrefsWidget = new GObject.Class({
                 value: Constants.MODULES.CALCULATOR
             },
             {
-                title: 'Unit convertor',
-                value: Constants.MODULES.UNIT_CONVERTOR
+                title: 'Unit converter',
+                value: Constants.MODULES.UNIT_CONVERTER
             }
         ];
         page.add_combo(
@@ -478,8 +478,8 @@ const PrefsWidget = new GObject.Class({
         );
 
         page.add_boolean(
-            'Enable Unit Convertor:',
-            PrefsKeys.UNIT_CONVERTOR_ENABLED_KEY
+            'Enable Unit Converter:',
+            PrefsKeys.UNIT_CONVERTER_ENABLED_KEY
         );
 
 

@@ -48,7 +48,7 @@ const Notify = Utils.showMessage;
 
 // will be loaded on demand
 let CalculatorModule;
-let UnitConvertorModule;    
+let UnitConverterModule;    
 
 const ModernCalc = new Lang.Class({
     Name: "ModernCalc",
@@ -172,11 +172,11 @@ const ModernCalc = new Lang.Class({
             moduleIndex++;
         }
 
-        if(this._preferences.get_boolean(PrefsKeys.UNIT_CONVERTOR_ENABLED_KEY) == 1){
+        if(this._preferences.get_boolean(PrefsKeys.UNIT_CONVERTER_ENABLED_KEY) == 1){
             moduleIndex++;
-            UnitConvertorModule = Me.imports.unit_convertor_module;
+            UnitConverterModule = Me.imports.unit_converter_module;
 
-            this._loadedModules[moduleIndex] =  new UnitConvertorModule.UnitConvertorModule({
+            this._loadedModules[moduleIndex] =  new UnitConverterModule.UnitConverterModule({
                app:this
             });
 

@@ -33,5 +33,5 @@ const THEMES = {
 
 const MODULES = {
 	CALCULATOR: 'calculator',
-	UNIT_CONVERTOR: 'unit_convertor'
+	UNIT_CONVERTER: 'unit_converter'
 };

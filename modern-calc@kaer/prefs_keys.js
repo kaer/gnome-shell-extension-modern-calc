@@ -38,7 +38,7 @@ const BACKGROUND_OPACITY_VALUE_KEY = 'background-opacity-value';
 // modules
 const DEFAULT_MODULE_KEY = 'default-module';
 const CALCULATOR_ENABLED_KEY = 'calculator-enabled';
-const UNIT_CONVERTOR_ENABLED_KEY = 'unit-convertor-enabled';
+const UNIT_CONVERTER_ENABLED_KEY = 'unit-converter-enabled';
 
 // shortcuts
 const ENABLE_SHORTCUTS_KEY = 'enable-shortcuts';

@@ -43,7 +43,7 @@
         <default>true</default>
     </key>
 
-    <key type="b" name="unit-convertor-enabled">
+    <key type="b" name="unit-converter-enabled">
         <default>false</default>
     </key>
 

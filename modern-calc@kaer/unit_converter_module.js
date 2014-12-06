@@ -42,8 +42,8 @@ const ModernCalcModule = Me.imports.modern_calc_module;
 const Utils = Me.imports.utils;
 
 
-const UnitConvertorModule = new Lang.Class({
-    Name: "UnitConvertorModule",
+const UnitConverterModule = new Lang.Class({
+    Name: "UnitConverterModule",
     Extends: ModernCalcModule.ModernCalcModule,
 
     _init: function(params) {
@@ -54,9 +54,9 @@ const UnitConvertorModule = new Lang.Class({
 
         let parentParams = {
             app: this.params.app,
-            style_class: 'unit-convertor-module',
-            module_name: 'unit_convertor',
-            toolbar_button_label: 'Convertor'
+            style_class: 'unit-converter-module',
+            module_name: 'unit_converter',
+            toolbar_button_label: 'Converter'
         };
  
         this.parent(parentParams);
@@ -65,7 +65,7 @@ const UnitConvertorModule = new Lang.Class({
     _prepareInterface: function(){
         // test
         this._testContent = new St.Label({
-            text: 'UNIT CONVERTOR LOADED'
+            text: 'UNIT CONVERTER LOADED'
         });
 
         this.actor.add(this._testContent, {
