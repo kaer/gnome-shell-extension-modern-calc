@@ -26,7 +26,7 @@ To run this extension gnome-calculator must be installed.
 
 Move the directory modern-calc@kaer to ~/.local/share/gnome-shell/extensions/ .
 
-If your running version of gnome-shell is another than 3.10 or 3.12 change the metadata.json content:
+If your running version of gnome-shell is other than 3.10 or 3.12 change the metadata.json content:
 
 "shell-version": ["3.10"]
 to
