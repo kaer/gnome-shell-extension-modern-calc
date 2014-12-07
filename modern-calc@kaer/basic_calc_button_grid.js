@@ -143,13 +143,13 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnPercent.connect("clicked", Lang.bind(this, function(){ this._pushValue('%');}));
 
         this._btnPI = new St.Button({
-            label: 'π', style_class: 'special-button' //TODO put an icon /  symbol
+            label: 'π', style_class: 'special-button'
         });
         this._btnPI.connect("clicked", Lang.bind(this, function(){ this._pushValue('π');}));
 
 
         this._btnSquareRoot = new St.Button({
-            label: '√', style_class: 'special-button' //TODO put an icon /  symbol
+            label: '√', style_class: 'special-button'
         });
         this._btnSquareRoot.connect("clicked", Lang.bind(this, function(){ this._pushValue('√');}));
 
@@ -197,12 +197,12 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnSum.connect("clicked", Lang.bind(this, function(){ this._pushValue('+');}));
 
         this._btnTimes = new St.Button({
-            label: '×', style_class: 'normal-button' //TODO change to times symbol
+            label: '\u00D7', style_class: 'normal-button'
         });
         this._btnTimes.connect("clicked", Lang.bind(this, function(){ this._pushValue('*');}));
 
         this._btnDiv = new St.Button({
-            label: '\u00F7', style_class: 'normal-button'  //TODO put an icon
+            label: '\u00F7', style_class: 'normal-button'
         });
         this._btnDiv.connect("clicked", Lang.bind(this, function(){ this._pushValue('/');}));
 
