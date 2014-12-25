@@ -19,10 +19,9 @@ version 3
  - keybinds for modules
  - and some bug fixes
 
+
+
 version 2
-
-
-
  - the extension now is module base
  - user settings was created
  - option to configure window's width
