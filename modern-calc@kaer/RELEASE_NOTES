@@ -1,3 +1,8 @@
+version 5
+ - metadata changed to work with version 3.14
+
+
+
 version 4
  - indicator and calc icons were added
  - preferences option in toolbar
