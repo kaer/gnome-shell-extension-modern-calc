@@ -2,6 +2,7 @@
   "shell-version": ["3.10", "3.12", "3.14"],
   "uuid": "modern-calc@kaer",
   "name": "Modern Calc",
+  "original-author": "Kaer (the.thin.king.way+2014@gmail.com)",
   "settings-schema": "org.gnome.shell.extensions.modern-calc",
   "description": "A full featured calculator for gnome-shell, this extension may contain some bugs because is in alpha version (unstable). For computing decimal numbers use dots (.) as decimal mark. This extension uses gnome-calculator (command line) as cauculus core and in some versions of gnome-calculator like 3.10.2 depending of your locale settings (settings for formating numbers dates and money of a specific region like French or Spain) the decimal mark is removed and decimal numbers are interpreted as integers. Try to sum decimal numbers and see if the result it's right otherwise you should not use this extension for computing decimal numbers.",
   "url": "https://github.com/kaer/gnome-shell-extension-modern-calc",
