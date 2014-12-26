@@ -49,19 +49,26 @@ const IndicatorButton = new Lang.Class({
     _init: function() {
         this.parent(0.0, "ModernCalcIndicator");
         
+        this._preferences = Utils.getSettings();
+
         this._modernCalc = new ModernCalc.ModernCalc();
 
         let icon = new St.Icon({icon_name: 'accessories-calculator-symbolic', style_class: 'system-status-icon'});
         this.actor.add_child(icon);
 
+
         this._createContextMenu();
 
-        if(Utils.getSettings().get_boolean(PrefsKeys.ENABLE_INDICATOR_KEY)){
-            this._showIndicator();
-        }
+        this._showingIndicator = false;
+        this._indicatorAdded = false;
+        this._showHideIndicator();
+        
         this._keybindingsEnabled = false;
 
         this._enableKeybindings();
+
+        this._signals = null;
+        this._connectSignals();
     },
 
     _onButtonPress: function(actor, event) {
@@ -115,15 +122,65 @@ const IndicatorButton = new Lang.Class({
         }
     },
 
-    _showIndicator: function(){
-        Main.panel.addToStatusArea('ModernCalcIndicator', this);
+    _showHideIndicator: function(){
+
+        if(Utils.getSettings().get_boolean(PrefsKeys.ENABLE_INDICATOR_KEY)){
+            
+            // show the indicator
+            if(!this._indicatorAdded){
+                Main.panel.addToStatusArea('ModernCalcIndicator', this);
+                this._indicatorAdded = true;
+                
+            } else {
+                this.actor.show();
+            }
+
+            this._showingIndicator = true;
+
+        } else {
+
+            // hide the indicator
+            if(this._showingIndicator){
+                if (this.menu)
+                    this.menu.close();
+
+                this.actor.hide();
+            }
+
+            this._showingIndicator = false;
+        }
     },
 
 
     destroy: function() {
+        this._disconnectSignals();
+
         this._removeKeybindings();
         this._modernCalc.destroy();
         this.parent();
+    },
+
+    _connectSignals: function(){
+        if(this._signals === null)
+                this._signals = [];
+
+        this._signals.push (
+            this._preferences.connect("changed::" + PrefsKeys.ENABLE_INDICATOR_KEY, Lang.bind(this, this._showHideIndicator))
+        );
+    },
+
+    _disconnectSignals: function(){
+
+        let pref = this._preferences;
+
+        if (this._signals !== null) {
+            this._signals.forEach(function(signal) {
+                if (signal) 
+                    pref.disconnect(signal);
+            });
+        }
+
+        this._signals = null;
     }
 });
 
