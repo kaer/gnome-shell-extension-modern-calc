@@ -27,8 +27,8 @@
 
 // FOR SETTINGS ----------------------------------------------------------
 const THEMES = {
-    DEFAULT: 'default',
-    LIGHT: 'light'
+    DEFAULT: 'default-theme',
+    LIGHT: 'light-theme'
 };
 
 const MODULES = {

@@ -3,7 +3,7 @@
   <schema id="org.gnome.shell.extensions.modern-calc" path="/org/gnome/shell/extensions/modern-calc/">
     <!-- appearance -->
     <key type="s" name="theme">
-        <default>'default'</default>
+        <default>'default-theme'</default>
     </key>
     
     <key type="b" name="enable-indicator">

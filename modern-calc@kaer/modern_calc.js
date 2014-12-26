@@ -22,6 +22,9 @@
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
  *    Project url: https://github.com/kaer/gnome-shell-extension-modern-calc
  *
+ *
+ *    Note: the theme system is based on GnoMenu extension stylesheet loader,
+ *    Signals code based on todo.txt
  */
 
 const Clutter = imports.gi.Clutter;
@@ -48,7 +51,7 @@ const Notify = Utils.showMessage;
 
 // will be loaded on demand
 let CalculatorModule;
-let UnitConverterModule;    
+let UnitConverterModule;
 
 const ModernCalc = new Lang.Class({
     Name: "ModernCalc",
@@ -63,7 +66,7 @@ const ModernCalc = new Lang.Class({
             height_percents: 100, 
             animation_time: 0.5,
             enable_reveal_animation: this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY),
-            style_class: 'modern-calc',
+            style_class: 'modern-calc'
         };
         this.parent(params);
 
@@ -83,6 +86,13 @@ const ModernCalc = new Lang.Class({
         this._activeModule = false;
 
         this._prepareInterface();
+
+        this._stylesheet = null;
+
+        this._updateTheme();
+
+        this._signals = null;
+        this._connectSignals();
     },
 
     _prepareInterface: function(){
@@ -288,6 +298,38 @@ const ModernCalc = new Lang.Class({
         this.boxLayout.set_style('background-color:'+ background);
     },
 
+     _updateTheme: function(){
+        // this code is based on GnoMenu extension
+
+        let theme_name = this._preferences.get_string(PrefsKeys.THEME_KEY);
+
+        // stylesheet of theme
+        let theme_stylesheet = Me.path + "/themes/" + theme_name + "/stylesheet.css";
+
+        if (!GLib.file_test(theme_stylesheet, GLib.FileTest.EXISTS)) {
+            throw new Error("Theme not found.");
+            return false;
+        }
+
+        let themeContext = St.ThemeContext.get_for_stage(global.stage);
+        if (!themeContext) return false;
+
+        let theme = themeContext.get_theme();
+        if (!theme) return false;
+
+        // unload previous stylesheet
+        if(this._stylesheet)
+            theme.unload_stylesheet(this._stylesheet);
+
+
+        // load stylesheet
+        theme.load_stylesheet(theme_stylesheet);
+        this._stylesheet = theme_stylesheet;
+
+
+        return true;
+    },
+
     _onShow: function(){
         if(this._activeModule !== false){
             // execute module's on_activate instructions
@@ -310,10 +352,35 @@ const ModernCalc = new Lang.Class({
     },
 
     destroy: function(){
+        this._disconnectSignals();
+
         this._toolbar.destroy();
         this._moduleContainer.destroy();
 
         this.parent();
+    },
+
+    _connectSignals: function(){
+        if(this._signals === null)
+                this._signals = [];
+
+        this._signals.push (
+            this._preferences.connect("changed::" + PrefsKeys.THEME_KEY, Lang.bind(this, this._updateTheme))
+        );
+    },
+
+    _disconnectSignals: function(){
+
+        let pref = this._preferences;
+
+        if (this._signals !== null) {
+            this._signals.forEach(function(signal) {
+                if (signal) 
+                    pref.disconnect(signal);
+            });
+        }
+
+        this._signals = null;
     },
 
     get preferences(){
