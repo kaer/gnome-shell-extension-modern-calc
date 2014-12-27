@@ -81,6 +81,12 @@ const Dialog = new Lang.Class({
         this.resize();
     },
 
+    update_param: function(param, value){
+        if(this.params !== null && this.params.hasOwnProperty(param)){
+            this.params[param] = value;
+        }
+    },
+
     _connect_captured_event: function() {
         CONNECTION_IDS.captured_event = global.stage.connect(
             'captured-event',

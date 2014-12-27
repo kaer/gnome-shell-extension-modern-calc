@@ -419,8 +419,18 @@ const ModernCalc = new Lang.Class({
         if(this._signals === null)
                 this._signals = [];
 
-        this._signals.push (
+        this._signals.push(
             this._preferences.connect("changed::" + PrefsKeys.THEME_KEY, Lang.bind(this, this._updateTheme))
+        );
+
+        // reveal animation
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY, Lang.bind(this, function(){
+                this.update_param(
+                    'enable_reveal_animation', 
+                    this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY)
+                );
+            }))
         );
     },
 
