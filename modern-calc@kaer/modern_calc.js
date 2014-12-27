@@ -70,9 +70,6 @@ const ModernCalc = new Lang.Class({
         };
         this.parent(params);
 
-        if(this._preferences.get_boolean(PrefsKeys.ENABLE_TRANSPARENCY_KEY)){
-            this.actor.opacity = this._preferences.get_int(PrefsKeys.WINDOW_OPACITY_VALUE_KEY);
-        }
 
         this._appHeader = null;
         this._statusBar = null;
@@ -86,6 +83,8 @@ const ModernCalc = new Lang.Class({
         this._stylesheet = null;
 
         this._updateTheme();
+
+        this._setGeneralOpacity();
 
         this._backgroundHasTransparency = false;
         this._setBackgroundOpacity();
@@ -344,7 +343,16 @@ const ModernCalc = new Lang.Class({
         }
     },
 
+    _setGeneralOpacity: function(){
+        if(this._preferences.get_boolean(PrefsKeys.ENABLE_TRANSPARENCY_KEY)){
+            let opacity = this._preferences.get_int(PrefsKeys.WINDOW_OPACITY_VALUE_KEY);
+            opacity = (opacity / 100) * 255
+            this.actor.opacity = opacity;
 
+        } else {
+            this.actor.opacity = 255;
+        }
+    },
 
     _setBackgroundOpacity: function() {
 
@@ -448,6 +456,20 @@ const ModernCalc = new Lang.Class({
                     this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY)
                 );
             }))
+        );
+
+        // enable general transparency
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.ENABLE_TRANSPARENCY_KEY,
+                Lang.bind(this, this._setGeneralOpacity)
+            )
+        );
+
+        // general opacity
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.WINDOW_OPACITY_VALUE_KEY,
+                Lang.bind(this, this._setGeneralOpacity)
+            )
         );
 
         // enable background transparency
