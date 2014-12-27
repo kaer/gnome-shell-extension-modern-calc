@@ -84,6 +84,7 @@ const ModernCalc = new Lang.Class({
 
         this._loadedModules = false;
         this._activeModule = false;
+        this._activeModuleIndex = null;
 
         this._prepareInterface();
 
@@ -159,7 +160,6 @@ const ModernCalc = new Lang.Class({
 
     _loadModules: function(){
 
-        let moduleIndex = 0;
         let module_to_activate = false;
         let loaded_module_name;
         let default_module = this._preferences.get_string(PrefsKeys.DEFAULT_MODULE_KEY);
@@ -170,27 +170,28 @@ const ModernCalc = new Lang.Class({
         if(this._preferences.get_boolean(PrefsKeys.CALCULATOR_ENABLED_KEY) == 1){
             CalculatorModule = Me.imports.calculator_module;
 
-            this._loadedModules[moduleIndex] =  new CalculatorModule.CalculatorModule({
-               app:this
-            });
+            this._loadedModules.push(
+                new CalculatorModule.CalculatorModule({
+                    app:this
+                })
+            );
 
-            loaded_module_name = this._loadedModules[moduleIndex].get_module_name();
+            loaded_module_name = this._loadedModules[this._loadedModules.length-1].get_module_name();
             if(!module_to_activate && default_module != undefined && default_module == loaded_module_name){
                 module_to_activate = loaded_module_name;
             }
-
-            moduleIndex++;
         }
 
         if(this._preferences.get_boolean(PrefsKeys.UNIT_CONVERTER_ENABLED_KEY) == 1){
-            moduleIndex++;
             UnitConverterModule = Me.imports.unit_converter_module;
 
-            this._loadedModules[moduleIndex] =  new UnitConverterModule.UnitConverterModule({
-               app:this
-            });
+            this._loadedModules.push(
+                new UnitConverterModule.UnitConverterModule({
+                    app:this
+                })
+            );
 
-            loaded_module_name = this._loadedModules[moduleIndex].get_module_name();
+            loaded_module_name = this._loadedModules[this._loadedModules.length-1].get_module_name();
             if(!module_to_activate && default_module != undefined && default_module == loaded_module_name){
                 module_to_activate = loaded_module_name;
             }    
@@ -201,9 +202,13 @@ const ModernCalc = new Lang.Class({
         // show default module
         if(module_to_activate != false){
             this.show_module(module_to_activate);
+        } else {
+            // if at least one module was loaded the first is activated
+            if(this._loadedModules.length>0){
+                this._showModuleByIndex(0);
+            }
         }
     },
-
 
     _initToolbar: function(){
         if(this._toolbar && this._loadedModules){
@@ -240,34 +245,36 @@ const ModernCalc = new Lang.Class({
             });
     },
 
-    show_module: function(module_name){
-  
-        if(module_name != false){
+    _removeActiveModule: function(){
+        if(this._activeModule){
 
-            let toolbarButton;
+            // get the keyfocus of focused elements before
+            // removing it to avoid problems like 
+            // shortcuts don't work
+            this.actor.grab_key_focus();
 
-            // remove last shown module (at the moment yet active module)
-            if(this._activeModule){    
-
-                //TODO animate
-                this._moduleContainer.remove_child(this._activeModule.actor);
+            //TODO animate
+            this._activeModule.on_deactivate();
+            this._moduleContainer.remove_child(this._activeModule.actor);
                 
-                toolbarButton = this._activeModule.get_toolbar_button();
-                toolbarButton.remove_style_pseudo_class('active');
-            }
+            let toolbarButton = this._activeModule.get_toolbar_button();
+            toolbarButton.remove_style_pseudo_class('active');
 
-            let module = false;
-            let currModule;
-            for(let k=0; k < this._loadedModules.length; k++){
-                currModule = this._loadedModules[k];
+            this._activeModuleIndex = null;
+        }
+    },
 
-                if(currModule && module_name == currModule.get_module_name()){
-                    module = currModule;
-                    break;
-                }
-            }
+    _showModuleByIndex: function(index){
 
-            if(module != false){
+        if(index !== null && index >= 0 && this._activeModuleIndex != index){
+            
+            // remove last shown module
+            this._removeActiveModule();
+
+            let module = this._loadedModules[index];
+
+            if(module !== null){
+                
                 // load the found module
                 this._moduleContainer.add(module.actor, {
                     expand: false,
@@ -276,17 +283,66 @@ const ModernCalc = new Lang.Class({
                 });
 
                 // highlight module's toolbar button
-                toolbarButton = module.get_toolbar_button();
+                let toolbarButton = module.get_toolbar_button();
                 toolbarButton.add_style_pseudo_class('active');
 
                 // set the active module
                 this._activeModule = module;
 
                 if(this.is_open){
-                    this._activeModule.on_activate();    
+                    this._activeModule.on_activate();
                 }
-                
+
+                this._activeModuleIndex = index;
             }
+
+        }
+    },
+
+    show_module: function(module_name){
+  
+        if(module_name != false){
+
+            let module = false;
+            let currModule;
+            for(let k=0; k < this._loadedModules.length; k++){
+                currModule = this._loadedModules[k];
+
+                if(currModule && module_name == currModule.get_module_name()){
+                    // show the module
+                    this._showModuleByIndex(k);
+
+                    break;
+                }
+            }
+        }
+    },
+
+    _changeActiveModule: function(direction){
+
+        if(this._loadedModules !== false && this._activeModule !== false && this._loadedModules.length > 0){
+
+            let loadedModulesCount = this._loadedModules.length;
+
+            let index = 0;
+
+            if(loadedModulesCount > 1){
+                let activeModuleIndex = this._activeModuleIndex;
+
+                if(activeModuleIndex !== null){
+                    
+                    index = (direction == 'left') ? activeModuleIndex-1 : activeModuleIndex+1;
+
+                    if(index < 0)
+                        index = loadedModulesCount-1;
+                    else if(index > loadedModulesCount-1)
+                        index = 0;
+
+                }
+            }
+
+            // show the module
+            this._showModuleByIndex(index);
         }
     },
 
@@ -353,7 +409,6 @@ const ModernCalc = new Lang.Class({
 
     destroy: function(){
         this._disconnectSignals();
-
         this._toolbar.destroy();
         this._moduleContainer.destroy();
 
@@ -381,6 +436,22 @@ const ModernCalc = new Lang.Class({
         }
 
         this._signals = null;
+    },
+
+    _on_key_release_event: function(o, e) {
+        let modifierState = e.get_state();
+        let symbol = e.get_key_symbol()
+        
+        if (modifierState && Clutter.ModifierType.CONTROL_MASK){
+            if (symbol === Clutter.KEY_Page_Up){
+                this._changeActiveModule('left');
+
+            } else if (symbol === Clutter.KEY_Page_Down){
+                this._changeActiveModule('right');
+            }
+        }
+
+        return false;
     },
 
     get preferences(){
