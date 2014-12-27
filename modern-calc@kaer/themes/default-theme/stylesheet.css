@@ -93,6 +93,7 @@
 
 
 .history-group .history-container {
+    font-family:monospace;
     color: rgba(147,167,172, 0.8);
 }
 
@@ -207,6 +208,7 @@
     font-size: 14pt;
     caret-size: 1px;
     padding: 3px 3px 12px 3px;
+    font-family: monospace;
     font-weight: 300;
     color: #73878c;
 }
