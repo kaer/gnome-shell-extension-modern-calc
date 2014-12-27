@@ -74,11 +74,6 @@ const ModernCalc = new Lang.Class({
             this.actor.opacity = this._preferences.get_int(PrefsKeys.WINDOW_OPACITY_VALUE_KEY);
         }
 
-        if(this._preferences.get_boolean(PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY)){
-            this._setBackgroundOpacity();
-        }
-
-
         this._appHeader = null;
         this._statusBar = null;
 
@@ -91,6 +86,9 @@ const ModernCalc = new Lang.Class({
         this._stylesheet = null;
 
         this._updateTheme();
+
+        this._backgroundHasTransparency = false;
+        this._setBackgroundOpacity();
 
         this._signals = null;
         this._connectSignals();
@@ -346,12 +344,31 @@ const ModernCalc = new Lang.Class({
         }
     },
 
+
+
     _setBackgroundOpacity: function() {
-        let opacity = this._preferences.get_int(PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY);
-        opacity = opacity / 100;
-        let currBC  = this.boxLayout.get_theme_node().get_background_color();
-        let background = 'rgba('+currBC.red+','+currBC.green+','+currBC.blue+','+opacity+ ')';
-        this.boxLayout.set_style('background-color:'+ background);
+
+        if(this._preferences.get_boolean(PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY)){
+            // enable transparency
+            let opacity = this._preferences.get_int(PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY);
+            opacity = opacity / 100;
+            let currBC  = this.boxLayout.get_theme_node().get_background_color();
+            let background = 'rgba('+currBC.red+','+currBC.green+','+currBC.blue+','+opacity+ ')';
+            this.boxLayout.set_style('background-color:'+ background);
+
+            this._backgroundHasTransparency = true;
+        } else {
+            // remove background transparency if it has
+            if(this._backgroundHasTransparency){
+                
+                let currBC  = this.boxLayout.get_theme_node().get_background_color();
+                let background = 'rgb('+currBC.red+','+currBC.green+','+currBC.blue+')';
+                this.boxLayout.set_style('background-color:'+ background);
+            
+                this._backgroundHasTransparency = false;
+            }
+        }
+        
     },
 
      _updateTheme: function(){
@@ -432,6 +449,21 @@ const ModernCalc = new Lang.Class({
                 );
             }))
         );
+
+        // enable background transparency
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY,
+                Lang.bind(this, this._setBackgroundOpacity)
+            )
+        );
+
+        // background opacity
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY,
+                Lang.bind(this, this._setBackgroundOpacity)
+            )
+        );
+
     },
 
     _disconnectSignals: function(){
