@@ -253,10 +253,9 @@ const BasicCalcButtonGrid = new Lang.Class({
 
     _btnClearExpressionClick: function(){
         let calc_app = this.params.calc_app;
-
+        
         if(calc_app != false){
-            calc_app.display.clear_entry();
-            calc_app.clear_status_message();
+            calc_app.clear_expression();
         }
     },
 

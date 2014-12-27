@@ -502,9 +502,14 @@ const ModernCalc = new Lang.Class({
         this._signals = null;
     },
 
-    _on_key_release_event: function(o, e) {
+    _on_key_press_event: function(o, e) {
         let modifierState = e.get_state();
         let symbol = e.get_key_symbol()
+
+        if(symbol === Clutter.Escape) {
+            this.hide();
+            return true;
+        }
         
         if (modifierState && Clutter.ModifierType.CONTROL_MASK){
             if (symbol === Clutter.KEY_Page_Up){
@@ -513,6 +518,11 @@ const ModernCalc = new Lang.Class({
             } else if (symbol === Clutter.KEY_Page_Down){
                 this._changeActiveModule('right');
             }
+        }
+
+        // module key press
+        if(this._activeModule !== false){
+            this._activeModule.on_key_press_event(o, e);
         }
 
         return false;

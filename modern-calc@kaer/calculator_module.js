@@ -205,11 +205,29 @@ const CalculatorModule = new Lang.Class({
         this.parent();
     },
 
+    on_key_press_event: function(o, e){
+        let modifierState = e.get_state();
+        let symbol = e.get_key_symbol()
+        
+        if (modifierState && Clutter.ModifierType.CONTROL_MASK){
+            // clear expression
+            if (symbol === Clutter.KEY_space){
+                this.clear_expression();
+            }
+        }
+
+    },
+
     destroy: function(){
         his._history.destroy();
         this._display.destroy();
         this._basicCalcButtonGrid.destroy();
         this.parent();
+    },
+
+    clear_expression: function(){
+        this.display.clear_entry();
+        this.clear_status_message();
     },
 
 

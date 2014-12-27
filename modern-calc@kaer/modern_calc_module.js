@@ -114,6 +114,10 @@ const ModernCalcModule = new Lang.Class({
         this._removeKeybindings();
     },
 
+    on_key_press_event: function(o, e){
+
+    },
+
     destroy: function(){
         this._actor.destroy();
     },
