@@ -504,7 +504,7 @@ const ModernCalc = new Lang.Class({
 
     _on_key_press_event: function(o, e) {
         let modifierState = e.get_state();
-        let symbol = e.get_key_symbol()
+        let symbol = e.get_key_symbol();
 
         if(symbol === Clutter.Escape) {
             this.hide();

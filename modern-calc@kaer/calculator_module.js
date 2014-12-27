@@ -207,12 +207,23 @@ const CalculatorModule = new Lang.Class({
 
     on_key_press_event: function(o, e){
         let modifierState = e.get_state();
-        let symbol = e.get_key_symbol()
-        
-        if (modifierState && Clutter.ModifierType.CONTROL_MASK){
-            // clear expression
+        let symbol = e.get_key_symbol();
+        let keyCode = e.get_key_code();
+
+        // CTRL
+        if(modifierState == Clutter.ModifierType.CONTROL_MASK){
+
+            // CTRL+Space Clear expression
             if (symbol === Clutter.KEY_space){
                 this.clear_expression();
+            }
+        }
+        // CTRL+Shift
+        else if(modifierState == Clutter.ModifierType.CONTROL_MASK + Clutter.ModifierType.SHIFT_MASK){
+            
+            // CTRL+Shift+C Copy result
+            if (keyCode == 54){
+                this.copy_result();
             }
         }
 
@@ -228,6 +239,19 @@ const CalculatorModule = new Lang.Class({
     clear_expression: function(){
         this.display.clear_entry();
         this.clear_status_message();
+    },
+
+    copy_result: function(){
+        let result_value = this.display.get_result();
+        Clipboard.set_text(CLIPBOARD_TYPE, result_value);
+    },
+
+    paste_data: function(){
+        Clipboard.get_text(CLIPBOARD_TYPE, Lang.bind(this, function(clipboard, text) {
+            if(!Utils.is_blank(text) && text.length < 50) {
+                this.display.insert_data(text);
+            }
+        }));
     },
 
 

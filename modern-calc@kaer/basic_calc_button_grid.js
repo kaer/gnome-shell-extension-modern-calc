@@ -37,8 +37,6 @@ const Params = imports.misc.params;
 const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
-const Clipboard = St.Clipboard.get_default();
-const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 const Utils = Me.imports.utils;
 
 
@@ -269,21 +267,15 @@ const BasicCalcButtonGrid = new Lang.Class({
 
     _btnClipboardCopyClick: function(){
 
-        if(this.params.calc_app.display){
-            let result_value = this.params.calc_app.display.get_result();
-            Clipboard.set_text(CLIPBOARD_TYPE, result_value);
+        if(this.params.calc_app){
+            this.params.calc_app.copy_result();
         }
-        
     },
 
     _btnClipboardPasteClick: function(){
-        
-        if(this.params.calc_app.display){
-            Clipboard.get_text(CLIPBOARD_TYPE, Lang.bind(this, function(clipboard, text) {
-                if(!Utils.is_blank(text) && text.length < 50) {
-                    this.params.calc_app.display.insert_data(text);
-                }
-            }));
+
+        if(this.params.calc_app){
+            this.params.calc_app.paste_data();
         }
     },
 
