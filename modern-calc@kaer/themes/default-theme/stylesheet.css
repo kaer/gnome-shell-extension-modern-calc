@@ -307,3 +307,89 @@
 .status-bar .icon:error { color: red; }
 
 .status-bar .message { padding: 5px 2px 2px 3px; }
+
+
+/* UNIT CONVERTER */
+
+.unit-converter-module {}
+
+.unit-converter-module .conv-info-box {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: rgba(20,20,20, 0.2);
+    color: rgba(147,167,172, 0.8);
+}
+
+.conv-info-box .m-label,
+.conv-info-box .m-value {
+    padding: 5px;
+}
+.conv-info-box .m-label {
+    color: #73878c;
+}
+.conv-info-box .m-value {
+    background: rgba(50,50,50, 0.2);
+    color: rgba(219,226,227,0.9);
+}
+
+.conv-info-box .btn-change {
+    padding: 5px;
+    background: rgba(141,178,185, 0.2);
+    color: #cccccc;
+}
+.conv-info-box .btn-change:hover {
+    background: rgba(141,178,185, 0.4);
+    color: #ffffff;
+}
+
+.measurement-chooser-page {
+
+}
+
+.measurement-chooser-page .measurement-chooser-title {
+    padding-bottom: 5px;
+}
+
+.measurement-chooser-page .measurement-filter-entry {
+    padding: 8px;
+
+    background: rgba(219,226,227,0.04);
+    caret-color: rgba(255, 255, 255, 0.8);    
+    caret-size: 1px;
+    
+    font-family: monospace;
+    font-weight: 300;
+    font-size: 13pt;
+
+    color: #ffffff;
+}
+
+.measurement-chooser-page .measurement-list {
+    padding-top: 20px;
+}
+
+.measurement-chooser-page .measurement-list StButton.list-item {
+    padding:  10px;
+
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Ubuntu', sans-serif;
+    
+    border: 1px solid rgba(83,103,108, 0.0);
+    background: rgba(83,103,108, 0.7);
+    
+    color: #cbcbcb;
+}
+.measurement-chooser-page .measurement-list StButton.list-item:hover {
+    transition-duration: 300ms;
+    border: 1px solid rgba(83,103,108, 0.7);
+    background: rgba(83,103,108, 0.9);
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+
+.conversion-page {
+
+}
