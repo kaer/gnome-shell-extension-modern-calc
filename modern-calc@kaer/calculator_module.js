@@ -214,16 +214,32 @@ const CalculatorModule = new Lang.Class({
         if(modifierState == Clutter.ModifierType.CONTROL_MASK){
 
             // CTRL+Space Clear expression
-            if (symbol === Clutter.KEY_space){
+            if(symbol === Clutter.KEY_space){
                 this.clear_expression();
+            }
+            // CTRL+G History move left
+            else if(keyCode == 42){
+                this.history_move_left();
+            }
+            // CTRL+J History move right
+            else if(keyCode == 44){
+                this.history_move_right();
+            }
+            // CTRL+H Use history's current expression
+            else if(keyCode == 43){
+                this.use_history_current_expression();
             }
         }
         // CTRL+Shift
         else if(modifierState == Clutter.ModifierType.CONTROL_MASK + Clutter.ModifierType.SHIFT_MASK){
             
             // CTRL+Shift+C Copy result
-            if (keyCode == 54){
+            if(keyCode == 54){
                 this.copy_result();
+            }
+            // CTRL+Shift+H Clear History
+            else if(keyCode == 43){
+                this.clear_history();
             }
         }
 
@@ -252,6 +268,29 @@ const CalculatorModule = new Lang.Class({
                 this.display.insert_data(text);
             }
         }));
+    },
+
+    clear_history: function(){
+        if(this.history !== null){
+            this.history.clear_calculus_history();
+        }
+    },
+
+    use_history_current_expression: function(){
+        if(this.history !== null){
+            this.history.use_current_expression();
+        }
+    },
+    
+    history_move_left: function(){
+        if(this.history !== null){
+            this.history.history_move_prev();
+        }
+    },
+    history_move_right: function(){
+        if(this.history !== null){
+            this.history.history_move_next();
+        }
     },
 
 

@@ -79,7 +79,7 @@ const CalculusHistory = new Lang.Class({
             label: 'clear history', style_class: 'history-btn-clear'
         });
 
-        this._btnHistClear.connect("clicked", Lang.bind(this, this._clearCalculusHistory));
+        this._btnHistClear.connect("clicked", Lang.bind(this, this.clear_calculus_history));
         /*
         this._btnClose = new St.Button({
             label: 'Close', style_class: 'history-btn-close'
@@ -90,13 +90,13 @@ const CalculusHistory = new Lang.Class({
             child: new St.Icon({icon_name: 'go-previous-symbolic', style_class: 'button-icon'}),
             label: 'prev', style_class: 'history-btn-mover'
         });
-        this._btnHistMovPrev.connect("clicked", Lang.bind(this, this._historyMovePrev));
+        this._btnHistMovPrev.connect("clicked", Lang.bind(this, this.history_move_prev));
 
         this._btnHistMovNext = new St.Button({
             child: new St.Icon({icon_name: 'go-next-symbolic', style_class: 'button-icon'}),
             label: 'next', style_class: 'history-btn-mover'
         });
-        this._btnHistMovNext.connect("clicked", Lang.bind(this, this._historyMoveNext));
+        this._btnHistMovNext.connect("clicked", Lang.bind(this, this.history_move_next));
 
 
         this._exprTitle = new St.Label({
@@ -114,7 +114,7 @@ const CalculusHistory = new Lang.Class({
         this._btnUseExpr = new St.Button({
             label: 'Use', style_class: 'history-use-expr'
         });
-        this._btnUseExpr.connect("clicked", Lang.bind(this, this._useHistoryItem));
+        this._btnUseExpr.connect("clicked", Lang.bind(this, this.use_current_expression));
 
         this._ansTitle = new St.Label({
             style_class: 'ans-label',
@@ -296,7 +296,7 @@ const CalculusHistory = new Lang.Class({
         }
     },
 
-    _historyMovePrev: function(){
+    history_move_prev: function(){
 
         if(this._calculus_history != false && this._calculus_history.length > 0){
 
@@ -311,7 +311,7 @@ const CalculusHistory = new Lang.Class({
         this._refreshUI();
     },
 
-    _historyMoveNext: function(){
+    history_move_next: function(){
 
         if(this._calculus_history != false && this._calculus_history.length > 0){
 
@@ -375,7 +375,7 @@ const CalculusHistory = new Lang.Class({
         }
     },
 
-    _useHistoryItem: function (){
+    use_current_expression: function (){
         let histItem = this._getHistoryItem(this._historyPos);
 
         if(histItem != undefined){
@@ -385,7 +385,7 @@ const CalculusHistory = new Lang.Class({
         }
     },
 
-    _clearCalculusHistory: function(){
+    clear_calculus_history: function(){
         this._calculus_history = false;
         this._historyPos = undefined;
 
