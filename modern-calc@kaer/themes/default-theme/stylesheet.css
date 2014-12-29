@@ -316,7 +316,6 @@
 .unit-converter-module .conv-info-box {
     padding-top: 20px;
     padding-bottom: 20px;
-    background: rgba(20,20,20, 0.2);
     color: rgba(147,167,172, 0.8);
 }
 
@@ -325,6 +324,7 @@
     padding: 5px;
 }
 .conv-info-box .m-label {
+    background: rgba(20,20,20, 0.2);
     color: #73878c;
 }
 .conv-info-box .m-value {
@@ -389,7 +389,68 @@
 }
 
 
-
 .conversion-page {
 
+}
+.conversion-page .expression-label {
+    padding-bottom: 5px;
+    color: #73878c;
+}
+.conversion-page .expression-entry {
+    padding: 8px;
+
+    background: rgba(219,226,227,0.04);
+    caret-color: rgba(255, 255, 255, 0.8);    
+    caret-size: 1px;
+    
+    font-family: monospace;
+    font-weight: 300;
+    font-size: 13pt;
+
+    color: #73878c;
+}
+
+.conversion-page .available-units-info {
+    padding-top: 25px;
+}
+
+.conversion-page .available-units-info .info-label {
+    padding-bottom: 8px;
+    color: #73878c;
+}
+
+.conversion-page .available-units-info .unit-list {
+    background: rgba(50,50,50, 0.2);
+}
+.conversion-page .available-units-info .unit-list .symbol-box {
+    min-width: 60px;
+}
+.conversion-page .available-units-info .unit-list .name-box {
+    color: #73878c;
+}
+
+.conversion-page .available-units-info .unit-list .symbol-box .l-symbol,
+.conversion-page .available-units-info .unit-list .name-box .l-name,
+.conversion-page .available-units-info .unit-list .empty-list-info {
+    padding: 4px 8px;
+}
+
+.conversion-page .available-units-info .unit-list .symbol-box .l-symbol:even,
+.conversion-page .available-units-info .unit-list .name-box .l-name:even {
+    background: rgba(50,50,50, 0.2);
+}
+.conversion-page .available-units-info .unit-list .symbol-box .l-symbol:odd,
+.conversion-page .available-units-info .unit-list .name-box .l-name:odd {
+    background: rgba(50,50,50, 0.15);
+}
+
+.conversion-page .available-units-info .unit-list .symbol-box .l-symbol {
+    
+}
+.conversion-page .available-units-info .unit-list .name-box .l-name {
+    
+}
+
+.conversion-page .available-units-info .unit-list .empty-list-info {
+    color: #ffffff;
 }

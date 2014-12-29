@@ -32,6 +32,7 @@ const Lang = imports.lang;
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 const Panel = imports.ui.panel;
+const Pango = imports.gi.Pango;
 const Params = imports.misc.params;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
@@ -40,6 +41,9 @@ const Tweener = imports.ui.tweener;
 const Me = ExtensionUtils.getCurrentExtension();
 const ModernCalcModule = Me.imports.modern_calc_module;
 const Utils = Me.imports.utils;
+
+const Qty = Me.imports.module_data.unit_converter.quantities15;
+const MeasurementList = Me.imports.module_data.unit_converter.measurement_list;
 
 const PAGES = {
     CONVERSION: 'conversion-page',
@@ -68,6 +72,9 @@ const UnitConverterModule = new Lang.Class({
         this._loadMeasurementList();
 
         this._measurementListButton = null;
+
+        this._availableUnitsInfoBox = null;
+        this._loadedMeasurementInfo = null;
 
         this.parent(parentParams);
 
@@ -203,6 +210,202 @@ const UnitConverterModule = new Lang.Class({
             vertical: true,
             visible: false
         });
+
+        this._expressionLabel = new St.Label({
+            text: "Expression",
+            style_class: "expression-label"
+        });
+
+        this._expressionEntry = new St.Entry({
+            text: "",
+            hint_text: "Type your Expression",
+            style_class: "expression-entry",
+            track_hover: true,
+            can_focus: true
+        });
+
+        this._availableUnitsInfoBox = new St.BoxLayout({
+            style_class: 'available-units-info',
+            vertical: true,
+            visible: false
+        });
+
+        this._availableUnitsLabel = new St.Label({
+            text: "Available units for conversion:",
+            style_class: "info-label"
+        });
+        
+        this._availableUnitListBox = new St.BoxLayout({
+            style_class: 'unit-list',
+            vertical: true,
+            visible: true
+        });
+
+
+        this._availableUnitsInfoBox.add(this._availableUnitsLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        this._availableUnitsInfoBox.add(this._availableUnitListBox, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+
+
+
+        this._conversionPage.add(this._expressionLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+        this._conversionPage.add(this._expressionEntry, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+        this._conversionPage.add(this._availableUnitsInfoBox, {
+            expand: true,
+            x_fill: true,
+            y_fill: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+    },
+
+    _showAvailableUnitsInfo: function(){
+
+        if(this._availableUnitListBox !== null){
+
+            this._availableUnitsInfoBox.visible = true;
+
+            this._availableUnitListBox.remove_all_children();
+
+            let availableUnitInfoActor = this._loadMeasurementInfo();
+            if(availableUnitInfoActor !== null){
+                this._availableUnitListBox.add(availableUnitInfoActor, {
+                    expand: true,
+                    x_align: St.Align.START,
+                    y_align: St.Align.START
+                });   
+            }
+        }
+    },
+
+    _loadMeasurementInfo: function(){
+        if(this._loadedMeasurementInfo === null){
+            this._loadedMeasurementInfo = new Array();
+        }
+
+        let measurement = this._activeMeasurement;
+        if(measurement !== null){
+
+            // verify if was already loaded and return it
+            if(this._loadedMeasurementInfo.length > 0){
+
+                for(let i=0; i < this._loadedMeasurementInfo.length; i++){
+                    storedInfo = this._loadedMeasurementInfo[i];
+                    if(storedInfo !== null && storedInfo.name == measurement.name){
+                        return storedInfo.info_actor;
+                    }
+                }
+            }
+
+            // create it
+            let infoBox = new St.BoxLayout({
+                style_class: "",
+                vertical: false
+            });
+
+            if(measurement.hasOwnProperty('available_units') && measurement.available_units.length > 0){
+                
+                let symbolBox = new St.BoxLayout({
+                    style_class: "symbol-box",
+                    vertical: true
+                });
+                let nameBox = new St.BoxLayout({
+                    style_class: "name-box",
+                    vertical: true
+                });
+
+                let units = measurement.available_units;
+                for(let k=0; k < units.length; k++){
+
+                    let symbolLabel = new St.Label({
+                        text: units[k].symbol,
+                        style_class: "l-symbol"
+                    });
+                    
+                    let nameLabel = new St.Label({
+                        text: units[k].name,
+                        style_class: "l-name"
+                    });
+                    
+                    if(k % 2 == 0){
+                        symbolLabel.add_style_pseudo_class('even');
+                        nameLabel.add_style_pseudo_class('even');
+                    } else {
+                        symbolLabel.add_style_pseudo_class('odd');
+                        nameLabel.add_style_pseudo_class('odd');
+                    }
+
+                    symbolBox.add(symbolLabel, {
+                        expand: false,
+                        x_align: St.Align.START,
+                        y_align: St.Align.START
+                    });
+
+                    nameBox.add(nameLabel, {
+                        expand: true,
+                        x_align: St.Align.START,
+                        y_align: St.Align.START
+                    });
+                }
+
+                infoBox.add(symbolBox, {
+                    expand: false,
+                    x_align: St.Align.START,
+                    y_align: St.Align.START
+                });
+
+                infoBox.add(nameBox, {
+                    expand: true,
+                    x_align: St.Align.START,
+                    y_align: St.Align.START
+                });
+
+            } else {
+                let label = new St.Label({
+                    text: "The active measurement doesn't have information about available units",
+                    style_class: "empty-list-info"
+                });
+
+                label.clutter_text.set_single_line_mode(false);
+                label.clutter_text.set_line_wrap_mode(Pango.WrapMode.WORD);
+                label.clutter_text.set_ellipsize(Pango.EllipsizeMode.NONE);
+                label.clutter_text.set_line_wrap(true);
+
+                infoBox.add(label, {
+                    expand: true,
+                    x_align: St.Align.START,
+                    y_align: St.Align.START
+                });
+            }
+
+            // store for future use
+            this._loadedMeasurementInfo.push({
+                name: measurement.name,
+                info_actor: infoBox 
+            });
+
+            return infoBox;   
+        }
+
+        return null;
     },
 
     _loadMeasurementListButton: function(){
@@ -293,6 +496,8 @@ const UnitConverterModule = new Lang.Class({
                 this._measurementChooserPage.visible = true;
 
                 this._measurementFilterEntry.text = '';
+                this._measurementFilterEntry.grab_key_focus();
+
                 this._showMeasurements();
 
                 this._activePage = page_name;
@@ -300,6 +505,11 @@ const UnitConverterModule = new Lang.Class({
             else if(page_name == PAGES.CONVERSION){
                 this._measurementChooserPage.visible = false;
                 this._conversionPage.visible = true;
+
+                this._expressionEntry.text = '';
+                this._expressionEntry.grab_key_focus();
+
+                this._showAvailableUnitsInfo();
                 
                 this._activePage = page_name;
             }
@@ -311,21 +521,7 @@ const UnitConverterModule = new Lang.Class({
     // CONVERSION =============================================================
 
     _loadMeasurementList: function(){
-        this._measurementList = [
-            {
-                name: 'Length',
-                //units: 'm', 'mm', 'cm',...
-                conv_function: function(value){
-
-                }
-            },
-            {
-                name: 'Speed',
-                conv_function: function(value){
-
-                }
-            }
-        ];
+        this._measurementList = MeasurementList.MeasurementList;
     },
     // ========================================================================
 
@@ -335,7 +531,10 @@ const UnitConverterModule = new Lang.Class({
         if(this._activePage !== null){
             if(this._activePage == PAGES.MEASUREMENT_CHOOSER){
                 this._measurementFilterEntry.grab_key_focus();
+            } else if(this._activePage == PAGES.CONVERSION){
+                this._expressionEntry.grab_key_focus();
             }
+
         }
 
         this.parent();
