@@ -38,7 +38,11 @@ const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
+const Clipboard = St.Clipboard.get_default();
 const Utils = Me.imports.utils;
+
+const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
+
 
 
 const ModernCalcModule = new Lang.Class({
@@ -115,6 +119,22 @@ const ModernCalcModule = new Lang.Class({
     },
 
     on_key_press_event: function(o, e){
+
+    },
+
+    copy_to_clipboard: function(text){
+        if(text !== undefined && text !== null){
+            Clipboard.set_text(CLIPBOARD_TYPE, text);
+        }
+    },
+
+    paste_from_clipboard: function(){
+        Clipboard.get_text(CLIPBOARD_TYPE, Lang.bind(this, function(clipboard, text) {
+            this.handle_paste_data(clipboard, text);
+        }));
+    },
+
+    handle_paste_data: function(clipboard, text){
 
     },
 

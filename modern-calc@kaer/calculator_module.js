@@ -43,13 +43,10 @@ const Tweener = imports.ui.tweener;
 const Me = ExtensionUtils.getCurrentExtension();
 const BasicCalcButtonGrid = Me.imports.basic_calc_button_grid;
 const CalculusHistory = Me.imports.calculus_history;
-const Clipboard = St.Clipboard.get_default();
 const Display = Me.imports.display;
 const ModernCalcModule = Me.imports.modern_calc_module;
 const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
-
-const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
 
 let octal = /(^|\s|[^0-9a-fA-Fxb\.]+)0([0-7]+)/g;
@@ -259,15 +256,17 @@ const CalculatorModule = new Lang.Class({
 
     copy_result: function(){
         let result_value = this.display.get_result();
-        Clipboard.set_text(CLIPBOARD_TYPE, result_value);
+        this.copy_to_clipboard(result_value);
     },
 
     paste_data: function(){
-        Clipboard.get_text(CLIPBOARD_TYPE, Lang.bind(this, function(clipboard, text) {
-            if(!Utils.is_blank(text) && text.length < 50) {
-                this.display.insert_data(text);
-            }
-        }));
+        this.paste_from_clipboard();
+    },
+
+    handle_paste_data: function(clipboard, text){
+        if(!Utils.is_blank(text) && text.length < 50) {
+            this.display.insert_data(text);
+        }
     },
 
     clear_history: function(){
