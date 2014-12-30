@@ -529,13 +529,14 @@ const ModernCalc = new Lang.Class({
     },
 
     set_status_message: function(msg_type, msg){
-        if(msg_type != undefined && msg != undefined){
+        if(this._statusBar !== null && msg_type != undefined && msg != undefined){
             this.status_bar.set_message(msg_type, msg);
         }
     },
 
     clear_status_message: function(){
-        this.status_bar.clear_message();
+        if(this._statusBar !== null)
+            this.status_bar.clear_message();
     },
 
     get preferences(){
