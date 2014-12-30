@@ -122,6 +122,18 @@ const ModernCalcModule = new Lang.Class({
         this._actor.destroy();
     },
 
+    set_status_message: function(msg_type, msg){
+        if(this.params.app){
+            this.params.app.set_status_message(msg_type, msg);
+        }
+    },
+
+    clear_status_message: function(){
+        if(this.params.app){
+            this.params.app.clear_status_message();
+        }
+    },
+
     set actor(actor){
         this._actor = actor;
     },

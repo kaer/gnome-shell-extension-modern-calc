@@ -454,18 +454,6 @@ const CalculatorModule = new Lang.Class({
         return {'status': 'error','expression': formattedExpression, 'result': 'Invalid Syntax'};
     },
 
-    set_status_message: function(msg_type, msg){
-        if(this.params.app && msg_type != undefined && msg != undefined){
-            this.params.app.status_bar.set_message(msg_type, msg);
-        }
-    },
-
-    clear_status_message: function(){
-        if(this.params.app){
-            this.params.app.status_bar.clear_message();
-        }
-    },
-
     get display(){
         return this._display;
     },
