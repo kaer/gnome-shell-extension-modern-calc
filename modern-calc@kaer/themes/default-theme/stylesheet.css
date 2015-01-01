@@ -454,3 +454,41 @@
 .conversion-page .available-units-info .unit-list .empty-list-info {
     color: #ffffff;
 }
+
+.conversion-page .result-box {
+    padding-top: 25px;
+}
+
+.conversion-page .result-title {
+    padding-bottom: 8px;
+    color: #73878c;
+}
+.conversion-page .result-label {
+    background: rgba(219,226,227,0.04);
+    padding: 8px;
+
+    font-family: monospace;
+    font-weight: 300;
+    font-size: 13pt;
+    color: #ffffff;
+}
+
+.conversion-page .extra-conv {
+    padding-top: 20px;
+}
+.conversion-page .extra-conv .extra-conv-title {
+    padding-bottom: 8px;
+    color: #73878c;
+}
+.conversion-page .extra-conv .conv-list {
+    color: #cbcbcb;
+}
+.conversion-page .extra-conv .conv-list .list-item {
+    padding: 4px 8px;
+}
+.conversion-page .extra-conv .conv-list .list-item:even {
+    background: rgba(50,50,50, 0.2);
+}
+.conversion-page .extra-conv .conv-list .list-item:odd {
+    background: rgba(50,50,50, 0.15);
+}

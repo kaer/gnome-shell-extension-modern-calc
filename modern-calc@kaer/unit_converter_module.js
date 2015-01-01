@@ -73,8 +73,12 @@ const UnitConverterModule = new Lang.Class({
 
         this._measurementListButton = null;
 
+        this._visibleMeasurementButtonNameList = null;
+
         this._availableUnitsInfoBox = null;
         this._loadedMeasurementInfo = null;
+
+        this._extraConvList = null;
 
         this.parent(parentParams);
 
@@ -223,7 +227,11 @@ const UnitConverterModule = new Lang.Class({
             track_hover: true,
             can_focus: true
         });
+        this._expressionEntry.clutter_text.connect('key-press-event', Lang.bind(this, this._expressionEntryKeyPress));
+        this._expressionEntry.clutter_text.connect('text-changed', Lang.bind(this, this._expressionChanged));
 
+
+        // Available units
         this._availableUnitsInfoBox = new St.BoxLayout({
             style_class: 'available-units-info',
             vertical: true,
@@ -254,9 +262,65 @@ const UnitConverterModule = new Lang.Class({
             y_align: St.Align.START
         });
 
+        // Conv Result
+        this._resultBox = new St.BoxLayout({
+            style_class: 'result-box',
+            vertical: true,
+            visible: false
+        });
+        this._resultTitleLabel = new St.Label({
+            text: "Conversion result:",
+            style_class: "result-title"
+        });
 
+        this._resultLabel = new St.Label({
+            text: "",
+            style_class: "result-label"
+        });
 
+        this._resultBox.add(this._resultTitleLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
 
+        this._resultBox.add(this._resultLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        // Additional conv
+        this._additionalConvBox = new St.BoxLayout({
+            style_class: 'extra-conv',
+            vertical: true,
+            visible: false
+        });
+
+        this._additionalConvLabel = new St.Label({
+            text: "Additional Conversion:",
+            style_class: "extra-conv-title"
+        });
+        
+        this._additionalConvListBox = new St.BoxLayout({
+            style_class: "conv-list",
+            vertical: true,
+            visible: true
+        });
+
+        this._additionalConvBox.add(this._additionalConvLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        this._additionalConvBox.add(this._additionalConvListBox, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        //
         this._conversionPage.add(this._expressionLabel, {
             expand: true,
             x_align: St.Align.START,
@@ -275,6 +339,17 @@ const UnitConverterModule = new Lang.Class({
             y_align: St.Align.START
         });
 
+        this._conversionPage.add(this._resultBox, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+        this._conversionPage.add(this._additionalConvBox, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
     },
 
     _showAvailableUnitsInfo: function(){
@@ -282,6 +357,7 @@ const UnitConverterModule = new Lang.Class({
         if(this._availableUnitListBox !== null){
 
             this._availableUnitsInfoBox.visible = true;
+            this._resultBox.visible = false;
 
             this._availableUnitListBox.remove_all_children();
 
@@ -335,8 +411,13 @@ const UnitConverterModule = new Lang.Class({
                 let units = measurement.available_units;
                 for(let k=0; k < units.length; k++){
 
+                    let symbol = units[k].symbol;
+                    if(typeof symbol == 'object'){
+                        symbol = symbol[0];
+                    }
+
                     let symbolLabel = new St.Label({
-                        text: units[k].symbol,
+                        text: symbol,
                         style_class: "l-symbol"
                     });
                     
@@ -408,6 +489,38 @@ const UnitConverterModule = new Lang.Class({
         return null;
     },
 
+    _showAdditionalConversion: function(){
+
+        if(this._extraConvList !== null && this._extraConvList.length > 0){
+
+            this._additionalConvListBox.destroy_all_children();
+            this._additionalConvBox.visible = true;
+
+            let conv_result;
+            for(let k=0; k < this._extraConvList.length; k++){
+                
+                conv_result = this._extraConvList[k];
+
+                let label = new St.Label({
+                    text: conv_result,
+                    style_class: "list-item"
+                });
+                
+                if(k % 2 == 0){
+                    label.add_style_pseudo_class('even');
+                } else {
+                    label.add_style_pseudo_class('odd');
+                }
+
+                this._additionalConvListBox.add(label, {
+                    expand: true,
+                    x_align: St.Align.START,
+                    y_align: St.Align.START
+                });
+            }
+        }
+    },
+
     _loadMeasurementListButton: function(){
         if(this._measurementListButton === null){
             this._measurementListButton = new Array();
@@ -462,16 +575,63 @@ const UnitConverterModule = new Lang.Class({
         }
     },
 
+    _clearMeasurementFilter: function(){
+        this._measurementFilterEntry.text = "";
+        this._showMeasurements();
+    },
 
     _measurementFilterEntryKeyPress: function(actor, event) {
         let key = event.get_key_symbol();
         if(key == Clutter.KEY_Return || key == Clutter.KEY_KP_Enter || key == Clutter.KEY_ISO_Enter){
-            this._showMeasurements(this._measurementFilterEntry.text);
+
+            if(this._visibleMeasurementButtonNameList !== null && this._visibleMeasurementButtonNameList.length == 1){
+                this._setActiveMeasurement(this._visibleMeasurementButtonNameList[0]);
+            } else {
+                this._showMeasurements(this._measurementFilterEntry.text);    
+            }
         }
+    },
+
+    _expressionChanged: function(){
+        this.clear_status_message();
+
+        this._additionalConvBox.visible = false;
+        this._resultBox.visible = false;
+
+        if(this._expressionEntry.text == ""){
+            this._showAvailableUnitsInfo();
+        }
+    },
+
+    _expressionEntryKeyPress: function(actor, event) {
+        let key = event.get_key_symbol();
+        if(key == Clutter.KEY_Return || key == Clutter.KEY_KP_Enter || key == Clutter.KEY_ISO_Enter){
+            this._convert();
+
+            if(this._expressionEntry.text == ""){
+                this._showAvailableUnitsInfo();
+            }
+        }
+    },
+
+    _clearExpression: function(){
+        this._expressionEntry.text = "";
+        this._expressionEntry.grab_key_focus();
+
+        this._extraConvList = null;
+        this._additionalConvBox.visible = false;
+        this._showAvailableUnitsInfo();
+        this.clear_status_message();
+    },
+
+    _clearExtraConversion: function(){
+
     },
 
     _showMeasurements: function(term){
         if(this._measurementListButton !== null){
+
+            this._visibleMeasurementButtonNameList = new Array();
 
             if(term != undefined) term = term.toUpperCase();
 
@@ -479,10 +639,12 @@ const UnitConverterModule = new Lang.Class({
             for(let i=0; i< this._measurementListButton.length; i++){
                 listButton = this._measurementListButton[i];
 
-                if(term == undefined || listButton.label.toUpperCase().indexOf(term) != -1)
+                if(term == undefined || listButton.label.toUpperCase().indexOf(term) != -1){
                     listButton.visible = true;
-                else 
-                    listButton.visible = false;                
+                    this._visibleMeasurementButtonNameList.push(listButton.label);
+                } else {
+                    listButton.visible = false;
+                }
             }
         }
     },
@@ -494,6 +656,7 @@ const UnitConverterModule = new Lang.Class({
             if(page_name == PAGES.MEASUREMENT_CHOOSER){
                 this._conversionPage.visible = false;
                 this._measurementChooserPage.visible = true;
+                this._resultBox.visible = false;
 
                 this._measurementFilterEntry.text = '';
                 this._measurementFilterEntry.grab_key_focus();
@@ -503,17 +666,16 @@ const UnitConverterModule = new Lang.Class({
                 this._activePage = page_name;
             }
             else if(page_name == PAGES.CONVERSION){
+                this._clearExpression();
+
                 this._measurementChooserPage.visible = false;
                 this._conversionPage.visible = true;
-
-                this._expressionEntry.text = '';
-                this._expressionEntry.grab_key_focus();
-
-                this._showAvailableUnitsInfo();
                 
                 this._activePage = page_name;
             }
         }
+
+        this.clear_status_message();
     },
 
 
@@ -522,6 +684,109 @@ const UnitConverterModule = new Lang.Class({
 
     _loadMeasurementList: function(){
         this._measurementList = MeasurementList.MeasurementList;
+    },
+
+    _parseExpression: function(expr){
+        if(expr && expr != ""){
+
+            if(this._activeMeasurement !== null && 
+                this._activeMeasurement.valid_expression(expr)
+            ){
+                return true;
+            }
+        }
+
+        return false;
+    },
+
+    _convert: function(){
+
+        this._availableUnitsInfoBox.visible = false;
+        this._clearResult();
+
+        let expr = this._expressionEntry.text;
+
+        if(this._activeMeasurement === null){
+            this.set_status_message("error", "Select a Measurement first");
+
+        } else if(expr != ""){
+
+            if(this._parseExpression(expr)){
+
+                try {
+                    
+                    expr = this._activeMeasurement.replace_text(expr);
+
+                    let parts = expr.split(' to ');
+                    let source = parts[0];
+                    let dest = parts[1];
+                    
+                    let qty = Qty.Qty(source);
+                    let result = qty.toString(dest);
+
+                    result = this._activeMeasurement.format_result(result);
+
+                    // fill the extra conv list
+                    if(this._activeMeasurement.hasOwnProperty('available_units') &&
+                        this._activeMeasurement.available_units.length > 0
+                    ){
+                        this._extraConvList = new Array();
+
+                        // loop for conversion
+                        let extra_result, units = this._activeMeasurement.available_units;
+                        for(let k=0; k < units.length; k++){
+
+                            if(units[k].hasOwnProperty('c_symbol')){
+                                extra_result = qty.toString(units[k].c_symbol);
+
+                                this._extraConvList.push(
+                                    this._activeMeasurement.format_result(extra_result)
+                                );
+                            }
+                        }
+                    }
+
+                    // show the result
+                    this._showResult(result);
+
+                } catch(e) {
+                    
+                    if(e instanceof Qty.Qty.Error) {
+                        this.set_status_message("error", e.message);
+                    }
+                    else {
+                        this.set_status_message("error", "Errors happened when trying to convert");
+                    }
+                }
+
+            } else {
+                this.set_status_message("error", "The expression was not recognized");
+            }
+        } else {
+            this.set_status_message("information", "Insert an expression to convert");
+        }
+    },
+
+    _showResult: function(result){
+
+        if(result){
+            this._resultBox.visible = true;
+
+            this._resultLabel.text = result;
+
+            this._showAdditionalConversion();            
+        }
+    },
+
+    _copyMainResult: function(){
+        let result = this._resultLabel.text;
+        this.copy_to_clipboard(result);
+    },
+
+    _clearResult: function(){
+        this._resultLabel.text = "";
+        this._extraConvList = null;
+        this._additionalConvBox.visible = false;
     },
     // ========================================================================
 
@@ -542,6 +807,40 @@ const UnitConverterModule = new Lang.Class({
 
     on_deactivate: function(){
         this.parent();
+    },
+
+    on_key_press_event: function(o, e){
+        let modifierState = e.get_state();
+        let symbol = e.get_key_symbol();
+        let keyCode = e.get_key_code();
+
+        // CTRL
+        if(modifierState == Clutter.ModifierType.CONTROL_MASK){
+
+            // CTRL+Space Clear entries
+            if(symbol === Clutter.KEY_space){
+
+                if(this._activePage == PAGES.MEASUREMENT_CHOOSER){
+                    this._clearMeasurementFilter();
+                } else if(this._activePage == PAGES.CONVERSION){
+                    this._clearExpression();
+                }
+
+            }
+            // CTRL+M Show measurement chooser
+            else if(keyCode == 58){
+                this._showPage(PAGES.MEASUREMENT_CHOOSER);
+            }
+        }
+        // CTRL+Shift
+        else if(modifierState == Clutter.ModifierType.CONTROL_MASK + Clutter.ModifierType.SHIFT_MASK){
+            
+            // CTRL+Shift+C Copy main result
+            if(keyCode == 54){
+                this._copyMainResult();
+            }
+        }
+
     },
 
     destroy: function(){
