@@ -68,7 +68,7 @@ const UnitConverterModule = new Lang.Class({
         };
 
         this._measurementList = null;
-        this._activeMeasurement = false;
+        this._activeMeasurement = null;
         this._loadMeasurementList();
 
         this._measurementListButton = null;
@@ -649,6 +649,11 @@ const UnitConverterModule = new Lang.Class({
         }
     },
 
+    _clearActiveMeasurement: function(){
+         this._activeMeasurement = null;
+         this._activeMeasurementLabel.text = '';
+    },
+
     _showPage: function(page_name){
 
         if(page_name && page_name != this._activePage){
@@ -662,6 +667,8 @@ const UnitConverterModule = new Lang.Class({
                 this._measurementFilterEntry.grab_key_focus();
 
                 this._showMeasurements();
+                
+                this._clearActiveMeasurement();
 
                 this._activePage = page_name;
             }
