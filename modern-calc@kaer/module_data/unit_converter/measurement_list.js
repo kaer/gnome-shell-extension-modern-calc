@@ -17,7 +17,7 @@ var MeasurementList = [
                 { 'name': 'fathom', 'c_symbol': 'fathom', 'symbol': ['fathom','fathoms'] },
                 { 'name': 'pica', 'c_symbol': 'pica', 'symbol': ['pica','picas'] },
                 { 'name': 'redshift', 'c_symbol': 'z', 'symbol': 'z' },
-                { 'name': 'AU', 'c_symbol': 'AU', 'symbol': 'AU' },
+                { 'name': 'Astronomical Unit', 'c_symbol': 'AU', 'symbol': 'AU' },
                 { 'name': 'light-second', 'c_symbol': 'ls', 'symbol': 'ls' },
                 { 'name': 'light-minute', 'c_symbol': 'lmin', 'symbol' : 'lmin' },
                 { 'name': 'light-year', 'c_symbol': 'ly', 'symbol': 'ly' },
