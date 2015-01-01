@@ -472,6 +472,15 @@
     font-size: 13pt;
     color: #ffffff;
 }
+.conversion-page .result-btn-copy {
+    padding: 5px 8px;
+    background: rgba(141,178,185, 0.2);
+    color: #cccccc;
+}
+.conversion-page .result-btn-copy:hover {
+    background: rgba(141,178,185, 0.4);
+    color: #ffffff;
+}
 
 .conversion-page .extra-conv {
     padding-top: 20px;

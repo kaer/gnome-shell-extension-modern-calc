@@ -273,9 +273,10 @@ const UnitConverterModule = new Lang.Class({
             style_class: "result-title"
         });
 
-        this._resultLabel = new St.Label({
-            text: "",
-            style_class: "result-label"
+        this._resultHBox = new St.BoxLayout({
+            style_class: '',
+            vertical: false,
+            visible: true
         });
 
         this._resultBox.add(this._resultTitleLabel, {
@@ -284,11 +285,35 @@ const UnitConverterModule = new Lang.Class({
             y_align: St.Align.START
         });
 
-        this._resultBox.add(this._resultLabel, {
+        this._resultBox.add(this._resultHBox, {
             expand: true,
             x_align: St.Align.START,
             y_align: St.Align.START
         });
+
+
+        this._resultLabel = new St.Label({
+            text: "",
+            style_class: "result-label"
+        });
+
+        this._btnCopyResult = new St.Button({
+            label: "Copy",
+            style_class: "result-btn-copy"
+        });
+        this._btnCopyResult.connect("clicked", Lang.bind(this, this._copyMainResult));
+
+        this._resultHBox.add(this._resultLabel, {
+            expand: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
+
+        this._resultHBox.add(this._btnCopyResult, {
+            expand: false,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });        
 
         // Additional conv
         this._additionalConvBox = new St.BoxLayout({
