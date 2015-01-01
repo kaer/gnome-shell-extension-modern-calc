@@ -578,6 +578,7 @@ const UnitConverterModule = new Lang.Class({
     _clearMeasurementFilter: function(){
         this._measurementFilterEntry.text = "";
         this._showMeasurements();
+        this.clear_status_message();
     },
 
     _measurementFilterEntryKeyPress: function(actor, event) {
@@ -635,16 +636,25 @@ const UnitConverterModule = new Lang.Class({
 
             if(term != undefined) term = term.toUpperCase();
 
-            let listButton;
+            let listButton, count = 0;
             for(let i=0; i< this._measurementListButton.length; i++){
                 listButton = this._measurementListButton[i];
 
                 if(term == undefined || listButton.label.toUpperCase().indexOf(term) != -1){
                     listButton.visible = true;
                     this._visibleMeasurementButtonNameList.push(listButton.label);
+                    count++;
                 } else {
                     listButton.visible = false;
                 }
+            }
+
+            if(count == 0){
+                this.set_status_message("information", "Nothing found");
+            } else if(count == 1) {
+                this.set_status_message("information", "One measurement was found");
+            } else {
+                this.set_status_message("information", count+ " measurements were found");
             }
         }
     },
@@ -663,11 +673,10 @@ const UnitConverterModule = new Lang.Class({
                 this._measurementChooserPage.visible = true;
                 this._resultBox.visible = false;
 
-                this._measurementFilterEntry.text = '';
+                this._clearMeasurementFilter();
+
                 this._measurementFilterEntry.grab_key_focus();
 
-                this._showMeasurements();
-                
                 this._clearActiveMeasurement();
 
                 this._activePage = page_name;
