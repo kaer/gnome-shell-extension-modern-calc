@@ -747,6 +747,9 @@ const UnitConverterModule = new Lang.Class({
 
         let expr = this._expressionEntry.text;
 
+        // replaces  commas by dots
+        expr = Utils.replaceAll(expr, ',', '.');
+
         if(this._activeMeasurement === null){
             this.set_status_message("error", "Select a Measurement first");
 

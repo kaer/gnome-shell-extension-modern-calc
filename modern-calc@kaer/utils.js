@@ -99,3 +99,11 @@ function is_blank(str) {
     return (!str || /^\s*$/.test(str));
 }
 
+// replaces matches of a substring
+function replaceAll(text, term, sub){
+    if(text == undefined) return undefined;
+    if(term == undefined) return text;
+    if(sub == undefined) sub = '';
+
+    return text.split(term).join(sub);
+}
