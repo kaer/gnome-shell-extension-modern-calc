@@ -108,7 +108,7 @@ const IndicatorButton = new Lang.Class({
         let preferences_item = new PopupMenu.PopupMenuItem("Preferences");
         preferences_item.connect("activate", Lang.bind(this, function() {
             this._modernCalc.hide();
-            Utils.launch_extension_prefs(Me.uuid);
+            Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
         }));
         this.menu.addMenuItem(preferences_item);        
     },

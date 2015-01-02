@@ -38,6 +38,7 @@ const Panel = imports.ui.panel;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
+const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const AppHeader = Me.imports.app_header;
@@ -113,7 +114,7 @@ const ModernCalc = new Lang.Class({
             label: 'Settings', style_class: 'toolbar-button'
         });
         this._prefButton.connect("clicked", Lang.bind(this, function(){
-            Utils.launch_extension_prefs(Me.uuid);
+            Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
             this.hide();
         }));
 
