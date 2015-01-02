@@ -71,6 +71,8 @@ const ModernCalc = new Lang.Class({
         };
         this.parent(params);
 
+        this._decimalMark = '.';
+        this._updateDecimalMark();
 
         this._appHeader = null;
         this._statusBar = null;
@@ -92,6 +94,10 @@ const ModernCalc = new Lang.Class({
 
         this._signals = null;
         this._connectSignals();
+    },
+
+    _updateDecimalMark: function(){
+        this._decimalMark = this._preferences.get_string(PrefsKeys.CALC_DECIMAL_MARK_KEY);
     },
 
     _prepareInterface: function(){
@@ -445,6 +451,12 @@ const ModernCalc = new Lang.Class({
         if(this._signals === null)
                 this._signals = [];
 
+        // decimal mark
+        this._signals.push(
+            this._preferences.connect("changed::" + PrefsKeys.CALC_DECIMAL_MARK_KEY, Lang.bind(this, this._updateDecimalMark))
+        );
+
+        // theme
         this._signals.push(
             this._preferences.connect("changed::" + PrefsKeys.THEME_KEY, Lang.bind(this, this._updateTheme))
         );
@@ -550,6 +562,10 @@ const ModernCalc = new Lang.Class({
 
     get active_module(){
         return this._activeModule;
+    },
+
+    get decimal_mark(){
+        return this._decimalMark;
     }
 
 

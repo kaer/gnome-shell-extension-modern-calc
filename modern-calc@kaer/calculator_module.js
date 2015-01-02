@@ -342,6 +342,16 @@ const CalculatorModule = new Lang.Class({
         
     },
 
+    _changeDecimalMark: function(expression){
+        if(expression != undefined){
+            let dmPat = /,/g, dMark = this.params.app.decimal_mark;
+            if(dMark == ',') dmPat = /\./g;
+            expression = expression.replace(dmPat, dMark);
+        }
+
+        return expression;
+    },
+
     _formatInput: function(expression){
         //NOTICE: DO NOT change the case of text because some symbols like PI
         // are misunderstood by the calculator program
@@ -351,9 +361,10 @@ const CalculatorModule = new Lang.Class({
 
 
         // Join everything together, then replace commas with periods to support
-        // Using a comma as a decimal point
-        expression = expression.split(" ").join("").replace(/,/g, ".");
+        expression = expression.split(" ").join("");
 
+        // change decimal mark
+        expression = this._changeDecimalMark(expression);
 
         // replace ANS by the last answer
         if(expression.indexOf('ANS') != -1 || expression.indexOf('ans') !=-1){
@@ -387,10 +398,11 @@ const CalculatorModule = new Lang.Class({
 
         result = result.replace("\u2212", '-');
 
+        result = this._changeDecimalMark(result);
+
         return result;
     },
 
-    //TODO see why gnome-calculator removes commas and periods of decimal numbers
     _calculateResult: function(expression) {
         
         let formattedExpression = this._formatInput(expression);

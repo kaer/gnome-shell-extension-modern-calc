@@ -46,3 +46,6 @@ const SHOW_APP_SHORTCUT_KEY = 'show-app-shortcut';
 
 const CALC_CLEAR_SHORTCUT_KEY = 'calc-clear-shortcut';
 const CALC_COPY_RESULT_SHORTCUT_KEY = 'calc-copy-result-shortcut';
+
+// Calc
+const CALC_DECIMAL_MARK_KEY = 'decimal-mark';

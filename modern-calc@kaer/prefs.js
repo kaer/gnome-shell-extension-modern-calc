@@ -357,9 +357,11 @@ const PrefsWidget = new GObject.Class({
         let appearance_page = this._get_appearance_page();
         let module_page = this._get_modules_page();
         let shortcuts_page = this._get_shortcuts_page();
+        let calc_page = this._get_calc_page();
 
         notebook.append_page(appearance_page.page, appearance_page.label);
         notebook.append_page(module_page.page, module_page.label);
+        notebook.append_page(calc_page.page, calc_page.label);
         notebook.append_page(shortcuts_page.page, shortcuts_page.label);
 
         this.add(notebook);
@@ -524,6 +526,37 @@ const PrefsWidget = new GObject.Class({
         let keybindings_widget = new KeybindingsWidget(keybindings);
         keybindings_widget.set_sensitive(shortcuts_enabled);
         page.add_item(keybindings_widget)
+
+        let result = {
+            label: page_label,
+            page: page
+        };
+        return result;
+    },
+
+    _get_calc_page: function() {
+        let page_label = new Gtk.Label({
+            label: 'Calculator'
+        });
+        let page = new PrefsGrid(this._settings);
+
+        let decimal_marks = [
+            {
+                title: 'Dot',
+                value: Constants.DECIMAL_MARK.DOT
+            },
+            {
+                title: 'Comma',
+                value: Constants.DECIMAL_MARK.COMMA
+            }
+        ];
+
+        page.add_combo(
+            'Decimal Mark:',
+            PrefsKeys.CALC_DECIMAL_MARK_KEY,
+            decimal_marks,
+            'string'
+        );
 
         let result = {
             label: page_label,

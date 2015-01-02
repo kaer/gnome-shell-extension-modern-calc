@@ -35,3 +35,9 @@ const MODULES = {
 	CALCULATOR: 'calculator',
 	UNIT_CONVERTER: 'unit_converter'
 };
+
+// CALC
+const DECIMAL_MARK = {
+    DOT: '.',
+    COMMA: ','
+};

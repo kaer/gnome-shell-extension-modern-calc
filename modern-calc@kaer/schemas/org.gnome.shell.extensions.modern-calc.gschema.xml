@@ -63,5 +63,9 @@
         <default><![CDATA[['<Ctrl><Shift>C']]]></default>
     </key>
 
+    <key type="s" name="decimal-mark">
+        <default>'.'</default>
+    </key>
+
   </schema>
 </schemalist>
