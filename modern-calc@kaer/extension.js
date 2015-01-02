@@ -85,6 +85,23 @@ const IndicatorButton = new Lang.Class({
                 break;
         }
     },
+    
+    // GSHELL 3.14
+    _onEvent: function(actor, event) {
+        if (event.type() == Clutter.EventType.BUTTON_PRESS){
+            
+            switch(event.get_button()) {
+                case Clutter.BUTTON_SECONDARY:
+                    this.menu.toggle();
+                    break;
+                case Clutter.BUTTON_MIDDLE:
+                    break;
+                default:
+                    this._modernCalc.toggle();
+                    break;
+            }
+        }
+    },
 
     _createContextMenu: function() {
 
