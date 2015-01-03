@@ -116,9 +116,9 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnExp.connect("clicked", Lang.bind(this, this._btnExpClick));
 
         this._btnDecimalSep = new St.Button({
-            label: '.', style_class: 'normal-button'  //TODO trocar ponto por virg dependendo da loc de exibição do usuário
+            label: this.params.calc_app.decimal_mark, style_class: 'normal-button'
         });
-        this._btnDecimalSep.connect("clicked", Lang.bind(this, function(){ this._pushValue('.');})); //TODO trocar pelo separador decimal do computador do usuario
+        this._btnDecimalSep.connect("clicked", Lang.bind(this, function(){ this._pushValue(this.params.calc_app.decimal_mark);}));
 
         
         // delete buttons
@@ -157,12 +157,12 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnPow2.connect("clicked", Lang.bind(this, function(){ this._pushValue('²');}));
 
         this._btnOpenBracket = new St.Button({
-            label: '(', style_class: 'special-button' //TODO change font
+            label: '(', style_class: 'special-button'
         });
         this._btnOpenBracket.connect("clicked", Lang.bind(this, function(){ this._pushValue('(');}));
 
         this._btnCloseBracket = new St.Button({
-            label: ')', style_class: 'special-button' //TODO change font
+            label: ')', style_class: 'special-button'
         });
         this._btnCloseBracket.connect("clicked", Lang.bind(this, function(){ this._pushValue(')');}));
 

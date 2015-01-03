@@ -477,5 +477,12 @@ const CalculatorModule = new Lang.Class({
         return this._expFlag;
     },
 
+    get decimal_mark(){
+        if(this.params.app)
+            return this.params.app.decimal_mark;
+        else 
+            return '.'
+    },
+
 
 });
