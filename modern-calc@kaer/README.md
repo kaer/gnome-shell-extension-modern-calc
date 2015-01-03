@@ -45,6 +45,25 @@ Note: This is extension was developed for Gnome Shell 3.10-3.14 and may not run 
 ## Usage
 Check the RELEASE NOTES file to see the accepted shortcuts.
 
+
+Unit converter
+
+The use of unit converter (UC) is very easy, first you need to select a measurement you wanna to convert and later write the expression to convert.
+
+- The syntax accepted is:
+	1mm to m
+
+- Note: UC's expressions are case-sensitive and if you write something like:
+	1mm to M 
+
+	it won't convert because, there is a unit with the symbol M (upper case) for other measurement than length.
+
+
+- Prefixes
+	Prefixes k (kilo), M (mega) and others are accepted except for temperatures.
+	usage:
+		1Mm to mm
+
 ## Bugs and wishlist
 
 If you find bugs or want new features report it to the project [bug tracker](https://github.com/kaer/gnome-shell-extension-modern-calc).
