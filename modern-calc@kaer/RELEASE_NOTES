@@ -1,7 +1,7 @@
 version 5
  - Features
 	General
-     -theme support (is necessary to restart gnome-shell, disable and enable the extension)
+     -theme support (change the theme, disable and enable the extension)
 
 	dynamic settings 
 	 - reveal animation

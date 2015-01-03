@@ -459,10 +459,9 @@ const ModernCalc = new Lang.Class({
         );
 
         // theme
-        //FIXME Disabled because background color wasn't loaded
-        /*this._signals.push(
+        this._signals.push(
             this._preferences.connect("changed::" + PrefsKeys.THEME_KEY, Lang.bind(this, this._updateTheme))
-        );*/
+        );
 
         // reveal animation
         this._signals.push(
