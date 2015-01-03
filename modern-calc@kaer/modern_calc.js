@@ -67,7 +67,7 @@ const ModernCalc = new Lang.Class({
             height_percents: 100, 
             animation_time: 0.5,
             enable_reveal_animation: this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY),
-            style_class: 'modern-calc'
+            style_class: 'mc-' + this._preferences.get_string(PrefsKeys.THEME_KEY)
         };
         this.parent(params);
 
@@ -409,11 +409,13 @@ const ModernCalc = new Lang.Class({
         if(this._stylesheet)
             theme.unload_stylesheet(this._stylesheet);
 
-
+        
         // load stylesheet
         theme.load_stylesheet(theme_stylesheet);
         this._stylesheet = theme_stylesheet;
 
+        this.boxLayout.set_style_class_name("mc-"+theme_name);
+        this._setBackgroundOpacity();
 
         return true;
     },
@@ -457,9 +459,10 @@ const ModernCalc = new Lang.Class({
         );
 
         // theme
-        this._signals.push(
+        //FIXME Disabled because background color wasn't loaded
+        /*this._signals.push(
             this._preferences.connect("changed::" + PrefsKeys.THEME_KEY, Lang.bind(this, this._updateTheme))
-        );
+        );*/
 
         // reveal animation
         this._signals.push(
