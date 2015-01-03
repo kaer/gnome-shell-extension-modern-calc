@@ -44,7 +44,7 @@
     </key>
 
     <key type="b" name="unit-converter-enabled">
-        <default>false</default>
+        <default>true</default>
     </key>
 
     <!-- shortcuts -->
