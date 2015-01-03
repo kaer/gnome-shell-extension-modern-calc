@@ -481,8 +481,7 @@ const CalculatorModule = new Lang.Class({
         if(this.params.app)
             return this.params.app.decimal_mark;
         else 
-            return '.'
-    },
-
+            return '.';
+    }
 
 });
