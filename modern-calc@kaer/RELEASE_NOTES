@@ -1,5 +1,44 @@
 version 5
- - metadata changed to work with version 3.14
+ - Features
+	General
+     -theme support (is necessary to restart gnome-shell, disable and enable the extension)
+
+	dynamic settings 
+	 - reveal animation
+	 - show/hide indicator
+	 - general opacity
+	 - background opacity
+
+	 shortcuts:
+	 - navigation between modules CTRL+PgDown / CTRL+PgUp
+
+	Calculator:
+	 shortcuts:
+	 - CTRL+Space (CTRL+Delete didn't worked) has the same action of Clear button
+	 - CTRL+Shift+C Copy result
+	 - CTRL+Shift+H Clear History
+	 - CTRL+H Use history's current expression
+	 - CTRL+G History move left
+	 - CTRL+J History move right (Ctrl+K didn't worked)
+
+	Unit converter
+	 shortcuts:
+	 - CTRL+Space to clear entries (measurement filter, expression)
+	 - CTRL+M Show measurement chooser
+	 - CTRL+Shift+C Copy main result
+
+	 Measurements:
+	 - length
+	 - Speed
+	 - Temperature
+
+ - Bug fixes
+	General
+	 - fixes to work with v3.14
+	
+	Calculator:
+	 - option to change decimal mark (settings)
+	 - Issue #1: Buttons moving when the 'pi' replacement is done, solved by Raalraan
 
 
 
