@@ -33,6 +33,47 @@
     border-left: 1px solid #000000;
 }
 
+/* MESSAGE ----------------------------------------------------------------- */
+.mc-default-theme .message-view .mbox {
+    padding: 5px;
+}
+
+.mc-default-theme .message-view .mbox .m-title {
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 14pt;
+    color: #ffffff;
+}
+
+.mc-default-theme .message-view .mbox .m-group .icon { icon-size: 32px; padding-right: 10px; }
+.mc-default-theme .message-view .mbox .m-group .icon:warning { color: orange; }
+.mc-default-theme .message-view .mbox .m-group .icon:error { color: red; }
+
+.mc-default-theme .message-view .mbox .m-group .m-content {
+    font-size: 12pt;
+    color: rgba(147,167,172, 0.8);
+}
+
+.mc-default-theme .message-view .mbox .button-group {
+    padding-top: 20px;
+}
+
+.mc-default-theme .message-view .mbox .button-group .button-container {
+    padding-right: 5px;
+}
+
+.mc-default-theme .message-view .mbox .button-group .button-container .m-button {
+    padding: 8px 20px;
+    background: rgba(141,178,185, 0.2);
+    font-size: 11pt;
+    color: #cccccc;
+}
+.mc-default-theme .message-view .mbox .button-group .button-container .m-button:hover {
+    background: rgba(141,178,185, 0.4);
+    color: #ffffff;
+}
+
+/* ------------------------------------------------------------------------- */
 .mc-default-theme .toolbar {
     background: rgba(50,50,50, 0.2);
 }

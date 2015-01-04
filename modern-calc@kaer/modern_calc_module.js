@@ -154,6 +154,20 @@ const ModernCalcModule = new Lang.Class({
         }
     },
 
+    show_message: function(messageType, title, message, buttonType){
+        if(this.params.app){
+            this.params.app.show_message(messageType, title, message, buttonType);
+        }
+    },
+
+    get_message_result: function(){
+        if(this.params.app){
+            this.params.app.get_message_result();
+        }
+        
+        return null;
+    },
+
     set actor(actor){
         this._actor = actor;
     },

@@ -42,11 +42,12 @@ const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const AppHeader = Me.imports.app_header;
-const Dialog = Me.imports.dialog;
-const Utils = Me.imports.utils;
 const Constants = Me.imports.constants;
+const Dialog = Me.imports.dialog;
+const MessageView = Me.imports.message_view;
 const PrefsKeys = Me.imports.prefs_keys;
 const StatusBar = Me.imports.status_bar;
+const Utils = Me.imports.utils;
 
 const Notify = Utils.showMessage;
 
@@ -73,6 +74,11 @@ const ModernCalc = new Lang.Class({
 
         this._decimalMark = '.';
         this._updateDecimalMark();
+
+        this._showingMessageView = false;
+        this._messageView = new MessageView.MessageView({
+            app: this
+        });
 
         this._appHeader = null;
         this._statusBar = null;
@@ -108,6 +114,12 @@ const ModernCalc = new Lang.Class({
             x_align: St.Align.MIDDLE,
             y_align: St.Align.MIDDLE
         });*/
+
+        this.boxLayout.add(this._messageView.actor, {
+            expand: false,
+            x_align: St.Align.MIDDLE,
+            y_align: St.Align.START
+        });
 
         // add toolbar
         this._toolbar = new St.BoxLayout({
@@ -421,15 +433,23 @@ const ModernCalc = new Lang.Class({
     },
 
     _onShow: function(){
-        if(this._activeModule !== false){
-            // execute module's on_activate instructions
-            this._activeModule.on_activate();
+        if(this._showingMessageView){
+
+        } else {
+            if(this._activeModule !== false){
+                // execute module's on_activate instructions
+                this._activeModule.on_activate();
+            }
         }
     },
 
     _onHide: function(){
-        if(this._activeModule !== false){
-            this._activeModule.on_deactivate();
+        if(this._showingMessageView){
+
+        } else {
+            if(this._activeModule !== false){
+                this._activeModule.on_deactivate();
+            }
         }
     },
 
@@ -535,11 +555,16 @@ const ModernCalc = new Lang.Class({
             }
         }
 
-        // module key press
-        if(this._activeModule !== false){
-            this._activeModule.on_key_press_event(o, e);
-        }
 
+        if(this._showingMessageView){
+            this._messageView.on_key_press_event(o, e);
+        } else {
+            // module key press
+            if(this._activeModule !== false){
+                this._activeModule.on_key_press_event(o, e);
+            }    
+        }
+        
         return false;
     },
 
@@ -552,6 +577,49 @@ const ModernCalc = new Lang.Class({
     clear_status_message: function(){
         if(this._statusBar !== null)
             this.status_bar.clear_message();
+    },
+
+    _showMessageView: function (){
+        // deactivate module
+        if(this._activeModule){
+            this.actor.grab_key_focus();
+
+            this._activeModule.on_deactivate();
+        }
+
+        this._toolbar.visible = false;
+        this._moduleContainer.visible = false;
+        this._statusBar.visible = false;
+
+        this._messageView.visible = true;
+        
+        this._showingMessageView = true;
+    },
+
+    hide_message_view: function(){
+        this._toolbar.visible = true;
+        this._moduleContainer.visible = true;
+        this._statusBar.visible = true;
+
+        this._messageView.visible = false;
+
+        // activate module
+        if(this._activeModule){
+            this._activeModule.on_activate();
+        }
+
+        this._showingMessageView = false;
+    },
+
+    show_message: function(messageType, title, message, buttonType){
+        if(messageType != undefined && title != undefined && message != undefined){
+            this._showMessageView();
+            this._messageView.show_message(messageType, title, message, buttonType);
+        }
+    },
+
+    get_message_result: function(){
+        return this._messageView.get_result();
     },
 
     get preferences(){
