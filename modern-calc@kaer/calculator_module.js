@@ -325,21 +325,49 @@ const CalculatorModule = new Lang.Class({
 
     calculate: function(){ 
 
-        // wait information
         this.display.clear_result();
-        this.set_status_message('information', 'Waiting answer...');
+        
 
         let expression = this.display.get_entry_data();
-        let calc_res = this._calculateResult(expression);
-        this.display.set_current_result(calc_res);
 
-        // status info
-        if(calc_res.status == 'error'){
-            this.set_status_message('error', calc_res.result); 
+        let continue_calculus = true;
+
+        // check for decimal mark
+        if(expression.indexOf('.') != -1 || expression.indexOf(',') != -1){
+            continue_calculus = this._checkDecimalMark();
+        }
+
+        if(continue_calculus){
+            // wait information
+            this.set_status_message('information', 'Waiting answer...');
+
+            let calc_res = this._calculateResult(expression);
+            this.display.set_current_result(calc_res);
+
+            // status info
+            if(calc_res.status == 'error'){
+                this.set_status_message('error', calc_res.result); 
+            } else {
+                this.clear_status_message();
+            }
         } else {
-            this.clear_status_message();    
+            this.set_status_message('warning', 'Was not possible to compute.');
         }
         
+    },
+
+    _checkDecimalMark: function(){
+        let dMark = this.params.app.decimal_mark;
+
+        if(dMark == ''){
+            this.show_message('warning', 'Calculator', "The decimal mark is undefined, you can't use this calculator for computing expressions with decimal numbers if the decimal mark is not defined. Please see section WARNING of README.md and later set the decimal mark in the settings of this extension at tab \"Calculator\".", 'info');
+            return false;
+
+        } else {
+            if(dMark == ',' || dMark == '.') return true;
+        }
+
+        return false;
     },
 
     _changeDecimalMark: function(expression){
