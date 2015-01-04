@@ -38,6 +38,7 @@ const MODULES = {
 
 // CALC
 const DECIMAL_MARK = {
+    UNSET: '',
     DOT: '.',
     COMMA: ','
 };

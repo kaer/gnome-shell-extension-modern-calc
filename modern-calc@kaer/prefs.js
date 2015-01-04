@@ -542,6 +542,10 @@ const PrefsWidget = new GObject.Class({
 
         let decimal_marks = [
             {
+                title: 'Undefined',
+                value: Constants.DECIMAL_MARK.UNSET
+            },
+            {
                 title: 'Dot',
                 value: Constants.DECIMAL_MARK.DOT
             },

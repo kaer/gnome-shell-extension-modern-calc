@@ -72,7 +72,7 @@ const ModernCalc = new Lang.Class({
         };
         this.parent(params);
 
-        this._decimalMark = '.';
+        this._decimalMark = '';
         this._updateDecimalMark();
 
         this._showingMessageView = false;

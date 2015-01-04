@@ -64,7 +64,7 @@
     </key>
 
     <key type="s" name="decimal-mark">
-        <default>'.'</default>
+        <default>''</default>
     </key>
 
   </schema>
