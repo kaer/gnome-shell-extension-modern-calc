@@ -2,6 +2,7 @@ version 5
  - Features
 	General
      -theme support (change the theme, disable and enable the extension)
+     -message system was added (navigation keys are <O>, <Y>, <N> or <ENTERS>)
 
 	dynamic settings 
 	 - reveal animation
