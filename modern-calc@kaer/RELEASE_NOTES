@@ -1,3 +1,8 @@
+version 6
+ - Fix: when the decimal mark is unset, the calc now uses a dot in order to show a message asking to set a decimal mark
+
+
+
 version 5
  - Features
 	General
