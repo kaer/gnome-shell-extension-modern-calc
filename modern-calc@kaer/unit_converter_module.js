@@ -793,6 +793,8 @@ const UnitConverterModule = new Lang.Class({
                     // show the result
                     this._showResult(result);
 
+                    qty = null;
+
                 } catch(e) {
                     
                     if(e instanceof Qty.Qty.Error) {
@@ -829,6 +831,12 @@ const UnitConverterModule = new Lang.Class({
 
     _clearResult: function(){
         this._resultLabel.text = "";
+
+        if(this._extraConvList!== null){
+            for(let i=0; i < this._extraConvList.length;i++)
+                this._extraConvList.pop();
+        }
+
         this._extraConvList = null;
         this._additionalConvBox.visible = false;
     },
@@ -888,6 +896,11 @@ const UnitConverterModule = new Lang.Class({
     },
 
     destroy: function(){
+        this._measurementList = null;
+        this._extraConvList = null;
+        this._measurementListButton = null;
+        this._availableUnitsInfoBox = null;
+
         this.parent();
     },
 
