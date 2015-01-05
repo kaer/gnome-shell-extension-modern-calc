@@ -300,293 +300,51 @@ const BasicCalcButtonGrid = new Lang.Class({
             line_0button = 5;
 
         // delete buttons
-        this._buttonGrid.add(this._btnClearLastChar, {
-            row: line_second,
-            col: 4,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnclearExpression, {
-            row: line_first,
-            col: 4,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btnClearLastChar, line_second, 4, 1, 1);
+        this._addToGrid(this._btnclearExpression, line_first, 4, 1, 1);
 
         // btn nums
-        this._buttonGrid.add(this._btn7, {
-            row: line_7button,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn8, {
-            row: line_7button,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn9, {
-            row: line_7button,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btn7, line_7button, 0, 1, 1);
+        this._addToGrid(this._btn8, line_7button, 1, 1, 1);
+        this._addToGrid(this._btn9, line_7button, 2, 1, 1);
 
         // row
-        this._buttonGrid.add(this._btn4, {
-            row: line_4button,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn5, {
-            row: line_4button,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn6, {
-            row: line_4button,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btn4, line_4button, 0, 1, 1);
+        this._addToGrid(this._btn5, line_4button, 1, 1, 1);
+        this._addToGrid(this._btn6, line_4button, 2, 1, 1);
 
         // row
-        this._buttonGrid.add(this._btn1, {
-            row: line_1button,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn2, {
-            row: line_1button,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        this._buttonGrid.add(this._btn3, {
-            row: line_1button,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btn0, {
-            row: line_0button,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btn1, line_1button, 0, 1, 1);
+        this._addToGrid(this._btn2, line_1button, 1, 1, 1);
+        this._addToGrid(this._btn3, line_1button, 2, 1, 1);
+        this._addToGrid(this._btn0, line_0button, 1, 1, 1);
 
 
         // auxiliary buttons
-        this._buttonGrid.add(this._btnDecimalSep, {
-            row: line_0button,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnExp, {
-            row: line_0button,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-        
+        this._addToGrid(this._btnDecimalSep, line_0button, 2, 1, 1);
+        this._addToGrid(this._btnExp, line_0button, 0, 1, 1);
 
         // action buttons
-        this._buttonGrid.add(this._btnMinus, {
-            row: line_4button,
-            col: 4,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnSum, {
-            row: line_4button,
-            col: 3,
-            col_span: 1,
-            row_span: 2,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnDiv, {
-            row: line_7button,
-            col: 4,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnTimes, {
-            row: line_7button,
-            col: 3,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-
-        this._buttonGrid.add(this._btnANS, {
-            row: line_1button,
-            col: 4,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-
-        this._buttonGrid.add(this._btnEqual, {
-            row: line_0button,
-            col: 3,
-            col_span: 2,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
+        this._addToGrid(this._btnMinus, line_4button, 4, 1, 1);
+        this._addToGrid(this._btnSum, line_4button, 3, 2, 1);
+        this._addToGrid(this._btnDiv, line_7button, 4, 1, 1);
+        this._addToGrid(this._btnTimes, line_7button, 3, 1, 1);
+        this._addToGrid(this._btnANS, line_1button, 4, 1, 1);
+        this._addToGrid(this._btnEqual, line_0button, 3, 1, 2);
 
         // special buttons
-        this._buttonGrid.add(this._btnPercent, {
-            row: line_first,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnPI, {
-            row: line_first,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnSquareRoot, {
-            row: line_second,
-            col: 0,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnPow2, {
-            row: line_second,
-            col: 1,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btnPercent, line_first, 0, 1, 1);
+        this._addToGrid(this._btnPI, line_first, 1, 1, 1);
         
-        this._buttonGrid.add(this._btnOpenBracket, {
-            row: line_second,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnCloseBracket, {
-            row: line_second,
-            col: 3,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btnSquareRoot, line_second, 0, 1, 1);
+        this._addToGrid(this._btnPow2, line_second, 1, 1, 1);
+        this._addToGrid(this._btnOpenBracket, line_second, 2, 1, 1);
+        this._addToGrid(this._btnCloseBracket, line_second, 3, 1, 1);
 
 
         // clipboard buttons
-        this._buttonGrid.add(this._btnCopyToClipboard, {
-            row: line_first,
-            col: 2,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-
-        this._buttonGrid.add(this._btnPasteFromClipboard, {
-            row: line_first,
-            col: 3,
-            col_span: 1,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this._addToGrid(this._btnCopyToClipboard, line_first, 2, 1, 1);
+        this._addToGrid(this._btnPasteFromClipboard, line_first, 3, 1, 1);
         
         // add to actor
         this.actor.add(this._buttonGrid, { 
@@ -595,6 +353,20 @@ const BasicCalcButtonGrid = new Lang.Class({
             x_align: St.Align.START
         });
 
+    },
+
+    _addToGrid: function(btnActor, rowNum, colNum, rowSpan, colSpan){
+
+        this._buttonGrid.add(btnActor, {
+            row: rowNum,
+            col: colNum,
+            row_span: rowSpan,
+            col_span: colSpan,
+            x_fill: true,
+            y_fill: true,
+            x_align: St.Align.START,
+            y_align: St.Align.START
+        });
     },
 
 
