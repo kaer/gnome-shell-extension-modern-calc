@@ -115,10 +115,12 @@ const BasicCalcButtonGrid = new Lang.Class({
         });
         this._btnExp.connect("clicked", Lang.bind(this, this._btnExpClick));
 
+        let dMark = this.params.calc_app.decimal_mark;
+        if(dMark == '') dMark = '.';
         this._btnDecimalSep = new St.Button({
-            label: this.params.calc_app.decimal_mark, style_class: 'normal-button'
+            label: dMark, style_class: 'normal-button'
         });
-        this._btnDecimalSep.connect("clicked", Lang.bind(this, function(){ this._pushValue(this.params.calc_app.decimal_mark);}));
+        this._btnDecimalSep.connect("clicked", Lang.bind(this, function(){ this._pushValue(dMark);}));
 
         
         // delete buttons
