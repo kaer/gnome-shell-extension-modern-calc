@@ -76,7 +76,7 @@ This extension is licensed under GPLv2.
 ##Thanks
 
 I'd like to thank each developer of the following extensions and/or libraries:
- - [The maintainer of js-quantities](https://github.com/gentooboontoo/js-quantities)
+ - [js-quantities](https://github.com/gentooboontoo/js-quantities)
 
  - [GCalcSearch](https://github.com/war1025/GCalcSearch)
  - [Gnote/Tomboy Integration](https://github.com/awamper/gnote-integration)
