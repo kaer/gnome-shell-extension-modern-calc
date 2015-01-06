@@ -53,7 +53,7 @@ The use of unit converter (UC) is very easy, first you need to select a measurem
 	<value><unit source> to <unit expected>
 
 	e.g:
-	 1Mpa
+	 1MPa
 	 1mm to m
 
 - Note: UC's expressions are case-sensitive and if you write something like:
