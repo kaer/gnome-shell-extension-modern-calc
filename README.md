@@ -19,13 +19,9 @@ Use the termimal to check the accepted decimal mark of gnome-calculator in your 
  	test for dots:
  		gnome-calculator -s "2.2+1"
 
-
  	If the result of the calculus above is 3.2 (dot is decimal mark) or 3,2 (comma is decimal mark), open the extension settings and change the decimal mark (calculator tab) to the decimal mark recognized by your system. If the result is 23 Don't use this extension for computing decimal numbers.
 
- 	Do not use others separators than decimal mark
-
-
-The unit converter just uses dots (.) as decimal mark.
+ 	Do not use others separators than decimal mark.
 
 ## Dependencies
 
@@ -51,13 +47,19 @@ Unit converter
 
 The use of unit converter (UC) is very easy, first you need to select a measurement you wanna to convert and later write the expression to convert.
 
-- The syntax accepted is:
-	1mm to m
+- The accepted syntax is:
+	<value><unit source>
+	or
+	<value><unit source> to <unit expected>
+
+	e.g:
+	 1Mpa
+	 1mm to m
 
 - Note: UC's expressions are case-sensitive and if you write something like:
-	1mm to M 
+	1mm to M
 
-	it won't convert because, there is a unit with the symbol M (upper case) for other measurement than length.
+	it won't convert because M (upper case) is the prefix of mega (10e-6) and could be the symbol of another unit.
 
 
 - Prefixes

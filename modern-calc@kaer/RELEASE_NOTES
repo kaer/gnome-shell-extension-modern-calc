@@ -1,3 +1,8 @@
+version 7
+ - More measurements for unit converter: Acceleration, Area, Energy, Force, Mass, Power, Pressure, Time and Volume
+
+
+
 version 6
  - Fix: when the decimal mark is unset, the calc now uses a dot in order to show a message asking to set a decimal mark
 

@@ -6,5 +6,5 @@
   "settings-schema": "org.gnome.shell.extensions.modern-calc",
   "description": "A full featured calculator for gnome-shell.",
   "url": "https://github.com/kaer/gnome-shell-extension-modern-calc",
-  "version": 6
+  "version": 7
 }
