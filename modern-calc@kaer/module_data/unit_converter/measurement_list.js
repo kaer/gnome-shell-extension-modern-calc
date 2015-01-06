@@ -25,6 +25,101 @@
  */
 
 var MeasurementList = [
+        // Acceleration
+        {
+            'name': 'Acceleration',
+            'available_units': [
+                { 'name': 'km/s2', 'c_symbol': 'km/s2', 'symbol': 'km/s²' },
+                { 'name': 'm/s2', 'c_symbol': 'm/s2', 'symbol': 'm/s²' },
+                { 'name': 'gee', 'c_symbol': 'gee', 'symbol': 'gee' }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                return result;
+            }
+        },
+        //Area
+        {
+            'name': 'Area',
+            'available_units': [
+                { 'name': 'acre', 'c_symbol': 'acre', 'symbol': ['acre','acres'] },
+                { 'name': 'hectare', 'c_symbol': 'hectare', 'symbol': 'hectare' },
+                //{ 'name': 'sqft', 'c_symbol': 'sqft', 'symbol': 'sqft' }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                parts = result.split(' ');
+
+                // plural form
+                if(parts[0] > 1){
+                    if(
+                        endsWith(result, 'acre')
+                    ){
+                        result = result+'s';
+                    }
+                }
+                return result;
+            }
+        },
+        // Energy
+        {
+            'name': 'Energy',
+            'available_units': [
+                { 'name': 'joule', 'c_symbol': 'J', 'symbol': ["J","joule","Joule","joules"] },
+                { 'name': 'erg', 'c_symbol': 'erg', 'symbol': ["erg","ergs"] },
+                { 'name': 'btu', 'c_symbol': 'BTU', 'symbol': ["BTU","btu","BTUs"] },
+                { 'name': 'calorie', 'c_symbol': 'cal', 'symbol': ["cal","calorie","calories"] },
+                { 'name': 'Calorie', 'c_symbol': 'Cal', 'symbol': ["Cal","Calorie","Calories"] },
+                { 'name': 'therm-US', 'c_symbol': 'th', 'symbol': ["th","therm","therms","Therm"] }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                parts = result.split(' ');
+
+                // plural form
+                if(parts[0] > 1){
+                    if(
+                        endsWith(result, 'erg')
+                    ){
+                        result = result+'s';
+                    }
+                }
+                return result;
+            }
+        },
+        // Force
+        {
+            'name': 'Force',
+            'available_units': [
+                { 'name': 'newton', 'c_symbol': 'N', 'symbol': ["N","Newton","newton"] },
+                { 'name': 'dyne', 'c_symbol': 'dyn', 'symbol': ["dyn","dyne"] },
+                { 'name': 'pound-force', 'c_symbol': 'lbf', 'symbol': ["lbf","pound-force"] }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                return result;
+            }
+        },
         // Length
         {
             'name': 'Length',
@@ -43,7 +138,7 @@ var MeasurementList = [
                 { 'name': 'fathom', 'c_symbol': 'fathom', 'symbol': ['fathom','fathoms'] },
                 { 'name': 'pica', 'c_symbol': 'pica', 'symbol': ['pica','picas'] },
                 { 'name': 'redshift', 'c_symbol': 'z', 'symbol': 'z' },
-                { 'name': 'Astronomical Unit', 'c_symbol': 'AU', 'symbol': 'AU' },
+                { 'name': 'astronomical unit', 'c_symbol': 'AU', 'symbol': 'AU' },
                 { 'name': 'light-second', 'c_symbol': 'ls', 'symbol': 'ls' },
                 { 'name': 'light-minute', 'c_symbol': 'lmin', 'symbol' : 'lmin' },
                 { 'name': 'light-year', 'c_symbol': 'ly', 'symbol': 'ly' },
@@ -73,16 +168,53 @@ var MeasurementList = [
                 return result;
             }
         },
-
-        // Speed
+        // Mass
         {
-            'name': 'Speed',
+            'name': 'Mass',
             'available_units': [
-                { 'name': 'kilometers per hour (kph)', 'c_symbol': 'km/h', 'symbol': ['km/h', 'kph'] },
-                { 'name': 'miles per hour (mph)', 'c_symbol': 'mi/h', 'symbol': ['mi/h', 'mph'] },
-                { 'name': 'knot', 'c_symbol': 'knot', 'symbol': 'kt' },
-                { 'name': 'nautical mile per hour', 'c_symbol': 'nmi/h', 'symbol': 'nmi/h' },
-                { 'name': 'feet per hour', 'c_symbol': 'feet/h', 'symbol': 'feet/h' }
+                { 'name': 'kilogram', 'c_symbol':  'kg', 'symbol': 'kg' },
+                { 'name': 'gram', 'c_symbol' : 'g', 'symbol': ['g', 'gram', 'grams'] },
+                { 'name': 'grain', 'c_symbol': 'grain', 'symbol': ['grain','grains','gr'] },
+                { 'name': 'AMU', 'c_symbol': 'u', 'symbol': ['u','AMU','amu'] },
+                { 'name': 'dalton', 'c_symbol':  'Da', 'symbol': ['Da','Dalton','Daltons'] },
+                { 'name': 'slug', 'c_symbol': 'slug', 'symbol': ['slug','slugs'] },
+                { 'name': 'short-ton', 'c_symbol': 'tn', 'symbol': ['tn','ton'] },
+                { 'name': 'metric-ton', 'c_symbol': 'tonne', 'symbol': 'tonne' },
+                { 'name': 'carat', 'c_symbol': 'ct', 'symbol': ['ct','carat','carats'] },
+                { 'name': 'pound', 'c_symbol': 'lbs', 'symbol': ['lbs','lb'] },
+                { 'name': 'ounce', 'c_symbol': 'oz', 'symbol': ['oz','ounce','ounces'] },
+                { 'name': 'dram',  'c_symbol': 'dram', 'symbol': ['dram','drams','dr'] },
+                { 'name': 'stone', 'c_symbol': 'stone', 'symbol': ['stone','stones','st'] }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                parts = result.split(' ');
+
+                // plural form
+                if(parts[0] > 1){
+                    if(
+                        endsWith(result, 'grain') || 
+                        endsWith(result, 'slug') || 
+                        endsWith(result, 'dram') || 
+                        endsWith(result, 'stone')
+                    ){
+                        result = result+'s';
+                    }
+                }
+                return result;
+            }
+        },
+        // Power
+        {
+            'name': 'Power',
+            'available_units': [
+                { 'name': 'watt', 'c_symbol': 'W', 'symbol': ["W","watt","watts"] },
+                { 'name': 'horse power', 'c_symbol': 'hp', 'symbol': ["hp","horsepower"] }
             ],
             'valid_expression': function(text){
                 return true;
@@ -94,7 +226,61 @@ var MeasurementList = [
                 return result;
             }
         },
+        // Pressure
+        {
+            'name': 'Pressure',
+            'available_units' : [
+                { 'name': 'pascal', 'c_symbol': 'Pa', 'symbol': 'Pa' },
+                { 'name': 'bar', 'c_symbol': 'bar', 'symbol': ['bar','bars'] },
+                { 'name': 'mmHg', 'c_symbol': 'mmHg', 'symbol': 'mmHg' },
+                { 'name': 'inHg', 'c_symbol': 'inHg', 'symbol': 'inHg' },
+                { 'name': 'torr', 'c_symbol': 'torr', 'symbol': 'torr' },
+                { 'name': 'atm', 'c_symbol': 'atm', 'symbol': 'atm' },
+                { 'name': 'psi', 'c_symbol': 'psi', 'symbol': 'psi' },
+                //{ 'name': 'cmh2o', 'c_symbol': 'cmH2O', 'symbol': 'cmH2O' },
+                //{ 'name': 'inh2o', 'c_symbol': 'inH2O', 'symbol': 'inH2O' }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                parts = result.split(' ');
 
+                // plural form
+                if(parts[0] > 1){
+                    if(
+                        endsWith(result, 'bar')
+                    ){
+                        result = result+'s';
+                    }
+                }
+                return result;
+            }
+        },
+        // Speed
+        {
+            'name': 'Speed',
+            'available_units': [
+                { 'name': 'kilometers per hour (kph)', 'c_symbol': 'kph', 'symbol': ['km/h', 'kph'] },
+                { 'name': 'miles per hour (mph)', 'c_symbol': 'mph', 'symbol': ['mi/h', 'mph'] },
+                { 'name': 'knot', 'c_symbol': 'kt', 'symbol': 'kt' },
+                { 'name': 'nautical mile per hour', 'c_symbol': 'nmi/h', 'symbol': 'nmi/h' },
+                { 'name': 'feet per hour', 'c_symbol': 'feet/h', 'symbol': 'feet/h' },
+                { 'name': 'feet per second', 'c_symbol': 'fps', 'symbol': 'feet/s' }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                return result;
+            }
+        },
         // Temperature
         {
             'name': 'Temperature',
@@ -140,6 +326,67 @@ var MeasurementList = [
                 result = result.replace('C', 'ºC');
                 result = result.replace('F', 'ºF');
                 
+                return result;
+            }
+        },
+        // Time
+        {
+            'name': 'Time',
+            'available_units': [
+                { 'name': 'second', 'c_symbol': 's', 'symbol': ["s","sec","secs","second","seconds"] },
+                { 'name': 'minute', 'c_symbol': 'min', 'symbol': ["min","mins","minute","minutes"] },
+                { 'name': 'hour', 'c_symbol': 'h', 'symbol': ["h","hr","hrs","hour","hours"] },
+                { 'name': 'day', 'c_symbol': 'd', 'symbol': ["d","day","days"] },
+                { 'name': 'week', 'c_symbol': 'wk', 'symbol': ["wk","week","weeks"] },
+                { 'name': 'fortnight', 'c_symbol': 'fortnight', 'symbol': ["fortnight","fortnights"] },
+                { 'name': 'year', 'c_symbol': 'y', 'symbol': ["y","yr","year","years","annum"] },
+                { 'name': 'decade', 'c_symbol': 'decade', 'symbol': ["decade","decades"] },
+                { 'name': 'century', 'c_symbol': 'century', 'symbol': ["century","centuries"] }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
+                parts = result.split(' ');
+
+                // plural form
+                if(parts[0] > 1){
+                    if(
+                        endsWith(result, 'fortnight') || 
+                        endsWith(result, 'decade')
+                    ){
+                        result = result+'s';
+                    } else if(result.indexOf('century')){
+                        result = result.replace('century', 'centuries');
+                    }
+                }
+                return result;
+            }
+        },
+        // Volume
+        {
+            'name': 'Volume',
+            'available_units': [
+                { 'name': 'liter' , 'c_symbol': 'l', 'symbol': 'l' },
+                { 'name': 'gallon', 'c_symbol': 'gal', 'symbol': ['gal','gallon','gallons'] },
+                { 'name': 'quart', 'c_symbol': 'qt', 'symbol': ['qt','quart','quarts'] },
+                { 'name': 'pint', 'c_symbol': 'pt', 'symbol': ['pt','pint','pints'] },
+                { 'name': 'cup', 'c_symbol': 'cu', 'symbol': ['cu','cup','cups'] },
+                { 'name': 'fluid-ounce', 'c_symbol': 'floz', 'symbol': ['floz','fluid-ounce'] },
+                { 'name': 'tablespoon', 'c_symbol': 'tbs', 'symbol': ['tbs','tablespoon','tablespoons'] },
+                { 'name': 'teaspoon', 'c_symbol': 'tsp', 'symbol': ['tsp','teaspoon','teaspoons'] },
+                { 'name': 'bushel', 'c_symbol': 'bu', 'symbol': ['bu','bsh','bushel','bushels'] }
+            ],
+            'valid_expression': function(text){
+                return true;
+            },
+            'replace_text': function(text){
+                return text;
+            },
+            'format_result': function(result){
                 return result;
             }
         }
