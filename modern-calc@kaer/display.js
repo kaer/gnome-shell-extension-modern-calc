@@ -39,6 +39,9 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+
 
 const Display = new Lang.Class({
     Name: "Display",
@@ -65,7 +68,7 @@ const Display = new Lang.Class({
     _initControls: function() {
         this._expression_entry = new St.Entry({
             style_class: "calc-entry",
-            hint_text: "Type your Expression",
+            hint_text: _("Type your Expression"),
             track_hover: true,
             can_focus: true
         });

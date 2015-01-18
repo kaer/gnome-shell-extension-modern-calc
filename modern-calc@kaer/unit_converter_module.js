@@ -42,6 +42,9 @@ const Me = ExtensionUtils.getCurrentExtension();
 const ModernCalcModule = Me.imports.modern_calc_module;
 const Utils = Me.imports.utils;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+
 const Qty = Me.imports.module_data.unit_converter.quantities15;
 const MeasurementList = Me.imports.module_data.unit_converter.measurement_list;
 
@@ -64,7 +67,7 @@ const UnitConverterModule = new Lang.Class({
             app: this.params.app,
             style_class: 'unit-converter-module',
             module_name: 'unit_converter',
-            toolbar_button_label: 'Converter'
+            toolbar_button_label: _("Converter")
         };
 
         this._measurementList = null;
@@ -118,17 +121,17 @@ const UnitConverterModule = new Lang.Class({
         });
 
         this._measurementLabel = new St.Label({
-            text: "Measurement:",
+            text: _("Measurement")+":",
             style_class: "m-label"
         });
 
         this._activeMeasurementLabel = new St.Label({
-            text: "Undefined",
+            text: _("Undefined"),
             style_class: "m-value"
         });
 
         this._btnChangeMeasurement = new St.Button({
-            label: 'Change',
+            label: _("Change"),
             style_class: "btn-change"
         });
         this._btnChangeMeasurement.connect("clicked", Lang.bind(this, function(){
@@ -169,12 +172,12 @@ const UnitConverterModule = new Lang.Class({
 
         this._measurementChooserTitle = new St.Label({
             style_class: "measurement-chooser-title",
-            text: "What to convert?"
+            text: _("What to convert?")
         });
 
         this._measurementFilterEntry = new St.Entry({
             style_class: "measurement-filter-entry",
-            hint_text: "Type a measurement",
+            hint_text: _("Type a measurement"),
             track_hover: true,
             can_focus: true
         });
@@ -216,13 +219,13 @@ const UnitConverterModule = new Lang.Class({
         });
 
         this._expressionLabel = new St.Label({
-            text: "Expression",
+            text: _("Expression"),
             style_class: "expression-label"
         });
 
         this._expressionEntry = new St.Entry({
             text: "",
-            hint_text: "Type your Expression",
+            hint_text: _("Type your Expression"),
             style_class: "expression-entry",
             track_hover: true,
             can_focus: true
@@ -239,7 +242,7 @@ const UnitConverterModule = new Lang.Class({
         });
 
         this._availableUnitsLabel = new St.Label({
-            text: "Available units for conversion:",
+            text: _("Available units for conversion")+":",
             style_class: "info-label"
         });
         
@@ -269,7 +272,7 @@ const UnitConverterModule = new Lang.Class({
             visible: false
         });
         this._resultTitleLabel = new St.Label({
-            text: "Conversion result:",
+            text: _("Conversion result")+":",
             style_class: "result-title"
         });
 
@@ -298,7 +301,7 @@ const UnitConverterModule = new Lang.Class({
         });
 
         this._btnCopyResult = new St.Button({
-            label: "Copy",
+            label: _("Copy"),
             style_class: "result-btn-copy"
         });
         this._btnCopyResult.connect("clicked", Lang.bind(this, this._copyMainResult));
@@ -323,7 +326,7 @@ const UnitConverterModule = new Lang.Class({
         });
 
         this._additionalConvLabel = new St.Label({
-            text: "Additional Conversion:",
+            text: _("Additional Conversion")+":",
             style_class: "extra-conv-title"
         });
         
@@ -486,7 +489,7 @@ const UnitConverterModule = new Lang.Class({
 
             } else {
                 let label = new St.Label({
-                    text: "The active measurement doesn't have information about available units",
+                    text: _("The active measurement doesn't have information about available units"),
                     style_class: "empty-list-info"
                 });
 
@@ -675,11 +678,11 @@ const UnitConverterModule = new Lang.Class({
             }
 
             if(count == 0){
-                this.set_status_message("information", "Nothing found");
+                this.set_status_message("information", _("Nothing found"));
             } else if(count == 1) {
-                this.set_status_message("information", "One measurement was found");
+                this.set_status_message("information", _("One measurement was found"));
             } else {
-                this.set_status_message("information", count+ " measurements were found");
+                this.set_status_message("information", count+ " "+_("measurements were found"));
             }
         }
     },
@@ -751,7 +754,7 @@ const UnitConverterModule = new Lang.Class({
         expr = Utils.replaceAll(expr, ',', '.');
 
         if(this._activeMeasurement === null){
-            this.set_status_message("error", "Select a Measurement first");
+            this.set_status_message("error", _("Select a Measurement first"));
 
         } else if(expr != ""){
 
@@ -801,15 +804,15 @@ const UnitConverterModule = new Lang.Class({
                         this.set_status_message("error", e.message);
                     }
                     else {
-                        this.set_status_message("error", "Errors happened when trying to convert");
+                        this.set_status_message("error", _("Errors happened when trying to convert"));
                     }
                 }
 
             } else {
-                this.set_status_message("error", "The expression was not recognized");
+                this.set_status_message("error", _("The expression was not recognized"));
             }
         } else {
-            this.set_status_message("information", "Insert an expression to convert");
+            this.set_status_message("information", _("Insert an expression to convert"));
         }
     },
 

@@ -42,6 +42,10 @@ const ModernCalc = Me.imports.modern_calc;
 const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+const Convenience = Me.imports.convenience;
+
 const IndicatorButton = new Lang.Class({
     Name: 'IndicatorButton',
     Extends: PanelMenu.Button,
@@ -105,7 +109,7 @@ const IndicatorButton = new Lang.Class({
 
     _createContextMenu: function() {
 
-        let preferences_item = new PopupMenu.PopupMenuItem("Preferences");
+        let preferences_item = new PopupMenu.PopupMenuItem(_("Preferences"));
         preferences_item.connect("activate", Lang.bind(this, function() {
             this._modernCalc.hide();
             Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
@@ -205,7 +209,7 @@ const IndicatorButton = new Lang.Class({
 // OVERRIDES --------------------------------------------------------------------------------------
 let appButton = null;
 function init(extension) { 
-
+	Convenience.initTranslations("modern-calc");
 }
 
 function enable() {

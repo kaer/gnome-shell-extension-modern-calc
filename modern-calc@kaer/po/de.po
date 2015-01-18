@@ -1,0 +1,317 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Modern Calc Gnome Shell Extension\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-18 15:06+0100\n"
+"PO-Revision-Date: 2015-01-18 15:07+0100\n"
+"Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
+"Language-Team: GERMAN <jonatan_zeidler@gmx.de>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: prefs.js:263
+msgid "Action"
+msgstr "Aktion"
+
+#: prefs.js:296
+msgid "Modify"
+msgstr "Kürzel"
+
+#: prefs.js:376
+msgid "Appearance"
+msgstr "Aussehen"
+
+#: prefs.js:382
+msgid "Default"
+msgstr "Standard"
+
+#: prefs.js:386
+msgid "Light"
+msgstr "Hell"
+
+#: prefs.js:391
+msgid "Theme"
+msgstr "Thema"
+
+#: prefs.js:398
+msgid "Show indicator icon"
+msgstr "Indikator anzeigen"
+
+#: prefs.js:403
+msgid "Enable reveal animation"
+msgstr "Animation beim Einblenden"
+
+#: prefs.js:408
+msgid "Enable general transparency"
+msgstr "Allgemeine Transparenz"
+
+#: prefs.js:413
+msgid "General opacity [%]"
+msgstr "Allgemeine Deckkraft [%]"
+
+#: prefs.js:424
+msgid "Enable background transparency"
+msgstr "Hintergrundtransparenz"
+
+#: prefs.js:429
+msgid "Background opacity [%]"
+msgstr "Hintergrund-Deckkraft"
+
+#: prefs.js:440
+msgid "Window width [%]"
+msgstr "Fensterbreite [%]"
+
+#: prefs.js:460
+msgid "Modules"
+msgstr "Module"
+
+#: prefs.js:466 prefs.js:543
+msgid "Calculator"
+msgstr "Taschenrechner"
+
+#: prefs.js:470
+msgid "Unit converter"
+msgstr "Einheitenrechner"
+
+#: prefs.js:475
+msgid "Default module"
+msgstr "Standardmodul"
+
+#: prefs.js:482
+msgid "Enable Calculator"
+msgstr "Taschenrechner"
+
+#: prefs.js:487
+msgid "Enable Unit Converter"
+msgstr "Einheitenrechner"
+
+#: prefs.js:502 prefs.js:507
+msgid "Shortcuts"
+msgstr "Tastenkürzel"
+
+#: prefs.js:522
+msgid "Show/hide the extension"
+msgstr "Erweiterung ein-/ausblenden"
+
+#: prefs.js:549 unit_converter_module.js:129
+msgid "Undefined"
+msgstr "Undefiniert"
+
+#: prefs.js:553
+msgid "Dot"
+msgstr "Punkt"
+
+#: prefs.js:557
+msgid "Comma"
+msgstr "Komma"
+
+#: prefs.js:563
+msgid "Decimal Mark"
+msgstr "Dezimaltrennzeichen"
+
+#: app_header.js:60
+msgid "Modern Calc"
+msgstr "Moderner Rechner"
+
+#: basic_calc_button_grid.js:116
+msgid "EXP"
+msgstr "EXP"
+
+#: basic_calc_button_grid.js:130
+msgid "C"
+msgstr "C"
+
+#: basic_calc_button_grid.js:136
+msgid "Clear"
+msgstr "Löschen"
+
+#: basic_calc_button_grid.js:177
+msgid "copy"
+msgstr "kopieren"
+
+#: basic_calc_button_grid.js:183
+msgid "paste"
+msgstr "einfügen"
+
+#: basic_calc_button_grid.js:218 calculus_history.js:123
+msgid "ANS"
+msgstr "ANS"
+
+#: basic_calc_button_grid.js:237
+msgid "ANS still undefined"
+msgstr "ANS ist noch undefiniert"
+
+#: calculator_module.js:89
+msgid "Calc"
+msgstr "Taschenrechner"
+
+#: calculator_module.js:344
+msgid "Waiting answer..."
+msgstr "Warten auf Antwort …"
+
+#: calculator_module.js:356
+msgid "Was not possible to compute."
+msgstr "Konnte nicht berechnet werden."
+
+#: calculator_module.js:365
+msgid ""
+"The decimal mark is undefined, you can't use this calculator for computing "
+"expressions with decimal numbers if the decimal mark is not defined. Please "
+"see section WARNING of README.md and later set the decimal mark in the "
+"settings of this extension at tab \"Calculator\"."
+msgstr ""
+"Das Dezimaltrennzeichen ist undefiniert. Der Taschenrechner kann nicht mit "
+"Dezimalzahlen rechnen, solange es undefiniert ist. Bitte lesen Sie WARNING "
+"in README.md und legen dann das Dezimaltrennzeichen in den "
+"Erweiterungseinstellungen im Reiter „Taschenrechner“ fest."
+
+#: calculator_module.js:495
+msgid "Invalid Syntax"
+msgstr "Ungültige Syntax"
+
+#: calculus_history.js:68
+msgid "History"
+msgstr "Verlauf"
+
+#: calculus_history.js:81
+msgid "clear history"
+msgstr "Verlauf löschen"
+
+#: calculus_history.js:93
+msgid "prev"
+msgstr "Vorheriges"
+
+#: calculus_history.js:99
+msgid "next"
+msgstr "Nächstes"
+
+#: calculus_history.js:106
+msgid "Expr."
+msgstr "Ausdr."
+
+#: calculus_history.js:117
+msgid "Use"
+msgstr "Nutzen"
+
+#: calculus_history.js:254
+msgid "undefined"
+msgstr "undefiniert"
+
+#: display.js:71 unit_converter_module.js:228
+msgid "Type your Expression"
+msgstr "Ausdruck eingeben"
+
+#: extension.js:112
+msgid "Preferences"
+msgstr "Einstellungen"
+
+#: message_view.js:141
+msgid "Ok"
+msgstr "OK"
+
+#: message_view.js:146
+msgid "Yes"
+msgstr "Ja"
+
+#: message_view.js:151
+msgid "No"
+msgstr "Nein"
+
+#: modern_calc.js:413
+msgid "Theme not found."
+msgstr "Thema nicht gefunden."
+
+#: utils.js:80
+msgid "Schema"
+msgstr "Schema"
+
+#: utils.js:80
+msgid "could not be found for extension"
+msgstr "könnte für die Erweiterung nicht gefunden werden"
+
+#: utils.js:81
+msgid "Please check your installation."
+msgstr "Bitte die Installation überprüfen."
+
+#: unit_converter_module.js:70
+msgid "Converter"
+msgstr "Einheitenrechner"
+
+#: unit_converter_module.js:124
+msgid "Measurement"
+msgstr "Physikalische Größe"
+
+#: unit_converter_module.js:134
+msgid "Change"
+msgstr "Ändern"
+
+#: unit_converter_module.js:175
+msgid "What to convert?"
+msgstr "Was soll umgerechnet werden?"
+
+#: unit_converter_module.js:180
+msgid "Type a measurement"
+msgstr "Physikalische Größe eingeben"
+
+#: unit_converter_module.js:222
+msgid "Expression"
+msgstr "Ausdruck"
+
+#: unit_converter_module.js:245
+msgid "Available units for conversion"
+msgstr "Für die Umrechnung verfügbare Einheiten"
+
+#: unit_converter_module.js:275
+msgid "Conversion result"
+msgstr "Umrechnungsergebnis"
+
+#: unit_converter_module.js:304
+msgid "Copy"
+msgstr "Kopieren"
+
+#: unit_converter_module.js:329
+msgid "Additional Conversion"
+msgstr "Weitere Umrechnungen"
+
+#: unit_converter_module.js:492
+msgid "The active measurement doesn't have information about available units"
+msgstr ""
+"Die aktuelle physikalische Größe enthält keine Informationen über verfügbare "
+"Einheiten"
+
+#: unit_converter_module.js:681
+msgid "Nothing found"
+msgstr "Nichts gefunden"
+
+#: unit_converter_module.js:683
+msgid "One measurement was found"
+msgstr "Eine physikalische Größe gefunden"
+
+#: unit_converter_module.js:685
+msgid "measurements were found"
+msgstr "physikalische Größen gefunden"
+
+#: unit_converter_module.js:757
+msgid "Select a Measurement first"
+msgstr "Zuerst physikalische Größe auswählen"
+
+#: unit_converter_module.js:807
+msgid "Errors happened when trying to convert"
+msgstr "Beim Versuch der Umrechnung sind Fehler aufgetreten"
+
+#: unit_converter_module.js:812
+msgid "The expression was not recognized"
+msgstr "Der Ausdruck wurde nicht erkannt"
+
+#: unit_converter_module.js:815
+msgid "Insert an expression to convert"
+msgstr "Einen Ausdruck für die Umrechnung eingeben"

@@ -39,6 +39,8 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Utils = Me.imports.utils;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
 
 const BasicCalcButtonGrid = new Lang.Class({
     Name: "BasicCalcButtonGrid",
@@ -111,7 +113,7 @@ const BasicCalcButtonGrid = new Lang.Class({
 
         // auxiliary buttons
         this._btnExp = new St.Button({
-            label: 'EXP', style_class: 'normal-button'
+            label: _("EXP"), style_class: 'normal-button'
         });
         this._btnExp.connect("clicked", Lang.bind(this, this._btnExpClick));
 
@@ -125,13 +127,13 @@ const BasicCalcButtonGrid = new Lang.Class({
         
         // delete buttons
         this._btnClearLastChar = new St.Button({
-            label: 'C', style_class: 'delete-button'
+            label: _("C"), style_class: 'delete-button'
         });
         this._btnClearLastChar.connect("clicked", Lang.bind(this, this._btnClearLastCharClick));
 
         this._btnclearExpression = new St.Button({
             child: new St.Icon({icon_name: 'edit-clear-symbolic', style_class: 'button-icon'}),
-            label: 'Clear', style_class: 'delete-button'
+            label: _("Clear"), style_class: 'delete-button'
         });
         this._btnclearExpression.connect("clicked", Lang.bind(this, this._btnClearExpressionClick));
 
@@ -172,13 +174,13 @@ const BasicCalcButtonGrid = new Lang.Class({
         // clipboard buttons
         this._btnCopyToClipboard = new St.Button({
             child: new St.Icon({icon_name: 'edit-copy-symbolic', style_class: 'button-icon'}),
-            label: 'copy', style_class: 'clipboard-button'
+            label: _("copy"), style_class: 'clipboard-button'
         });
         this._btnCopyToClipboard.connect("clicked", Lang.bind(this, this._btnClipboardCopyClick));
 
         this._btnPasteFromClipboard = new St.Button({
             child: new St.Icon({icon_name: 'edit-paste-symbolic', style_class: 'button-icon'}),
-            label: 'paste', style_class: 'clipboard-button'
+            label: _("paste"), style_class: 'clipboard-button'
         });
         this._btnPasteFromClipboard.connect("clicked", Lang.bind(this, this._btnClipboardPasteClick));
 
@@ -213,7 +215,7 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnEqual.connect("clicked", Lang.bind(this, this._btnEqualClick));
 
         this._btnANS = new St.Button({
-            label: 'ANS', style_class: 'ans-button'
+            label: _("ANS"), style_class: 'ans-button'
         });
         this._btnANS.connect("clicked", Lang.bind(this, function(){ this._pushValue('ANS');}));
 
@@ -232,7 +234,7 @@ const BasicCalcButtonGrid = new Lang.Class({
 
                 // ANS
                 if(calc_app.history.last_calculus_answer() == undefined){
-                    calc_app.set_status_message('warning', 'ANS still undefined');
+                    calc_app.set_status_message('warning', _("ANS still undefined"));
                 } else{
                     calc_app.display.insert_data(value);
                 }

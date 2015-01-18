@@ -48,6 +48,8 @@ const ModernCalcModule = Me.imports.modern_calc_module;
 const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
 
 let octal = /(^|\s|[^0-9a-fA-Fxb\.]+)0([0-7]+)/g;
 let binary = /(^|\s|[^0-9a-fA-Fxb]+)0b([0-1]+)/g;
@@ -84,7 +86,7 @@ const CalculatorModule = new Lang.Class({
             app: this.params.app,
             style_class: 'calc-module',
             module_name: 'calculator',
-            toolbar_button_label: 'Calc'
+            toolbar_button_label: _("Calc")
         };
  
         this._history = null;
@@ -339,7 +341,7 @@ const CalculatorModule = new Lang.Class({
 
         if(continue_calculus){
             // wait information
-            this.set_status_message('information', 'Waiting answer...');
+            this.set_status_message('information', _("Waiting answer..."));
 
             let calc_res = this._calculateResult(expression);
             this.display.set_current_result(calc_res);
@@ -351,7 +353,7 @@ const CalculatorModule = new Lang.Class({
                 this.clear_status_message();
             }
         } else {
-            this.set_status_message('warning', 'Was not possible to compute.');
+            this.set_status_message('warning', _("Was not possible to compute."));
         }
         
     },
@@ -360,7 +362,7 @@ const CalculatorModule = new Lang.Class({
         let dMark = this.params.app.decimal_mark;
 
         if(dMark == ''){
-            this.show_message('warning', 'Calculator', "The decimal mark is undefined, you can't use this calculator for computing expressions with decimal numbers if the decimal mark is not defined. Please see section WARNING of README.md and later set the decimal mark in the settings of this extension at tab \"Calculator\".", 'info');
+            this.show_message('warning', 'Calculator', _("The decimal mark is undefined, you can't use this calculator for computing expressions with decimal numbers if the decimal mark is not defined. Please see section WARNING of README.md and later set the decimal mark in the settings of this extension at tab \"Calculator\"."), 'info');
             return false;
 
         } else {
@@ -490,7 +492,7 @@ const CalculatorModule = new Lang.Class({
             }
         }
 
-        return {'status': 'error','expression': formattedExpression, 'result': 'Invalid Syntax'};
+        return {'status': 'error','expression': formattedExpression, 'result': _("Invalid Syntax")};
     },
 
     get display(){

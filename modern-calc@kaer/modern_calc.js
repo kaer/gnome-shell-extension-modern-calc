@@ -51,6 +51,9 @@ const Utils = Me.imports.utils;
 
 const Notify = Utils.showMessage;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+
 // will be loaded on demand
 let CalculatorModule;
 let UnitConverterModule;
@@ -407,7 +410,7 @@ const ModernCalc = new Lang.Class({
         let theme_stylesheet = Me.path + "/themes/" + theme_name + "/stylesheet.css";
 
         if (!GLib.file_test(theme_stylesheet, GLib.FileTest.EXISTS)) {
-            throw new Error("Theme not found.");
+            throw new Error(_("Theme not found."));
             return false;
         }
 
