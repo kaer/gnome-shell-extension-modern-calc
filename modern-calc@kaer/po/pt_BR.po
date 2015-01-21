@@ -1,0 +1,311 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Modern Calc Gnome Shell Extension\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-01-21 14:00+0100\n"
+"PO-Revision-Date: 2015-01-21 14:52-0300\n"
+"Last-Translator: Kaer <the.thin.king.way+2014@gmail.com>\n"
+"Language-Team: PORTUGUESE <the.thin.king.way+2014@gmail.com>\n"
+"Language: pt_BR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: prefs.js:263
+msgid "Action"
+msgstr "Ação"
+
+#: prefs.js:296
+msgid "Modify"
+msgstr "Modificar"
+
+#: prefs.js:376
+msgid "Appearance"
+msgstr "Aparência"
+
+#: prefs.js:382
+msgid "Default"
+msgstr "Padrão"
+
+#: prefs.js:386
+msgid "Light"
+msgstr "Claro"
+
+#: prefs.js:391
+msgid "Theme"
+msgstr "Tema"
+
+#: prefs.js:398
+msgid "Show indicator icon"
+msgstr "Mostrar ícone"
+
+#: prefs.js:403
+msgid "Enable reveal animation"
+msgstr "Habilitar animação ao exibir"
+
+#: prefs.js:408
+msgid "Enable general transparency"
+msgstr "Habilitar transparência geral"
+
+#: prefs.js:413
+msgid "General opacity [%]"
+msgstr "Opacidade geral [%]"
+
+#: prefs.js:424
+msgid "Enable background transparency"
+msgstr "Habilitar Transparência do plano de fundo"
+
+#: prefs.js:429
+msgid "Background opacity [%]"
+msgstr "Opacidade do plano de fundo [%]"
+
+#: prefs.js:440
+msgid "Window width [%]"
+msgstr "Largura da janela [%]"
+
+#: prefs.js:460
+msgid "Modules"
+msgstr "Módulos"
+
+#: prefs.js:466 prefs.js:543
+msgid "Calculator"
+msgstr "Calculadora"
+
+#: prefs.js:470
+msgid "Unit converter"
+msgstr "Conversor de unidades"
+
+#: prefs.js:475
+msgid "Default module"
+msgstr "Módulo padrão"
+
+#: prefs.js:482
+msgid "Enable Calculator"
+msgstr "Habilitar Calculadora"
+
+#: prefs.js:487
+msgid "Enable Unit Converter"
+msgstr "Habilitar Conversor de unidades"
+
+#: prefs.js:502 prefs.js:507
+msgid "Shortcuts"
+msgstr "Atalhos"
+
+#: prefs.js:522
+msgid "Show/hide the extension"
+msgstr "Mostrar/Esconder a extensão"
+
+#: prefs.js:549 unit_converter_module.js:129
+msgid "Undefined"
+msgstr "Indefinido"
+
+#: prefs.js:553
+msgid "Dot"
+msgstr "Ponto"
+
+#: prefs.js:557
+msgid "Comma"
+msgstr "Vírgula"
+
+#: prefs.js:563
+msgid "Decimal Mark"
+msgstr "Ponto decimal"
+
+#: app_header.js:60
+msgid "Modern Calc"
+msgstr "Modern Calc"
+
+#: basic_calc_button_grid.js:116
+msgid "EXP"
+msgstr "EXP"
+
+#: basic_calc_button_grid.js:130
+msgid "C"
+msgstr "C"
+
+#: basic_calc_button_grid.js:136
+msgid "Clear"
+msgstr "Limpar"
+
+#: basic_calc_button_grid.js:177
+msgid "copy"
+msgstr "copiar"
+
+#: basic_calc_button_grid.js:183
+msgid "paste"
+msgstr "colar"
+
+#: basic_calc_button_grid.js:218 calculus_history.js:123
+msgid "ANS"
+msgstr "ANS"
+
+#: basic_calc_button_grid.js:237
+msgid "ANS still undefined"
+msgstr "o ANS não foi definido ainda"
+
+#: calculator_module.js:89
+msgid "Calc"
+msgstr "Calc"
+
+#: calculator_module.js:344
+msgid "Waiting answer..."
+msgstr "Esperando resposta…"
+
+#: calculator_module.js:356
+msgid "Was not possible to compute."
+msgstr "Não foi possível calcular."
+
+#: calculator_module.js:365
+msgid ""
+"The decimal mark is undefined, you can't use this calculator for computing "
+"expressions with decimal numbers if the decimal mark is not defined. Please "
+"see section WARNING of README.md and later set the decimal mark in the "
+"settings of this extension at tab \"Calculator\"."
+msgstr ""
+"O separador decimal não foi definido, você não pode usar esta calculadora "
+"para calcular expressões com números decimais, pois o separador decimal está "
+"indefinido. Por favor veja a seção WARNING do arquivo README.md e "
+"posteriormente defina o separador decimal nas configurações desta extensão "
+"na aba \"Calculadora\"."
+
+#: calculator_module.js:495
+msgid "Invalid Syntax"
+msgstr "Sintaxe Inválida"
+
+#: calculus_history.js:68
+msgid "History"
+msgstr "Histórico"
+
+#: calculus_history.js:81
+msgid "clear history"
+msgstr "Limpar histórico"
+
+#: calculus_history.js:93
+msgid "prev"
+msgstr "Anterior"
+
+#: calculus_history.js:99
+msgid "next"
+msgstr "Pŕoxima"
+
+#: calculus_history.js:106
+msgid "Expr."
+msgstr "Expr."
+
+#: calculus_history.js:117
+msgid "Use"
+msgstr "Usar"
+
+#: calculus_history.js:254
+msgid "undefined"
+msgstr "Indefinido"
+
+#: display.js:71 unit_converter_module.js:228
+msgid "Type your Expression"
+msgstr "Digite uma expressão"
+
+#: extension.js:112
+msgid "Preferences"
+msgstr "Preferências"
+
+#: message_view.js:141
+msgid "Ok"
+msgstr "OK"
+
+#: message_view.js:146
+msgid "Yes"
+msgstr "Sim"
+
+#: message_view.js:151
+msgid "No"
+msgstr "Não"
+
+#: modern_calc.js:413
+msgid "Theme not found."
+msgstr "Tema não encontrado."
+
+#: utils.js:80
+msgid "Schema"
+msgstr "Schema"
+
+#: utils.js:80
+msgid "could not be found for extension"
+msgstr "não pode ser encontrado para a extensão"
+
+#: utils.js:81
+msgid "Please check your installation."
+msgstr "Por favor verifique sua instalação."
+
+#: unit_converter_module.js:70
+msgid "Converter"
+msgstr "Conversor"
+
+#: unit_converter_module.js:124
+msgid "Measurement"
+msgstr "Medida"
+
+#: unit_converter_module.js:134
+msgid "Change"
+msgstr "Mudar"
+
+#: unit_converter_module.js:175
+msgid "What to convert?"
+msgstr "O que converter?"
+
+#: unit_converter_module.js:180
+msgid "Type a measurement"
+msgstr "Digite uma medida"
+
+#: unit_converter_module.js:222
+msgid "Expression"
+msgstr "Expressão"
+
+#: unit_converter_module.js:245
+msgid "Available units for conversion"
+msgstr "Unidades disponíveis para conversão"
+
+#: unit_converter_module.js:275
+msgid "Conversion result"
+msgstr "Resultado da Conversão"
+
+#: unit_converter_module.js:304
+msgid "Copy"
+msgstr "Copiar"
+
+#: unit_converter_module.js:329
+msgid "Additional Conversion"
+msgstr "Conversão adicional"
+
+#: unit_converter_module.js:492
+msgid "The active measurement doesn't have information about available units"
+msgstr "A medida ativa não possui informação das unidades disponíveis"
+
+#: unit_converter_module.js:681
+msgid "Nothing found"
+msgstr "Nada encontrado"
+
+#: unit_converter_module.js:683
+msgid "One measurement was found"
+msgstr "Uma medida foi encontrada"
+
+#: unit_converter_module.js:685
+msgid "measurements were found"
+msgstr "medidas foram encontradas"
+
+#: unit_converter_module.js:757
+msgid "Select a Measurement first"
+msgstr "Selecione uma medida primeiro"
+
+#: unit_converter_module.js:807
+msgid "Errors happened when trying to convert"
+msgstr "Aconteceram erros durante a conversão"
+
+#: unit_converter_module.js:812
+msgid "The expression was not recognized"
+msgstr "A expressão não foi reconhecida"
+
+#: unit_converter_module.js:815
+msgid "Insert an expression to convert"
+msgstr "Insira uma expressão para converter"
