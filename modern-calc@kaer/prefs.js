@@ -38,6 +38,10 @@ const PrefsKeys = Me.imports.prefs_keys;
 const Utils = Me.imports.utils;
 const Constants = Me.imports.constants;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+const Convenience = Me.imports.convenience;
+
 const PrefsGrid = new GObject.Class({
     Name: 'Prefs.Grid',
     GTypeName: 'PrefsGrid',
@@ -256,7 +260,7 @@ const KeybindingsWidget = new GObject.Class({
 
         let action_renderer = new Gtk.CellRendererText();
         let action_column = new Gtk.TreeViewColumn({
-            'title': 'Action',
+            'title': _("Action"),
             'expand': true
         });
         action_column.pack_start(action_renderer, true);
@@ -289,7 +293,7 @@ const KeybindingsWidget = new GObject.Class({
         );
 
         let keybinding_column = new Gtk.TreeViewColumn({
-            'title': 'Modify'
+            'title': _("Modify")
         });
         keybinding_column.pack_end(keybinding_renderer, false);
         keybinding_column.add_attribute(
@@ -369,44 +373,44 @@ const PrefsWidget = new GObject.Class({
 
     _get_appearance_page: function() {
         let page_label = new Gtk.Label({
-            label: 'Appearance'
+            label: _("Appearance")
         });
         let page = new PrefsGrid(this._settings);
 
         let themes = [
             {
-                title: 'Default',
+                title: _("Default"),
                 value: Constants.THEMES.DEFAULT
             },
             {
-                title: 'Light',
+                title: _("Light"),
                 value: Constants.THEMES.LIGHT
             }
         ];
         page.add_combo(
-            'Theme:',
+            _("Theme")+':',
             PrefsKeys.THEME_KEY,
             themes,
             'string'
         );
 
         page.add_boolean(
-            'Show indicator icon:',
+            _("Show indicator icon")+':',
             PrefsKeys.ENABLE_INDICATOR_KEY
         );
 
         page.add_boolean(
-            'Enable reveal animation:',
+            _("Enable reveal animation")+':',
             PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY
         );
 
         page.add_boolean(
-            'Enable general transparency:',
+            _("Enable general transparency")+':',
             PrefsKeys.ENABLE_TRANSPARENCY_KEY
         );
 
         page.add_range(
-            'General opacity [%]:',
+            _("General opacity [%]")+':',
             PrefsKeys.WINDOW_OPACITY_VALUE_KEY,
             {
                 min: 20,
@@ -417,12 +421,12 @@ const PrefsWidget = new GObject.Class({
         );
 
         page.add_boolean(
-            'Enable background transparency:',
+            _("Enable background transparency")+':',
             PrefsKeys.ENABLE_BACKGROUND_TRANSPARENCY_KEY
         );
 
         page.add_range(
-            'Background opacity [%]:',
+            _("Background opacity [%]")+':',
             PrefsKeys.BACKGROUND_OPACITY_VALUE_KEY,
             {
                 min: 0,
@@ -433,7 +437,7 @@ const PrefsWidget = new GObject.Class({
         );
 
         page.add_range(
-            'Window width [%]:',
+            _("Window width [%]")+':',
             PrefsKeys.WINDOW_WIDTH_VALUE_KEY,
             {
                 min: 10,
@@ -453,34 +457,34 @@ const PrefsWidget = new GObject.Class({
 
     _get_modules_page: function() {
         let page_label = new Gtk.Label({
-            label: 'Modules'
+            label: _("Modules")
         });
         let page = new PrefsGrid(this._settings);
 
         let modules = [
             {
-                title: 'Calculator',
+                title: _("Calculator"),
                 value: Constants.MODULES.CALCULATOR
             },
             {
-                title: 'Unit converter',
+                title: _("Unit converter"),
                 value: Constants.MODULES.UNIT_CONVERTER
             }
         ];
         page.add_combo(
-            'Default module:',
+            _("Default module")+':',
             PrefsKeys.DEFAULT_MODULE_KEY,
             modules,
             'string'
         );
 
         page.add_boolean(
-            'Enable Calculator:',
+            _("Enable Calculator")+':',
             PrefsKeys.CALCULATOR_ENABLED_KEY
         );
 
         page.add_boolean(
-            'Enable Unit Converter:',
+            _("Enable Unit Converter")+':',
             PrefsKeys.UNIT_CONVERTER_ENABLED_KEY
         );
 
@@ -495,12 +499,12 @@ const PrefsWidget = new GObject.Class({
 
     _get_shortcuts_page: function() {
         let page_label = new Gtk.Label({
-            label: 'Shortcuts'
+            label: _("Shortcuts")
         });
         let page = new PrefsGrid(this._settings);
 
         let enable_shortcuts = page.add_boolean(
-            'Shortcuts:',
+            _("Shortcuts")+':',
             PrefsKeys.ENABLE_SHORTCUTS_KEY
         );
         enable_shortcuts.connect('notify::active',
@@ -515,7 +519,7 @@ const PrefsWidget = new GObject.Class({
         );
 
         let keybindings = {};
-        keybindings[PrefsKeys.SHOW_APP_SHORTCUT_KEY] = 'Show/hide the extension';
+        keybindings[PrefsKeys.SHOW_APP_SHORTCUT_KEY] = _("Show/hide the extension");
 
         //TODO remove calc not used keybinds
         // calc
@@ -536,27 +540,27 @@ const PrefsWidget = new GObject.Class({
 
     _get_calc_page: function() {
         let page_label = new Gtk.Label({
-            label: 'Calculator'
+            label: _("Calculator")
         });
         let page = new PrefsGrid(this._settings);
 
         let decimal_marks = [
             {
-                title: 'Undefined',
+                title: _("Undefined"),
                 value: Constants.DECIMAL_MARK.UNSET
             },
             {
-                title: 'Dot',
+                title: _("Dot"),
                 value: Constants.DECIMAL_MARK.DOT
             },
             {
-                title: 'Comma',
+                title: _("Comma"),
                 value: Constants.DECIMAL_MARK.COMMA
             }
         ];
 
         page.add_combo(
-            'Decimal Mark:',
+            _("Decimal Mark")+':',
             PrefsKeys.CALC_DECIMAL_MARK_KEY,
             decimal_marks,
             'string'
@@ -572,6 +576,7 @@ const PrefsWidget = new GObject.Class({
 });
 
 function init(metadata) {
+	Convenience.initTranslations("modern-calc");
 }
 
 function buildPrefsWidget() {

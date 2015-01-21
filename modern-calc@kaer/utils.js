@@ -32,6 +32,8 @@ const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
 
 const SETTINGS = getSettings();
 
@@ -75,8 +77,8 @@ function getSettings(schema) {
 
     if(!schemaObj)
         throw new Error(
-            'Schema '+schema+' could not be found for extension '
-            +extension.metadata.uuid+'. Please check your installation.'
+            _("Schema")+' '+schema+' '+_("could not be found for extension")+' '
+            +extension.metadata.uuid+'. '+_("Please check your installation.")
         );
 
     return new Gio.Settings({ settings_schema: schemaObj });

@@ -34,6 +34,9 @@ const ExtensionUtils = imports.misc.extensionUtils;
 
 const Me = ExtensionUtils.getCurrentExtension();
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+
 const MessageType = {
     INFORMATION : 'information',
     ERROR: 'error',
@@ -135,17 +138,17 @@ const MessageView = new Lang.Class({
 
 
         this._okButton = new St.Button({
-            label: 'Ok', style_class: 'm-button'
+            label: _("Ok"), style_class: 'm-button'
         });
         this._okButton.connect("clicked", Lang.bind(this, this._okButtonClick));
 
         this._yesButton = new St.Button({
-            label: 'Yes', style_class: 'm-button'
+            label: _("Yes"), style_class: 'm-button'
         });
         this._yesButton.connect("clicked", Lang.bind(this, this._yesButtonClick));
 
         this._noButton = new St.Button({
-            label: 'No', style_class: 'm-button'
+            label: _("No"), style_class: 'm-button'
         });
         this._noButton.connect("clicked", Lang.bind(this, this._noButtonClick));
 

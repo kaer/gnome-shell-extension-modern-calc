@@ -38,6 +38,8 @@ const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
 
 const CalculusHistory = new Lang.Class({
     Name: "CalculusHistory",
@@ -63,7 +65,7 @@ const CalculusHistory = new Lang.Class({
 
         this._historyTitle = new St.Label({
             style_class: 'history-title',
-            text: 'History',
+            text: _("History"),
             visible: true
         });
 
@@ -76,7 +78,7 @@ const CalculusHistory = new Lang.Class({
         // buttons
         this._btnHistClear = new St.Button({ //TODO how to not hide the button text when it have an icon
             child: new St.Icon({icon_name: 'user-trash-symbolic', style_class: 'button-icon'}),
-            label: 'clear history', style_class: 'history-btn-clear'
+            label: _("clear history"), style_class: 'history-btn-clear'
         });
 
         this._btnHistClear.connect("clicked", Lang.bind(this, this.clear_calculus_history));
@@ -88,20 +90,20 @@ const CalculusHistory = new Lang.Class({
         // history buttons
         this._btnHistMovPrev = new St.Button({
             child: new St.Icon({icon_name: 'go-previous-symbolic', style_class: 'button-icon'}),
-            label: 'prev', style_class: 'history-btn-mover'
+            label: _("prev"), style_class: 'history-btn-mover'
         });
         this._btnHistMovPrev.connect("clicked", Lang.bind(this, this.history_move_prev));
 
         this._btnHistMovNext = new St.Button({
             child: new St.Icon({icon_name: 'go-next-symbolic', style_class: 'button-icon'}),
-            label: 'next', style_class: 'history-btn-mover'
+            label: _("next"), style_class: 'history-btn-mover'
         });
         this._btnHistMovNext.connect("clicked", Lang.bind(this, this.history_move_next));
 
 
         this._exprTitle = new St.Label({
             style_class: 'expr-label',
-            text: 'Expr.',
+            text: _("Expr."),
             visible: true
         });
 
@@ -112,13 +114,13 @@ const CalculusHistory = new Lang.Class({
         });
 
         this._btnUseExpr = new St.Button({
-            label: 'Use', style_class: 'history-use-expr'
+            label: _("Use"), style_class: 'history-use-expr'
         });
         this._btnUseExpr.connect("clicked", Lang.bind(this, this.use_current_expression));
 
         this._ansTitle = new St.Label({
             style_class: 'ans-label',
-            text: 'ANS',
+            text: _("ANS"),
             visible: true
         });
 
@@ -249,7 +251,7 @@ const CalculusHistory = new Lang.Class({
 
         let histItem = {
             expression: '',
-            result: 'undefined'
+            result: _("undefined")
         };
 
         if(this._historyPos != undefined && this._calculus_history){

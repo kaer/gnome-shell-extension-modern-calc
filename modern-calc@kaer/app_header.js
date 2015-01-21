@@ -37,6 +37,9 @@ const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
 
+const Gettext = imports.gettext.domain('modern-calc');
+const _ = Gettext.gettext;
+
 const AppHeader = new Lang.Class({
     Name: "AppHeader",
     
@@ -54,7 +57,7 @@ const AppHeader = new Lang.Class({
 
         this._appNameLabel = new St.Label({
             style_class: 'app-name',
-            text: 'Modern Calc v0.0.1' //TODO get version
+            text: _("Modern Calc")+' v0.0.1' //TODO get version
         });
 
         this.actor.add(this._appNameLabel,{
