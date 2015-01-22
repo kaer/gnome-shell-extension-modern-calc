@@ -450,7 +450,7 @@ const UnitConverterModule = new Lang.Class({
                     });
                     
                     let nameLabel = new St.Label({
-                        text: units[k].name,
+                        text: _(units[k].name),
                         style_class: "l-name"
                     });
                     
@@ -728,6 +728,15 @@ const UnitConverterModule = new Lang.Class({
 
     _loadMeasurementList: function(){
         this._measurementList = MeasurementList.MeasurementList;
+
+        // translate measurement names
+        for(let k=0; k < this._measurementList.length; k++){
+            let measurement = this._measurementList[k];
+
+            if(measurement.hasOwnProperty('name')){
+                measurement.name = _(measurement.name);
+            }
+        }
     },
 
     _parseExpression: function(expr){
