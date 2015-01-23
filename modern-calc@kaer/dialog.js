@@ -136,11 +136,10 @@ const Dialog = new Lang.Class({
     },
 
     resize: function() {
-        let monitor = Main.layoutManager.currentMonitor;
-        let is_primary = monitor.index === Main.layoutManager.primaryIndex;
+        // primary monitor
+        let monitor = Main.layoutManager.primaryMonitor;
 
-        let available_height = monitor.height;
-        if(is_primary) available_height -= Main.panel.actor.height;
+        let available_height = monitor.height - Main.panel.actor.height;
 
         let my_width = monitor.width / 100 * this.params.width_percents;
         let my_height = available_height / 100 * this.params.height_percents;
