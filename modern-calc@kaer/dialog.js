@@ -164,12 +164,6 @@ const Dialog = new Lang.Class({
         this.boxLayout.width  = my_width;
         this.boxLayout.height  = my_height;
 
-        // Issue #2 fix
-        if(!this._open){
-            this._disconnect_captured_event();
-            this.actor.hide();
-            this.actor.x = this._hidden_x;
-        }
     },
 
     show: function(animation, on_complete) {
