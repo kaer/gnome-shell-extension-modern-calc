@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Modern Calc Gnome Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:00+0100\n"
-"PO-Revision-Date: 2015-01-21 14:52-0300\n"
+"PO-Revision-Date: 2015-01-24 09:51-0300\n"
 "Last-Translator: Kaer <the.thin.king.way+2014@gmail.com>\n"
 "Language-Team: PORTUGUESE <the.thin.king.way+2014@gmail.com>\n"
 "Language: pt_BR\n"
@@ -309,3 +309,284 @@ msgstr "A expressão não foi reconhecida"
 #: unit_converter_module.js:815
 msgid "Insert an expression to convert"
 msgstr "Insira uma expressão para converter"
+
+# measurement_list
+msgid "Acceleration"
+msgstr "Aceleração"
+
+msgid "Area"
+msgstr "Área"
+
+msgid "Energy"
+msgstr "Energia"
+
+msgid "Force"
+msgstr "Força"
+
+msgid "Length"
+msgstr "Comprimento"
+
+msgid "Mass"
+msgstr "Massa"
+
+msgid "Power"
+msgstr "Potência"
+
+msgid "Pressure"
+msgstr "Pressão"
+
+msgid "Speed"
+msgstr "Velocidade"
+
+msgid "Temperature"
+msgstr "Temperatura"
+
+msgid "Time"
+msgstr "Tempo"
+
+msgid "Volume"
+msgstr "Volume"
+
+# Unit names
+# Energy
+msgid "calorie"
+msgstr "caloria"
+
+msgid "Calorie"
+msgstr "Caloria"
+
+# Force
+msgid "newton"
+msgstr "Newton"
+
+msgid "dyne"
+msgstr "dina"
+
+msgid "pound-force"
+msgstr "libra-força"
+
+# Length
+msgid "meter"
+msgstr "metro"
+
+msgid "meters"
+msgstr "metros"
+
+msgid "inch"
+msgstr "polegada"
+
+msgid "inches"
+msgstr "polegadas"
+
+msgid "foot"
+msgstr "pé"
+
+msgid "feet"
+msgstr "pés"
+
+msgid "yard"
+msgstr "jarda"
+
+msgid "mile"
+msgstr "milha"
+
+msgid "naut-mile"
+msgstr "milha náutica"
+
+msgid "league"
+msgstr "légua"
+
+msgid "leagues"
+msgstr "léguas"
+
+msgid "furlong"
+msgstr "furlong"
+
+msgid "rod"
+msgstr "rod"
+
+msgid "mil"
+msgstr "mil"
+
+msgid "angstrom"
+msgstr "Ângstrom"
+
+msgid "fathom"
+msgstr "braça"
+
+msgid "fathoms"
+msgstr "braças"
+
+msgid "pica"
+msgstr "pica"
+
+# msgid "redshift"
+# msgstr "redshift"
+msgid "astronomical unit"
+msgstr "unidade astronômica"
+
+msgid "light-second"
+msgstr "segundo-luz"
+
+msgid "light-minute"
+msgstr "minuto-luz"
+
+msgid "light-year"
+msgstr "ano-luz"
+
+msgid "parsec"
+msgstr "parsec"
+
+# Mass
+msgid "kilogram"
+msgstr "kilograma"
+
+msgid "kilograms"
+msgstr "kilogramas"
+
+msgid "gram"
+msgstr "grama"
+
+msgid "grams"
+msgstr "gramas"
+
+# msgid "grain"
+# msgstr ""
+msgid "AMU"
+msgstr "u.m.a"
+
+msgid "dalton"
+msgstr "Dalton"
+
+msgid "slug"
+msgstr "libra-massa"
+
+# msgid "short-ton"
+# msgstr ""
+msgid "metric-ton"
+msgstr "tonelada"
+
+msgid "carat"
+msgstr "quilate"
+
+msgid "pound"
+msgstr "libra"
+
+msgid "ounce"
+msgstr "onça"
+
+msgid "dram"
+msgstr "dracma"
+
+# msgid "stone"
+# msgstr ""
+# Power
+# msgid "watt"
+# msgstr ""
+msgid "horse power"
+msgstr "Horse Power (HP)"
+
+# Pressure
+msgid "pascal"
+msgstr "Pascal"
+
+# Speed
+msgid "kilometers per hour (kph)"
+msgstr "km/h"
+
+msgid "miles per hour (mph)"
+msgstr "milha/h"
+
+msgid "knot"
+msgstr "nó"
+
+msgid "nautical mile per hour"
+msgstr "milha náutica/h"
+
+msgid "feet per hour"
+msgstr "pés/h"
+
+msgid "feet per second"
+msgstr "pés/s"
+
+# Time
+msgid "second"
+msgstr "segundo"
+
+msgid "seconds"
+msgstr "segundos"
+
+msgid "minute"
+msgstr "minuto"
+
+msgid "minutes"
+msgstr "minutos"
+
+msgid "hour"
+msgstr "hora"
+
+msgid "hours"
+msgstr "horas"
+
+msgid "day"
+msgstr "dia"
+
+msgid "days"
+msgstr "dias"
+
+msgid "week"
+msgstr "semana"
+
+msgid "weeks"
+msgstr "semanas"
+
+msgid "fortnight"
+msgstr "quinzena (2 semanas)"
+
+msgid "fortnights"
+msgstr "quinzenas (2 semanas)"
+
+msgid "year"
+msgstr "ano"
+
+msgid "years"
+msgstr "anos"
+
+msgid "decade"
+msgstr "década"
+
+msgid "decades"
+msgstr "décadas"
+
+msgid "century"
+msgstr "século"
+
+msgid "centuries"
+msgstr "séculos"
+
+# Volume
+msgid "liter"
+msgstr "litro"
+
+msgid "gallon"
+msgstr "galão"
+
+msgid "quart"
+msgstr "quarto de galão"
+
+msgid "pint"
+msgstr "pinta"
+
+# msgid "cup"
+# msgstr ""
+msgid "fluid-ounce"
+msgstr "onça-líquida"
+
+msgid "tablespoon"
+msgstr "colher"
+
+msgid "teaspoon"
+msgstr "colher de chá"
+
+msgid "bushel"
+msgstr "alqueire"
