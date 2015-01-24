@@ -781,6 +781,7 @@ const UnitConverterModule = new Lang.Class({
                     let result = qty.toString(dest);
 
                     result = this._activeMeasurement.format_result(result);
+                    result = this._translateResultUnitName(result);
 
                     // fill the extra conv list
                     if(this._activeMeasurement.hasOwnProperty('available_units') &&
@@ -795,9 +796,10 @@ const UnitConverterModule = new Lang.Class({
                             if(units[k].hasOwnProperty('c_symbol')){
                                 extra_result = qty.toString(units[k].c_symbol);
 
-                                this._extraConvList.push(
-                                    this._activeMeasurement.format_result(extra_result)
-                                );
+                                extra_result = this._activeMeasurement.format_result(extra_result);
+                                extra_result = this._translateResultUnitName(extra_result);
+
+                                this._extraConvList.push(extra_result);
                             }
                         }
                     }
@@ -823,6 +825,18 @@ const UnitConverterModule = new Lang.Class({
         } else {
             this.set_status_message("information", _("Insert an expression to convert"));
         }
+    },
+
+    _translateResultUnitName: function(result){
+        if(result != undefined && result != null && result != "" && result.indexOf(' ') > 0){
+            let parts = result.split(' ');
+
+            if(parts.length == 2){
+                result = parts [0] + ' ' + _(parts[1]);
+            }
+        }
+
+        return result;
     },
 
     _showResult: function(result){
