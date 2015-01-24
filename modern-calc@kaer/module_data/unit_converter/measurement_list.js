@@ -431,6 +431,8 @@ function endsWith(text, substr){
     var substrLen = substr.length;
     var pos = text.lastIndexOf(substr);
 
+    if(substrLen > textLen){ return false; }
+
     if(pos+substrLen == textLen){ return true; }
 
     return false;
