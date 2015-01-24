@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Modern Calc Gnome Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:00+0100\n"
-"PO-Revision-Date: 2015-01-24 09:51-0300\n"
+"PO-Revision-Date: 2015-01-24 10:13-0300\n"
 "Last-Translator: Kaer <the.thin.king.way+2014@gmail.com>\n"
 "Language-Team: PORTUGUESE <the.thin.king.way+2014@gmail.com>\n"
 "Language: pt_BR\n"
@@ -590,3 +590,32 @@ msgstr "colher de chá"
 
 msgid "bushel"
 msgstr "alqueire"
+
+# QTY EXCEPTIONS
+msgid "Cannot add two temperatures"
+msgstr "Não é possível somar duas temperaturas"
+
+msgid "Cannot divide with temperatures"
+msgstr "Não é possível dividir entre temperaturas"
+
+msgid "Cannot multiply by temperatures"
+msgstr "Não é possível multiplicar por temperaturas"
+
+msgid "Cannot subtract a temperature from a differential degree unit"
+msgstr ""
+"Não se pode subtrair uma temperatura de uma unidade com graduação diferente"
+
+msgid "Divide by zero"
+msgstr "Divisão por zero"
+
+msgid "Incompatible units"
+msgstr "Unidades incompatíveis"
+
+msgid "Temperatures must not be less than absolute zero"
+msgstr "Temperaturas não devem ser menores que o zero absoluto"
+
+msgid "Unit exponent is not a number"
+msgstr "O expoente da unidade não é um número"
+
+msgid "Unit not recognized"
+msgstr "Unidade não reconhecida"

@@ -812,7 +812,7 @@ const UnitConverterModule = new Lang.Class({
                 } catch(e) {
                     
                     if(e instanceof Qty.Qty.Error) {
-                        this.set_status_message("error", e.message);
+                        this.set_status_message("error", _(e.message));
                     }
                     else {
                         this.set_status_message("error", _("Errors happened when trying to convert"));
