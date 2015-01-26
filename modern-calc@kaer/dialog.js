@@ -207,7 +207,12 @@ const Dialog = new Lang.Class({
             }
         }
         else {
-            this.actor.x = this._target_x;
+            if(Main.layoutManager.monitors.length == 1){
+                this.actor.x = this._target_x;
+            } else {
+                this.actor.y = this._target_y;
+            }
+            
             if(typeof on_complete === 'function') on_complete();
         }
 
@@ -252,7 +257,13 @@ const Dialog = new Lang.Class({
         }
         else {
             this.actor.hide();
-            this.actor.x = this._hidden_x;
+
+            if(Main.layoutManager.monitors.length == 1){
+                this.actor.x = this._hidden_x;
+            } else {
+                this.actor.y = this._hidden_y;
+            }
+
             if(typeof on_complete === 'function') on_complete();
         }
     },
