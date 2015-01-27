@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Modern Calc Gnome Shell Extension\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-01-21 14:00+0100\n"
-"PO-Revision-Date: 2015-01-24 10:13-0300\n"
+"PO-Revision-Date: 2015-01-27 11:37-0300\n"
 "Last-Translator: Kaer <the.thin.king.way+2014@gmail.com>\n"
 "Language-Team: PORTUGUESE <the.thin.king.way+2014@gmail.com>\n"
 "Language: pt_BR\n"
@@ -438,6 +438,9 @@ msgid "parsec"
 msgstr "parsec"
 
 # Mass
+msgid "tonne"
+msgstr "tonelada"
+
 msgid "kilogram"
 msgstr "kilograma"
 
@@ -475,11 +478,21 @@ msgstr "libra"
 msgid "ounce"
 msgstr "onça"
 
+msgid "ounces"
+msgstr "onças"
+
 msgid "dram"
 msgstr "dracma"
 
-# msgid "stone"
-# msgstr ""
+msgid "drams"
+msgstr "dracmas"
+
+msgid "stone"
+msgstr "pedra"
+
+msgid "stones"
+msgstr "pedras"
+
 # Power
 # msgid "watt"
 # msgstr ""
@@ -577,8 +590,12 @@ msgstr "quarto de galão"
 msgid "pint"
 msgstr "pinta"
 
-# msgid "cup"
-# msgstr ""
+msgid "cup"
+msgstr "xícara"
+
+msgid "cups"
+msgstr "xícaras"
+
 msgid "fluid-ounce"
 msgstr "onça-líquida"
 
@@ -587,9 +604,6 @@ msgstr "colher"
 
 msgid "teaspoon"
 msgstr "colher de chá"
-
-msgid "bushel"
-msgstr "alqueire"
 
 # QTY EXCEPTIONS
 msgid "Cannot add two temperatures"
