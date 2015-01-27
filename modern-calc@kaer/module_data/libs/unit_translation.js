@@ -274,6 +274,7 @@ function translate(term){
 
 		var unitPos = -1, termValue, unitName, hasValue = false;
 
+		term = trimText(term);
 
 		if(/[0-9|\.]/.test(term.charAt(0))){
 			hasValue = true;
@@ -282,7 +283,7 @@ function translate(term){
 		if(hasValue){
 			// find the position where value ends
 			for(var i=0; i < term.length; i++){
-				if(/[0-9|\.]/.test(term.charAt(i)) == false){
+				if(/[0-9|\.|\/]/.test(term.charAt(i)) == false){
 					unitPos = i;
 					break;
 				}
@@ -293,6 +294,12 @@ function translate(term){
 				unitName = trimText(unitName);
 
 				termValue = term.substring(0, unitPos);
+
+				try {
+					termValue = eval(termValue);
+				} catch(e){
+					throw new Error("Invalid value");
+				}
 
 				return termValue + ' '+ translateUnit(unitName);
 			}
