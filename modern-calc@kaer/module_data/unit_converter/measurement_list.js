@@ -293,7 +293,7 @@ var MeasurementList = [
             'valid_expression': function(text){
                 //TODO see how to permit prefixes like k, M, G, Qty didn't accept
 
-                var pattern = /^\-?[0-9]+(\.[0-9]+)?\s?(º|temp)?[CRKF]( to (º|temp)?[CRKF])?$/;
+                var pattern = /^\-?[0-9]+(\.[0-9]+)?\s?(º|temp)?[CRKF]( > (º|temp)?[CRKF])?$/;
 
                 if(pattern.test(text)) return true;
 

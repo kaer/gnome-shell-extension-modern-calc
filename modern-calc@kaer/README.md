@@ -50,22 +50,24 @@ The use of unit converter (UC) is very easy, first you need to select a measurem
 - The accepted syntax is:
 	<value><unit source>
 	or
-	<value><unit source> to <unit expected>
+	<value><unit source> > <unit expected>
 
 	e.g:
 	 1MPa
-	 1mm to m
+	 1mm > m
 
 - Note: UC's expressions are case-sensitive and if you write something like:
-	1mm to M
+	1mm > M
 
 	it won't convert because M (upper case) is the prefix of mega (10e-6) and could be the symbol of another unit.
+
+	- the notation 'X to Y' is no longer accepted.
 
 
 - Prefixes
 	Prefixes k (kilo), M (mega) and others are accepted except for temperatures.
 	usage:
-		1Mm to mm
+		1Mm > mm
 
 ## Bugs and wishlist
 

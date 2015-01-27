@@ -47,6 +47,8 @@ const _ = Gettext.gettext;
 
 const Qty = Me.imports.module_data.unit_converter.quantities15;
 const MeasurementList = Me.imports.module_data.unit_converter.measurement_list;
+const UnitTranslation = Me.imports.module_data.libs.unit_translation;
+const TranslateExpression = UnitTranslation.translate;
 
 const PAGES = {
     CONVERSION: 'conversion-page',
@@ -635,6 +637,10 @@ const UnitConverterModule = new Lang.Class({
     _expressionEntryKeyPress: function(actor, event) {
         let key = event.get_key_symbol();
         if(key == Clutter.KEY_Return || key == Clutter.KEY_KP_Enter || key == Clutter.KEY_ISO_Enter){
+
+            // trim spaces
+            this._expressionEntry.text = Utils.trimText(this._expressionEntry.text);
+
             this._convert();
 
             if(this._expressionEntry.text == ""){
@@ -742,6 +748,8 @@ const UnitConverterModule = new Lang.Class({
     _parseExpression: function(expr){
         if(expr && expr != ""){
 
+            if(expr.indexOf(' to ') != -1){ return false; }
+
             if(this._activeMeasurement !== null && 
                 this._activeMeasurement.valid_expression(expr)
             ){
@@ -773,9 +781,9 @@ const UnitConverterModule = new Lang.Class({
                     
                     expr = this._activeMeasurement.replace_text(expr);
 
-                    let parts = expr.split(' to ');
-                    let source = parts[0];
-                    let dest = parts[1];
+                    let parts = expr.split('>');
+                    let source = TranslateExpression(parts[0]);
+                    let dest = TranslateExpression(parts[1]);
                     
                     let qty = Qty.Qty(source);
                     let result = qty.toString(dest);

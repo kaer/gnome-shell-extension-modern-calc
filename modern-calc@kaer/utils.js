@@ -96,3 +96,38 @@ function replaceAll(text, term, sub){
 
     return text.split(term).join(sub);
 }
+
+
+// removes spaces from both sides of a string
+function trimText(term){
+    if(term != undefined && term != null && term.length > 0){
+        var pos = -1;
+
+        // ltrim
+        for(var i=0; i< term.length; i++){
+            if(term.charAt(i) == ' '){
+                pos++;
+            } else {
+                break;
+            }
+        }
+        if(pos != -1){
+            term = term.substring(pos+1);
+        }
+
+        // rtrim
+        pos = term.length;
+        for(var i = term.length-1; i >= 0; i--){
+            if(term.charAt(i) == ' '){
+                pos--;
+            } else {
+                break;
+            }
+        }
+        if(pos != term.length){
+            term = term.substring(0, pos);
+        }
+    }
+
+    return term;
+}
