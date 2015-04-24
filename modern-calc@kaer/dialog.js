@@ -144,7 +144,7 @@ const Dialog = new Lang.Class({
         let my_width = monitor.width / 100 * this.params.width_percents;
         let my_height = available_height / 100 * this.params.height_percents;
 
-        this._hidden_x = monitor.width;
+        this._hidden_x = monitor.width + monitor.x;
         this._target_x = this._hidden_x - my_width;
 
         this._hidden_y = monitor.y - my_height;
