@@ -407,12 +407,13 @@ const ModernCalc = new Lang.Class({
         let theme_name = this._preferences.get_string(PrefsKeys.THEME_KEY);
 
         // stylesheet of theme
-        let theme_stylesheet = Me.path + "/themes/" + theme_name + "/stylesheet.css";
-
-        if (!GLib.file_test(theme_stylesheet, GLib.FileTest.EXISTS)) {
+        let theme_path = Me.path + "/themes/" + theme_name + "/stylesheet.css";
+        if (!GLib.file_test(theme_path, GLib.FileTest.EXISTS)) {
             throw new Error(_("Theme not found."));
             return false;
         }
+
+        let theme_stylesheet = Gio.File.new_for_path(theme_path);
 
         let themeContext = St.ThemeContext.get_for_stage(global.stage);
         if (!themeContext) return false;
