@@ -126,9 +126,9 @@ const IndicatorButton = new Lang.Class({
                 PrefsKeys.SHOW_APP_SHORTCUT_KEY,
                 Utils.SETTINGS,
                 Meta.KeyBindingFlags.NONE,
-                Shell.KeyBindingMode.NORMAL |
-                Shell.KeyBindingMode.MESSAGE_TRAY |
-                Shell.KeyBindingMode.OVERVIEW,
+                Shell.ActionMode.NORMAL |
+                Shell.ActionMode.MESSAGE_TRAY |
+                Shell.ActionMode.OVERVIEW,
                 Lang.bind(this, function() {
                     this._modernCalc.toggle();
                 })
