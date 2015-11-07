@@ -287,12 +287,14 @@ const BasicCalcButtonGrid = new Lang.Class({
 
     _initInterface: function(){
 
-        this._buttonGrid = new St.Table({
-            style_class: 'bc-button-group',
-            homogeneous: false,
-            reactive: true
-        });
 
+	let layout = new Clutter.GridLayout();
+
+	this._buttonGrid = new St.Widget({
+	    style_class: 'bc-button-group',
+	    layout_manager: layout,
+	    reactive: true
+	});
         
         let line_first = 0,
             line_second = 1,
@@ -358,17 +360,9 @@ const BasicCalcButtonGrid = new Lang.Class({
     },
 
     _addToGrid: function(btnActor, rowNum, colNum, rowSpan, colSpan){
+    	let layout = this._buttonGrid.layout_manager;
+    	layout.attach(btnActor, colNum, rowNum, colSpan, rowSpan);
 
-        this._buttonGrid.add(btnActor, {
-            row: rowNum,
-            col: colNum,
-            row_span: rowSpan,
-            col_span: colSpan,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
     },
 
 
