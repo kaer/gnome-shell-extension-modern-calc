@@ -1,3 +1,6 @@
+version 8
+-  Port to gnome 3.24
+
 version 7
  - More measurements for unit converter: Acceleration, Area, Energy, Force, Mass, Power, Pressure, Time and Volume
 

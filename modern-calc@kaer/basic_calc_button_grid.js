@@ -132,9 +132,9 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._btnClearLastChar.connect("clicked", Lang.bind(this, this._btnClearLastCharClick));
 
         this._btnclearExpression = new St.Button({
-            child: new St.Icon({icon_name: 'edit-clear-symbolic', style_class: 'button-icon'}),
             label: _("Clear"), style_class: 'delete-button'
         });
+        this._btnclearExpression.child = new St.Icon({icon_name: 'edit-clear-symbolic', style_class: 'button-icon'});
         this._btnclearExpression.connect("clicked", Lang.bind(this, this._btnClearExpressionClick));
 
 
@@ -173,15 +173,15 @@ const BasicCalcButtonGrid = new Lang.Class({
 
         // clipboard buttons
         this._btnCopyToClipboard = new St.Button({
-            child: new St.Icon({icon_name: 'edit-copy-symbolic', style_class: 'button-icon'}),
             label: _("copy"), style_class: 'clipboard-button'
         });
+        this._btnCopyToClipboard.child = new St.Icon({icon_name: 'edit-copy-symbolic', style_class: 'button-icon'});
         this._btnCopyToClipboard.connect("clicked", Lang.bind(this, this._btnClipboardCopyClick));
 
         this._btnPasteFromClipboard = new St.Button({
-            child: new St.Icon({icon_name: 'edit-paste-symbolic', style_class: 'button-icon'}),
             label: _("paste"), style_class: 'clipboard-button'
         });
+        this._btnPasteFromClipboard.child = new St.Icon({icon_name: 'edit-paste-symbolic', style_class: 'button-icon'});
         this._btnPasteFromClipboard.connect("clicked", Lang.bind(this, this._btnClipboardPasteClick));
 
 
@@ -287,10 +287,9 @@ const BasicCalcButtonGrid = new Lang.Class({
 
     _initInterface: function(){
 
-        this._buttonGrid = new St.Table({
+        this._buttonGrid = new St.Widget({
             style_class: 'bc-button-group',
-            homogeneous: false,
-            reactive: true
+            layout_manager: new Clutter.TableLayout()
         });
 
         
@@ -359,16 +358,12 @@ const BasicCalcButtonGrid = new Lang.Class({
 
     _addToGrid: function(btnActor, rowNum, colNum, rowSpan, colSpan){
 
-        this._buttonGrid.add(btnActor, {
-            row: rowNum,
-            col: colNum,
-            row_span: rowSpan,
-            col_span: colSpan,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._buttonGrid.layout_manager.pack(btnActor, colNum, rowNum);
+
+        if(colSpan > 1 || rowSpan > 1){
+            this._buttonGrid.layout_manager.set_span(btnActor, colSpan, rowSpan);    
+        }        
+
     },
 
 
