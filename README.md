@@ -86,3 +86,6 @@ I'd like to thank each developer of the following extensions and/or libraries:
  - [Gnote/Tomboy Integration](https://github.com/awamper/gnote-integration)
  - [GPaste Integration](https://github.com/awamper/gpaste-integration)
 
+## Donate
+
+Bitcoin: 1Eqn8cEKwTpMbfEPsuANrLy5jxYPcPWc4T
