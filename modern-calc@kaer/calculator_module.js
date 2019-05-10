@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2014  Kaer 
+ *    Copyright (C) 2019  Kaer 
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  *    
- *    Modern Calc, Kaer (C) 2014-2015 Kaer
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
  *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
  *
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
@@ -458,7 +458,16 @@ const CalculatorModule = new Lang.Class({
 
                 if(error == 0 && out.length > 0) {
                     
-                    let result = out.toString().replace("\n","");
+                    
+                    // fix for the warning of deprecated
+                    // byte array to string conversion
+                    let result = "";
+                    for (let i = 0; i < out.length; i++) {
+                        result += String.fromCharCode(out[i]);
+                    }
+                    
+                    result = result.replace("\n", "");
+
 
                     if(finalBase != 10) {
                         let neg = false;
