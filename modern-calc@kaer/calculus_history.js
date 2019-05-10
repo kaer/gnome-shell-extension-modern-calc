@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2014  Kaer 
+ *    Copyright (C) 2019  Kaer
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
  *    with this program; if not, write to the Free Software Foundation, Inc.,
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *    
- *    Modern Calc, Kaer (C) 2014-2015 Kaer
+ *
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
  *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
  *
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
@@ -43,7 +43,7 @@ const _ = Gettext.gettext;
 
 const CalculusHistory = new Lang.Class({
     Name: "CalculusHistory",
-    
+
     _init: function(params) {
         this.params = Params.parse(params, {
             calc_app: false,
@@ -69,11 +69,13 @@ const CalculusHistory = new Lang.Class({
             visible: true
         });
 
-        this.actor.add_child(this._historyTitle, { 
+        /*this.actor.add_child(this._historyTitle, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
-        });
+        });*/
+
+        this.actor.add_child(this._historyTitle);
 
         // buttons
         this._btnHistClear = new St.Button({ //TODO how to not hide the button text when it have an icon
@@ -151,83 +153,85 @@ const CalculusHistory = new Lang.Class({
             vertical: false
         });
 
-        this._buttonContainer.add(this._btnHistClear, { 
+        this._buttonContainer.add(this._btnHistClear, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
         /*
-        this._buttonContainer.add(this._btnClose, { 
+        this._buttonContainer.add(this._btnClose, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });*/
 
-        this._buttonContainer.add(this._btnHistMovPrev, { 
+        this._buttonContainer.add(this._btnHistMovPrev, {
             expand: false,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        this._buttonContainer.add(this._btnHistMovNext, { 
+        this._buttonContainer.add(this._btnHistMovNext, {
             expand: false,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        this._exprContainer.add(this._exprTitle, { 
+        this._exprContainer.add(this._exprTitle, {
             expand: false,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
-        this._exprContainer.add(this._exprValue, { 
+        this._exprContainer.add(this._exprValue, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        this._exprContainer.add(this._btnUseExpr, { 
+        this._exprContainer.add(this._btnUseExpr, {
             expand: false,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        this._ansContainer.add(this._ansTitle, { 
+        this._ansContainer.add(this._ansTitle, {
             expand: false,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
-        this._ansContainer.add(this._ansValue, { 
+        this._ansContainer.add(this._ansValue, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        
 
-        this._hideableContainer.add(this._buttonContainer, { 
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
 
-        this._hideableContainer.add(this._exprContainer, { 
+        this._hideableContainer.add(this._buttonContainer, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
 
-        this._hideableContainer.add(this._ansContainer, { 
+        this._hideableContainer.add(this._exprContainer, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
-        
-        this.actor.add_child(this._hideableContainer, { 
+
+        this._hideableContainer.add(this._ansContainer, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
         });
+
+        this.actor.add_child(this._hideableContainer, {
+            expand: true,
+            y_align: St.Align.START,
+            x_align: St.Align.START
+        });
+
+        //this.actor.add_child(this._hideableContainer, {
 
     },
 
@@ -246,7 +250,7 @@ const CalculusHistory = new Lang.Class({
             button.add_style_pseudo_class('disabled');
         }
     },
-   
+
     _refreshUI: function(){
 
         let histItem = {
@@ -304,7 +308,7 @@ const CalculusHistory = new Lang.Class({
 
             if(this._historyPos > 0){
                 this._historyPos--;
-            }            
+            }
 
         } else {
             this._historyPos = undefined;
@@ -346,7 +350,7 @@ const CalculusHistory = new Lang.Class({
             if(this._calculus_history.length == 0){
                 this._historyPos = undefined;
             }else {
-                this._historyPos = this._calculus_history.length-1;    
+                this._historyPos = this._calculus_history.length-1;
             }
         }
 
@@ -359,12 +363,12 @@ const CalculusHistory = new Lang.Class({
             this._calculus_history = new Array();
         }
 
-        if(calc_object != undefined && 
-            calc_object.hasOwnProperty('expression') && 
+        if(calc_object != undefined &&
+            calc_object.hasOwnProperty('expression') &&
             calc_object.hasOwnProperty('result')
             ){
 
-            // pushes to history an obj like: 
+            // pushes to history an obj like:
             // {'expression': '10+44', 'result': '54', 'ans': 15 }
             this._calculus_history.push({
                 expression: calc_object.expression,

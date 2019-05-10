@@ -1,3 +1,28 @@
+/*
+ *    Copyright (C) 2019  Kaer 
+ *
+ *    This program is free software; you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation; either version 2 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License along
+ *    with this program; if not, write to the Free Software Foundation, Inc.,
+ *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ *
+ *    
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
+ *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
+ *
+ *    Author: Kaer (the.thin.king.way+2014@gmail.com)
+ *    Project url: https://github.com/kaer/gnome-shell-extension-modern-calc
+ *
+ */
 
 /* Prefixes -------------------------------------------------------------------
  * the interpreter will do a case insensitive check
@@ -28,7 +53,7 @@ var prefix_list = [
 
 
 var translation_list = [
-	
+
 	// Portuguese ========================================================== */
 	// Acceleration
 	// Area
@@ -55,7 +80,7 @@ var translation_list = [
 	[['segundo-luz'], 'light-second'],
 	[['minuto-luz'], 'light-minute'],
 	[['ano-luz'], 'light-year'],
-		
+
 	// Mass
 	[['kilograma', 'kilogramas'], 'kilogram'],
 	[['grama', 'gramas'], 'gram'],
@@ -83,7 +108,7 @@ var translation_list = [
 	[['pés/s'], 'feet/s'],
 
 	// Temperature
-	
+
 	// Time
 	[['segundo', 'segundos'], 'second'],
 	[['minuto', 'minutos'], 'minute'],
@@ -160,7 +185,7 @@ function inArray(arr, term){
 			}
 		}
 	}
-	
+
 	return false;
 }
 
@@ -184,14 +209,14 @@ function getCachedValue(term){
 			}
 		}
 	}
-	
+
 	return null;
 }
 
 function fetchAcceptedTerm(term){
 
 	if(term != undefined && term != null && term.length > 1){
-		
+
 		// get a cached value
 		var cache = getCachedValue(term);
 		if(cache != null){
@@ -230,7 +255,7 @@ function prefixEnd(text, prefixArray){
             }
         }
     }
-    
+
     return 0;
 }
 
@@ -239,15 +264,15 @@ function translateUnit(term){
 	if(term != undefined && term != null && term.length > 1){
 
 		var acceptedPrefix = '', unitName = '';
-		
+
 		if(term.length > 2){
 
-			var termList, pEnd;
+			var termList, pEnd, acceptedValue;
 			for(var i=0; i < prefix_list.length; i++){
-				
+
 				termList = prefix_list[i][0];
 				acceptedValue = prefix_list[i][1];
-				
+
 				pEnd = prefixEnd(term, termList);
 
 				if(pEnd > 0){

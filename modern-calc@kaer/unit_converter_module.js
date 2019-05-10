@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2014  Kaer 
+ *    Copyright (C) 2019  Kaer 
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
  *    
- *    Modern Calc, Kaer (C) 2014-2015 Kaer
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
  *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
  *
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
@@ -414,7 +414,7 @@ const UnitConverterModule = new Lang.Class({
             if(this._loadedMeasurementInfo.length > 0){
 
                 for(let i=0; i < this._loadedMeasurementInfo.length; i++){
-                    storedInfo = this._loadedMeasurementInfo[i];
+                    let storedInfo = this._loadedMeasurementInfo[i];
                     if(storedInfo !== null && storedInfo.name == measurement.name){
                         return storedInfo.info_actor;
                     }

@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2014  Kaer 
+ *    Copyright (C) 2019  Kaer
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
  *    with this program; if not, write to the Free Software Foundation, Inc.,
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *    
- *    Modern Calc, Kaer (C) 2014-2015 Kaer
+ *
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
  *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
  *
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
@@ -49,7 +49,7 @@ const PrefsKeys = Me.imports.prefs_keys;
 const StatusBar = Me.imports.status_bar;
 const Utils = Me.imports.utils;
 
-const Notify = Utils.showMessage;
+//const Notify = Utils.showMessage;
 
 const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
@@ -61,14 +61,14 @@ let UnitConverterModule;
 const ModernCalc = new Lang.Class({
     Name: "ModernCalc",
     Extends: Dialog.Dialog,
-    
+
     _init: function() {
 
         this._preferences = Utils.getSettings();
 
         let params = {
             width_percents: this._preferences.get_int(PrefsKeys.WINDOW_WIDTH_VALUE_KEY),
-            height_percents: 100, 
+            height_percents: 100,
             animation_time: 0.5,
             enable_reveal_animation: this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY),
             style_class: 'mc-' + this._preferences.get_string(PrefsKeys.THEME_KEY)
@@ -213,7 +213,7 @@ const ModernCalc = new Lang.Class({
             loaded_module_name = this._loadedModules[this._loadedModules.length-1].get_module_name();
             if(!module_to_activate && default_module != undefined && default_module == loaded_module_name){
                 module_to_activate = loaded_module_name;
-            }    
+            }
         }
 
         this._initToolbar();
@@ -268,14 +268,14 @@ const ModernCalc = new Lang.Class({
         if(this._activeModule){
 
             // get the keyfocus of focused elements before
-            // removing it to avoid problems like 
+            // removing it to avoid problems like
             // shortcuts don't work
             this.actor.grab_key_focus();
 
             //TODO animate
             this._activeModule.on_deactivate();
             this._moduleContainer.remove_child(this._activeModule.actor);
-                
+
             let toolbarButton = this._activeModule.get_toolbar_button();
             toolbarButton.remove_style_pseudo_class('active');
 
@@ -286,14 +286,14 @@ const ModernCalc = new Lang.Class({
     _showModuleByIndex: function(index){
 
         if(index !== null && index >= 0 && this._activeModuleIndex != index){
-            
+
             // remove last shown module
             this._removeActiveModule();
 
             let module = this._loadedModules[index];
 
             if(module !== null){
-                
+
                 // load the found module
                 this._moduleContainer.add(module.actor, {
                     expand: false,
@@ -319,7 +319,7 @@ const ModernCalc = new Lang.Class({
     },
 
     show_module: function(module_name){
-  
+
         if(module_name != false){
 
             let module = false;
@@ -349,7 +349,7 @@ const ModernCalc = new Lang.Class({
                 let activeModuleIndex = this._activeModuleIndex;
 
                 if(activeModuleIndex !== null){
-                    
+
                     index = (direction == 'left') ? activeModuleIndex-1 : activeModuleIndex+1;
 
                     if(index < 0)
@@ -390,15 +390,15 @@ const ModernCalc = new Lang.Class({
         } else {
             // remove background transparency if it has
             if(this._backgroundHasTransparency){
-                
+
                 let currBC  = this.boxLayout.get_theme_node().get_background_color();
                 let background = 'rgb('+currBC.red+','+currBC.green+','+currBC.blue+')';
                 this.boxLayout.set_style('background-color:'+ background);
-            
+
                 this._backgroundHasTransparency = false;
             }
         }
-        
+
     },
 
      _updateTheme: function(){
@@ -425,7 +425,7 @@ const ModernCalc = new Lang.Class({
         if(this._stylesheet)
             theme.unload_stylesheet(this._stylesheet);
 
-        
+
         // load stylesheet
         theme.load_stylesheet(theme_stylesheet);
         this._stylesheet = theme_stylesheet;
@@ -491,7 +491,7 @@ const ModernCalc = new Lang.Class({
         this._signals.push(
             this._preferences.connect("changed::" + PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY, Lang.bind(this, function(){
                 this.update_param(
-                    'enable_reveal_animation', 
+                    'enable_reveal_animation',
                     this._preferences.get_boolean(PrefsKeys.ENABLE_REVEAL_ANIMATION_KEY)
                 );
             }))
@@ -533,7 +533,7 @@ const ModernCalc = new Lang.Class({
 
         if (this._signals !== null) {
             this._signals.forEach(function(signal) {
-                if (signal) 
+                if (signal)
                     pref.disconnect(signal);
             });
         }
@@ -549,7 +549,7 @@ const ModernCalc = new Lang.Class({
             this.hide();
             return true;
         }
-        
+
         if (modifierState && Clutter.ModifierType.CONTROL_MASK){
             if (symbol === Clutter.KEY_Page_Up){
                 this._changeActiveModule('left');
@@ -566,9 +566,9 @@ const ModernCalc = new Lang.Class({
             // module key press
             if(this._activeModule !== false){
                 this._activeModule.on_key_press_event(o, e);
-            }    
+            }
         }
-        
+
         return false;
     },
 
@@ -596,7 +596,7 @@ const ModernCalc = new Lang.Class({
         this._statusBar.visible = false;
 
         this._messageView.visible = true;
-        
+
         this._showingMessageView = true;
     },
 

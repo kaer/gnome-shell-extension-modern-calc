@@ -1,5 +1,5 @@
 /*
- *    Copyright (C) 2014  Kaer 
+ *    Copyright (C) 2019  Kaer
  *
  *    This program is free software; you can redistribute it and/or modify
  *    it under the terms of the GNU General Public License as published by
@@ -15,8 +15,8 @@
  *    with this program; if not, write to the Free Software Foundation, Inc.,
  *    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  *
- *    
- *    Modern Calc, Kaer (C) 2014-2015 Kaer
+ *
+ *    Modern Calc, Kaer (C) 2014-2019 Kaer
  *    Modern Calc comes with ABSOLUTELY NO WARRANTY.
  *
  *    Author: Kaer (the.thin.king.way+2014@gmail.com)
@@ -51,7 +51,7 @@ const ButtonType = {
 
 const MessageView = new Lang.Class({
     Name: "MessageView",
-    
+
     _init: function(params) {
 
         this.params = Params.parse(params, {
@@ -70,7 +70,7 @@ const MessageView = new Lang.Class({
     },
 
     _prepareInterface: function(){
-        
+
         this._messageGroupLayout = new St.BoxLayout({
             style_class: 'mbox',
             vertical: true
@@ -85,11 +85,12 @@ const MessageView = new Lang.Class({
         this._titleLabel.clutter_text.set_line_wrap(true);
         this._titleLabel.clutter_text.set_line_wrap_mode(Pango.WrapMode.WORD);
 
-        this._messageGroupLayout.add_child(this._titleLabel, {
+        this._messageGroupLayout.add_child(this._titleLabel);
+        /*this._messageGroupLayout.add_child(this._titleLabel, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
         // content
         this._messageContentGroup = new St.BoxLayout({
@@ -112,24 +113,27 @@ const MessageView = new Lang.Class({
         this._contentLabel.clutter_text.set_line_wrap_mode(Pango.WrapMode.WORD);
 
 
-        this._messageContentGroup.add_child(this._icon, {
+        this._messageContentGroup.add_child(this._icon);
+        /*this._messageContentGroup.add_child(this._icon, {
             expand: false,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._messageContentGroup.add_child(this._contentLabel, {
+        this._messageContentGroup.add_child(this._contentLabel);
+        /*this._messageContentGroup.add_child(this._contentLabel, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._messageGroupLayout.add_child(this._messageContentGroup, {
+        this._messageGroupLayout.add_child(this._messageContentGroup);
+        /*this._messageGroupLayout.add_child(this._messageContentGroup, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
-    
+        });*/
+
         // buttons
         this._buttonGroupLayout = new St.BoxLayout({
             style_class: 'button-group',
@@ -155,56 +159,64 @@ const MessageView = new Lang.Class({
         this._bcOk = new St.BoxLayout({style_class: 'button-container', visible: false });
         this._bcYes = new St.BoxLayout({style_class: 'button-container', visible: false });
         this._bcNo = new St.BoxLayout({style_class: 'button-container', visible: false });
-        
-        this._bcOk.add_child(this._okButton, {
+
+        this._bcOk.add_child(this._okButton);
+        /*this._bcOk.add_child(this._okButton, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._bcYes.add_child(this._yesButton, {
+        this._bcYes.add_child(this._yesButton);
+        /*this._bcYes.add_child(this._yesButton, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._bcNo.add_child(this._noButton, {
+        this._bcNo.add_child(this._noButton);
+        /*this._bcNo.add_child(this._noButton, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
 
 
-        this._buttonGroupLayout.add_child(this._bcOk, {
+        this._buttonGroupLayout.add_child(this._bcOk);
+        /*this._buttonGroupLayout.add_child(this._bcOk, {
             expand: true,
             x_align: St.Align.START,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._buttonGroupLayout.add_child(this._bcYes, {
+        this._buttonGroupLayout.add_child(this._bcYes);
+        /*this._buttonGroupLayout.add_child(this._bcYes, {
             expand: true,
             x_align: St.Align.START,
             y_align: St.Align.START
-        });
+        });*/
 
-        this._buttonGroupLayout.add_child(this._bcNo, {
+        this._buttonGroupLayout.add_child(this._bcNo);
+        /*this._buttonGroupLayout.add_child(this._bcNo, {
             expand: true,
             x_align: St.Align.START,
             y_align: St.Align.START
-        });
+        });*/
 
 
-        this._messageGroupLayout.add_child(this._buttonGroupLayout, {
+        this._messageGroupLayout.add_child(this._buttonGroupLayout);
+        /*this._messageGroupLayout.add_child(this._buttonGroupLayout, {
             expand: true,
             x_align: St.Align.START,
             y_align: St.Align.START
-        });
-        
-        this.actor.add_child(this._messageGroupLayout, {
+        });*/
+
+        this.actor.add_child(this._messageGroupLayout);
+        /*this.actor.add_child(this._messageGroupLayout, {
             expand: true,
             x_align: St.Align.MIDDLE,
             y_align: St.Align.START
-        });
+        });*/
     },
 
     _okButtonClick: function(){
@@ -268,7 +280,7 @@ const MessageView = new Lang.Class({
     },
 
     _showButtons: function(buttonType){
-    
+
         if(buttonType == ButtonType.ASK){
             this._bcOk.visible = false;
             this._bcYes.visible = true;
@@ -277,7 +289,7 @@ const MessageView = new Lang.Class({
             // info
             this._bcOk.visible = true;
             this._bcYes.visible = false;
-            this._bcNo.visible = false    
+            this._bcNo.visible = false;
         }
     },
 
