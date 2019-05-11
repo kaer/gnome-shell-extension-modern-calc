@@ -225,13 +225,13 @@ const CalculusHistory = new Lang.Class({
             x_align: St.Align.START
         });
 
-        this.actor.add_child(this._hideableContainer, {
+        /*this.actor.add_child(this._hideableContainer, {
             expand: true,
             y_align: St.Align.START,
             x_align: St.Align.START
-        });
+        });*/
 
-        //this.actor.add_child(this._hideableContainer, {
+        this.actor.add_child(this._hideableContainer);
 
     },
 

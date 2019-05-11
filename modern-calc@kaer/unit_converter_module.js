@@ -769,6 +769,7 @@ const UnitConverterModule = new Lang.Class({
 
         // replaces  commas by dots
         expr = Utils.replaceAll(expr, ',', '.');
+        //TODO see when commas are thousand separator and fix remove
 
         if(this._activeMeasurement === null){
             this.set_status_message("error", _("Select a Measurement first"));
