@@ -766,10 +766,13 @@ const UnitConverterModule = new Lang.Class({
         this._clearResult();
 
         let expr = this._expressionEntry.text;
+        let dMark = this.params.app.decimal_mark;
 
-        // replaces  commas by dots
-        expr = Utils.replaceAll(expr, ',', '.');
-        //TODO see when commas are thousand separator and fix remove
+
+        if(dMark == ","){
+            expr = Utils.replaceAll(expr, ',', '.');
+        }
+
 
         if(this._activeMeasurement === null){
             this.set_status_message("error", _("Select a Measurement first"));
@@ -792,6 +795,10 @@ const UnitConverterModule = new Lang.Class({
                     result = this._activeMeasurement.format_result(result);
                     result = this._translateResultUnitName(result);
 
+                    if(dMark == ","){
+                        result = result.replace(".", ",");
+                    }
+
                     // fill the extra conv list
                     if(this._activeMeasurement.hasOwnProperty('available_units') &&
                         this._activeMeasurement.available_units.length > 0
@@ -804,6 +811,10 @@ const UnitConverterModule = new Lang.Class({
 
                             if(units[k].hasOwnProperty('c_symbol')){
                                 extra_result = qty.toString(units[k].c_symbol);
+
+                                if(dMark == ","){
+                                    extra_result = Utils.replaceAll(extra_result, '.', ',');
+                                }
 
                                 extra_result = this._activeMeasurement.format_result(extra_result);
                                 extra_result = this._translateResultUnitName(extra_result);
