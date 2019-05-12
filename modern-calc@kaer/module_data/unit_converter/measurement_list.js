@@ -151,7 +151,7 @@ var MeasurementList = [
                 return text;
             },
             'format_result': function(result){
-                parts = result.split(' ');
+                var parts = result.split(' ');
 
                 // plural form
                 if(parts[0] > 1){
