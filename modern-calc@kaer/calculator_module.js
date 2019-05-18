@@ -441,11 +441,15 @@ const CalculatorModule = new Lang.Class({
 
         if (this._validExpression(expr)) {
             expr = expr.replace(/'pi'/gi, "\u03C0");
-            expr = expr.replace(octal, "$1$2\u2088");
-            expr = expr.replace(hex, "$1$2\u2081\u2086");
-            expr = expr.replace(binary, "$1$2\u2082");
-            expr = expr.replace(radians, "$1((180/\u03C0) *");
-            expr = expr.replace(radians2, "(\u03C0/180) * a$1(");
+
+            // Commented to solve the problem that occurs when a number with
+            // the two decimal number between 00 and 07 the number was recognized
+            // as an octal number
+            //expr = expr.replace(octal, "$1$2\u2088");
+            //expr = expr.replace(hex, "$1$2\u2081\u2086");
+            //expr = expr.replace(binary, "$1$2\u2082");
+            //expr = expr.replace(radians, "$1((180/\u03C0) *");
+            //expr = expr.replace(radians2, "(\u03C0/180) * a$1(");
          
             if(changeBase.test(expr)) {
                 finalBase = bases[changeBase.exec(expr)[1]];
