@@ -1,10 +1,10 @@
 {
-  "shell-version": ["3.32"],
+  "shell-version": ["3.36"],
   "uuid": "modern-calc@kaer",
   "name": "Modern Calc",
   "original-author": "Kaer (the.thin.king.way+2014@gmail.com)",
   "settings-schema": "org.gnome.shell.extensions.modern-calc",
   "description": "A full featured calculator for gnome-shell.",
   "url": "https://github.com/kaer/gnome-shell-extension-modern-calc",
-  "version": 10
+  "version": 11
 }
