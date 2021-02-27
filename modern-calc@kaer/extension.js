@@ -47,7 +47,7 @@ const _ = Gettext.gettext;
 const Convenience = Me.imports.convenience;
 
 const IndicatorButton = new Lang.Class({
-    Name: 'IndicatorButton',
+    Name: 'MCalcIndicatorButton',
     Extends: PanelMenu.Button,
 
     _init: function() {
