@@ -26,18 +26,11 @@ Use the termimal to check the accepted decimal mark of gnome-calculator in your 
 ## Dependencies
 
 To run this extension gnome-calculator must be installed.
-
 ## Install
 
 Move the directory modern-calc@kaer to ~/.local/share/gnome-shell/extensions/ .
 
-If your running version of gnome-shell is other than 3.10, 3.12 and 3.14 change the metadata.json content:
-
-"shell-version": ["3.10"]
-to
-"shell-version": ["YOUR VERSION OF GSHELL"]
-
-Note: This is extension was developed for Gnome Shell 3.10-3.14 and may not run in older versions.
+Note: This extension was developed for Gnome Shell 3.36 and may not run in older versions.
 
 ## Usage
 Check the RELEASE NOTES file to see the accepted shortcuts.
