@@ -187,7 +187,7 @@ const Dialog = new Lang.Class({
             if(Main.layoutManager.monitors.length == 1){
                 Tweener.removeTweens(this.actor);
                 Tweener.addTween(this.actor, {
-                    time: this.params.animation_time / St.get_slow_down_factor(),
+                    time: this.params.animation_time,
                     transition: 'easeOutExpo',
                     x: this._target_x,
                     onComplete: Lang.bind(this, function() {
@@ -197,7 +197,7 @@ const Dialog = new Lang.Class({
             } else {
                 Tweener.removeTweens(this.actor);
                 Tweener.addTween(this.actor, {
-                    time: this.params.animation_time / St.get_slow_down_factor(),
+                    time: this.params.animation_time,
                     transition: 'easeOutExpo',
                     y: this._target_y,
                     onComplete: Lang.bind(this, function() {
@@ -234,7 +234,7 @@ const Dialog = new Lang.Class({
             if(Main.layoutManager.monitors.length == 1){
                 Tweener.removeTweens(this.actor);
                 Tweener.addTween(this.actor, {
-                    time: this.params.animation_time / St.get_slow_down_factor(),
+                    time: this.params.animation_time,
                     transition: 'easeInOutQuint',
                     x: this._hidden_x,
                     onComplete: Lang.bind(this, function() {
@@ -245,7 +245,7 @@ const Dialog = new Lang.Class({
             } else {
                 Tweener.removeTweens(this.actor);
                 Tweener.addTween(this.actor, {
-                    time: this.params.animation_time / St.get_slow_down_factor(),
+                    time: this.params.animation_time,
                     transition: 'easeInOutQuint',
                     y: this._hidden_y,
                     onComplete: Lang.bind(this, function() {
