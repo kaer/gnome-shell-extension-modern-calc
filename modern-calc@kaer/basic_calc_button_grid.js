@@ -289,7 +289,7 @@ const BasicCalcButtonGrid = new Lang.Class({
 
         this._buttonGrid = new St.Widget({
             style_class: 'bc-button-group',
-            layout_manager: new Clutter.TableLayout()
+            layout_manager: new Clutter.GridLayout()
         });
 
         
@@ -357,15 +357,8 @@ const BasicCalcButtonGrid = new Lang.Class({
     },
 
     _addToGrid: function(btnActor, rowNum, colNum, rowSpan, colSpan){
-
-        this._buttonGrid.layout_manager.pack(btnActor, colNum, rowNum);
-
-        if(colSpan > 1 || rowSpan > 1){
-            this._buttonGrid.layout_manager.set_span(btnActor, colSpan, rowSpan);    
-        }        
-
+        this._buttonGrid.layout_manager.attach(btnActor, colNum, rowNum, colSpan, rowSpan);
     },
-
 
     destroy: function(){
         this.actor.destroy();
