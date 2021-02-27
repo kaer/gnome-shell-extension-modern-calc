@@ -109,12 +109,18 @@ const IndicatorButton = new Lang.Class({
 
     _createContextMenu: function() {
 
+        let show_item = new PopupMenu.PopupMenuItem(_("Show"));
+        show_item.connect("activate", Lang.bind(this, function() {
+            this._modernCalc.show();
+        }));
+        this.menu.addMenuItem(show_item);
+
         let preferences_item = new PopupMenu.PopupMenuItem(_("Preferences"));
         preferences_item.connect("activate", Lang.bind(this, function() {
             this._modernCalc.hide();
             Util.spawn(["gnome-shell-extension-prefs", Me.uuid]);
         }));
-        this.menu.addMenuItem(preferences_item);        
+        this.menu.addMenuItem(preferences_item);
     },
 
     _enableKeybindings: function() {
