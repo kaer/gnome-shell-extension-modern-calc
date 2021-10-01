@@ -32,12 +32,8 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 const GLib = imports.gi.GLib;
 const Lang = imports.lang;
-const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
-const Panel = imports.ui.panel;
 const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
 const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();

@@ -26,17 +26,10 @@
 
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
-const Gio = imports.gi.Gio;
-const GLib = imports.gi.GLib;
 const Lang = imports.lang;
-const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
-const Panel = imports.ui.panel;
 const Pango = imports.gi.Pango;
 const Params = imports.misc.params;
-const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const ModernCalcModule = Me.imports.modern_calc_module;

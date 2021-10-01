@@ -27,7 +27,6 @@
 const St = imports.gi.St;
 const Lang = imports.lang;
 const Clutter = imports.gi.Clutter;
-const Panel = imports.ui.panel;
 const Pango = imports.gi.Pango;
 const Params = imports.misc.params;
 const ExtensionUtils = imports.misc.extensionUtils;

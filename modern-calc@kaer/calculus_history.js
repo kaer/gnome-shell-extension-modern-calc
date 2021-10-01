@@ -24,17 +24,10 @@
  *
  */
 
-const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
-const Gio = imports.gi.Gio;
 const Lang = imports.lang;
-const Main = imports.ui.main;
-const Mainloop = imports.mainloop;
-const Panel = imports.ui.panel;
 const Params = imports.misc.params;
-const Shell = imports.gi.Shell;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
 
 const Me = ExtensionUtils.getCurrentExtension();
 

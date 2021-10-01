@@ -26,7 +26,6 @@
 
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
-const Gio = imports.gi.Gio;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Meta = imports.gi.Meta;

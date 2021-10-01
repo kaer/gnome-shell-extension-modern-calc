@@ -28,7 +28,6 @@
  *    Gnote/Tomboy Integration
  */
 
-const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Gio = imports.gi.Gio;
 

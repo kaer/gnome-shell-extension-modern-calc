@@ -26,11 +26,6 @@
 
 const St = imports.gi.St;
 const Lang = imports.lang;
-const Main = imports.ui.main;
-const Gio = imports.gi.Gio;
-const Shell = imports.gi.Shell;
-const Tweener = imports.ui.tweener;
-const Mainloop = imports.mainloop;
 const Clutter = imports.gi.Clutter;
 const Panel = imports.ui.panel;
 const Params = imports.misc.params;
