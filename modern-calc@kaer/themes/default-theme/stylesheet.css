@@ -262,7 +262,6 @@
 
 .mc-default-theme .display-group .display-result {
     font-size: 20px;
-    /*text-align: right;*/ /*TODO why doenst works*/
     padding: 6px 3px;
 
     color: rgba(219,226,227,0.9);
