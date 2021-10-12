@@ -8,6 +8,8 @@ This extension aims to be a modern full featured calculator for gnome-shell.
 
 ## WARNING
 
+Expressions with negative results are returning wrong data.
+
 Depending of your system settings this extension should not be used for production.
 
 Known issues:
@@ -61,10 +63,6 @@ The use of unit converter (UC) is very easy, first you need to select a measurem
 	Prefixes k (kilo), M (mega) and others are accepted except for temperatures.
 	usage:
 		1Mm > mm
-
-## Bugs and wishlist
-
-If you find bugs or want new features report it to the project [bug tracker](https://github.com/kaer/gnome-shell-extension-modern-calc).
 
 ## License
 
