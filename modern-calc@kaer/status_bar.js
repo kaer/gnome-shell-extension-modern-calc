@@ -32,7 +32,7 @@ const St = imports.gi.St;
 const Me = ExtensionUtils.getCurrentExtension();
 
 
-const StatusBar = new Lang.Class({
+var StatusBar = new Lang.Class({
     Name: "StatusBar",
     
     _init: function(params) {
@@ -61,20 +61,12 @@ const StatusBar = new Lang.Class({
         this._statusLabel = new St.Label({
             style_class: 'message',
             text: '',
-            visible: false
+            visible: false,
+            x_expand: true
         });
 
-        this.actor.add(this._statusIcon, {
-            expand: false,
-            y_align: St.Align.MIDDLE,
-            x_align: St.Align.START
-        });
-
-        this.actor.add(this._statusLabel, { 
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this.actor.add(this._statusIcon);
+        this.actor.add(this._statusLabel);
     },
 
     set_message: function(message_type, message){

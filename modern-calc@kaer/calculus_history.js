@@ -34,7 +34,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 
-const CalculusHistory = new Lang.Class({
+var CalculusHistory = new Lang.Class({
     Name: "CalculusHistory",
 
     _init: function(params) {
@@ -44,7 +44,8 @@ const CalculusHistory = new Lang.Class({
 
         this.actor = new St.BoxLayout({
             style_class: 'history-group',
-            vertical: true
+            vertical: true,
+            x_expand: true,
         });
 
         this._prepareInterface();
@@ -59,39 +60,39 @@ const CalculusHistory = new Lang.Class({
         this._historyTitle = new St.Label({
             style_class: 'history-title',
             text: _("History"),
-            visible: true
-        });
-
-        /*this.actor.add_child(this._historyTitle, {
-            expand: true,
+            visible: true,
+            x_expand: true,
             y_align: St.Align.START,
-            x_align: St.Align.START
-        });*/
+        });
 
         this.actor.add_child(this._historyTitle);
 
         // buttons
         this._btnHistClear = new St.Button({ //TODO how to not hide the button text when it have an icon
             child: new St.Icon({icon_name: 'user-trash-symbolic', style_class: 'button-icon'}),
-            label: _("clear history"), style_class: 'history-btn-clear'
+            label: _("clear history"), style_class: 'history-btn-clear',
+            x_expand: true
         });
 
         this._btnHistClear.connect("clicked", Lang.bind(this, this.clear_calculus_history));
         /*
         this._btnClose = new St.Button({
-            label: 'Close', style_class: 'history-btn-close'
+            label: 'Close', style_class: 'history-btn-close',
+            x_expand: true
         });*/
 
         // history buttons
         this._btnHistMovPrev = new St.Button({
             child: new St.Icon({icon_name: 'go-previous-symbolic', style_class: 'button-icon'}),
-            label: _("prev"), style_class: 'history-btn-mover'
+            label: _("prev"), style_class: 'history-btn-mover',
+            x_expand: true
         });
         this._btnHistMovPrev.connect("clicked", Lang.bind(this, this.history_move_prev));
 
         this._btnHistMovNext = new St.Button({
             child: new St.Icon({icon_name: 'go-next-symbolic', style_class: 'button-icon'}),
-            label: _("next"), style_class: 'history-btn-mover'
+            label: _("next"), style_class: 'history-btn-mover',
+            x_expand: true
         });
         this._btnHistMovNext.connect("clicked", Lang.bind(this, this.history_move_next));
 
@@ -99,133 +100,79 @@ const CalculusHistory = new Lang.Class({
         this._exprTitle = new St.Label({
             style_class: 'expr-label',
             text: _("Expr."),
-            visible: true
+            visible: true,
+            x_expand: false
         });
 
         this._exprValue = new St.Label({
             style_class: 'expr-value',
             text: '',
-            visible: true
+            visible: true,
+            x_expand: true
         });
 
         this._btnUseExpr = new St.Button({
-            label: _("Use"), style_class: 'history-use-expr'
+            label: _("Use"), style_class: 'history-use-expr', x_expand: false
         });
         this._btnUseExpr.connect("clicked", Lang.bind(this, this.use_current_expression));
 
         this._ansTitle = new St.Label({
             style_class: 'ans-label',
             text: _("ANS"),
-            visible: true
+            visible: true,
+            x_expand: false
         });
 
         this._ansValue = new St.Label({
             style_class: 'ans-value',
             text: '',
-            visible: true
+            visible: true,
+            x_expand: true
         });
 
         // containers
         this._hideableContainer = new St.BoxLayout({
             style_class: 'history-container',
-            vertical: true
+            vertical: true,
+            x_expand: true
         });
 
         this._buttonContainer = new St.BoxLayout({
             style_class: 'button-container',
-            vertical: false
+            vertical: false,
+            x_expand: true
         });
 
         this._exprContainer = new St.BoxLayout({
             style_class: 'expr-container',
-            vertical: false
+            vertical: false,
+            x_expand: true
         });
 
         this._ansContainer = new St.BoxLayout({
             style_class: 'ans-container',
-            vertical: false
+            vertical: false,
+            x_expand: true
         });
 
-        this._buttonContainer.add(this._btnHistClear, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-        /*
-        this._buttonContainer.add(this._btnClose, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });*/
+        this._buttonContainer.add(this._btnHistClear);
+        //this._buttonContainer.add(this._btnClose);
+        this._buttonContainer.add(this._btnHistMovPrev);
+        this._buttonContainer.add(this._btnHistMovNext);
 
-        this._buttonContainer.add(this._btnHistMovPrev, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this._exprContainer.add(this._exprTitle);
+        this._exprContainer.add(this._exprValue);
+        this._exprContainer.add(this._btnUseExpr);
 
-        this._buttonContainer.add(this._btnHistMovNext, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this._exprContainer.add(this._exprTitle, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-        this._exprContainer.add(this._exprValue, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this._exprContainer.add(this._btnUseExpr, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this._ansContainer.add(this._ansTitle, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-        this._ansContainer.add(this._ansValue, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this._ansContainer.add(this._ansTitle);
+        this._ansContainer.add(this._ansValue);
 
 
-
-        this._hideableContainer.add(this._buttonContainer, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this._hideableContainer.add(this._exprContainer, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this._hideableContainer.add(this._ansContainer, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        /*this.actor.add_child(this._hideableContainer, {
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });*/
+        this._hideableContainer.add(this._buttonContainer);
+        this._hideableContainer.add(this._exprContainer);
+        this._hideableContainer.add(this._ansContainer);
 
         this.actor.add_child(this._hideableContainer);
-
     },
 
     _enable_button: function(button){

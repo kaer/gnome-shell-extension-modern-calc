@@ -48,7 +48,7 @@ const PAGES = {
     MEASUREMENT_CHOOSER: 'measurement-chooser-page'
 };
 
-const UnitConverterModule = new Lang.Class({
+var UnitConverterModule = new Lang.Class({
     Name: "UnitConverterModule",
     Extends: ModernCalcModule.ModernCalcModule,
 
@@ -89,72 +89,50 @@ const UnitConverterModule = new Lang.Class({
         this._initConversionInfoBox();
         this._initMeasurementChooserPage();
         this._initConversionPage();
-
-        this.actor.add(this._conversionInfoBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-
-        this.actor.add(this._measurementChooserPage, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-
-        this.actor.add(this._conversionPage, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
     },
 
     _initConversionInfoBox: function(){
         this._conversionInfoBox = new St.BoxLayout({
             style_class: "conv-info-box",
-            vertical: false
+            vertical: false,
+            x_expand: false,//TODO ver se eh false
+            y_expand: false,//TODO ver se eh false
+            y_align: St.Align.START
         });
 
         this._measurementLabel = new St.Label({
             text: _("Measurement")+":",
-            style_class: "m-label"
+            style_class: "m-label",
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._activeMeasurementLabel = new St.Label({
             text: _("Undefined"),
-            style_class: "m-value"
+            style_class: "m-value",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._btnChangeMeasurement = new St.Button({
             label: _("Change"),
-            style_class: "btn-change"
+            style_class: "btn-change",
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.START
         });
         this._btnChangeMeasurement.connect("clicked", Lang.bind(this, function(){
             this._showPage(PAGES.MEASUREMENT_CHOOSER);
         }));
 
 
-        this._conversionInfoBox.add(this._measurementLabel, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-        this._conversionInfoBox.add(this._activeMeasurementLabel, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-        this._conversionInfoBox.add(this._btnChangeMeasurement, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._conversionInfoBox.add(this._measurementLabel);
+        this._conversionInfoBox.add(this._activeMeasurementLabel);
+        this._conversionInfoBox.add(this._btnChangeMeasurement);
 
-        this.actor.add(this._conversionInfoBox, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this.actor.add(this._conversionInfoBox);
     },
 
     _initMeasurementChooserPage: function(){
@@ -162,60 +140,65 @@ const UnitConverterModule = new Lang.Class({
         this._measurementChooserPage = new St.BoxLayout({
             style_class: 'measurement-chooser-page',
             vertical: true,
-            visible: false
+            visible: false,
+            x_expand: true,
+            y_expand: true,
+            y_align: St.Align.START
         });
 
         this._measurementChooserTitle = new St.Label({
             style_class: "measurement-chooser-title",
-            text: _("What to convert?")
+            text: _("What to convert?"),
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._measurementFilterEntry = new St.Entry({
             style_class: "measurement-filter-entry",
             hint_text: _("Type a measurement"),
             track_hover: true,
-            can_focus: true
+            can_focus: true,
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.START
         });
         this._measurementFilterEntry.clutter_text.connect('key-press-event', Lang.bind(this, this._measurementFilterEntryKeyPress));
 
         this._measurementListBox = new St.BoxLayout({
             style_class: 'measurement-list',
             vertical: true,
-        });
-
-        this._measurementChooserPage.add(this._measurementChooserTitle, {
-            expand: false,
-            x_align: St.Align.START,
+            x_expand: true,
+            y_expand: true,
             y_align: St.Align.START
         });
 
-        this._measurementChooserPage.add(this._measurementFilterEntry, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-
-        this._measurementChooserPage.add(this._measurementListBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-
+        this._measurementChooserPage.add(this._measurementChooserTitle);
+        this._measurementChooserPage.add(this._measurementFilterEntry);
+        this._measurementChooserPage.add(this._measurementListBox);
 
         // load measurement list
         this._loadMeasurementListButton();
+
+        this.actor.add(this._measurementChooserPage);
     },
 
     _initConversionPage: function(){
         this._conversionPage = new St.BoxLayout({
             style_class: 'conversion-page',
             vertical: true,
-            visible: false
+            visible: false,
+            x_expand: true,
+            y_expand: true,
+            y_align: St.Align.START
         });
 
         this._expressionLabel = new St.Label({
             text: _("Expression"),
-            style_class: "expression-label"
+            style_class: "expression-label",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._expressionEntry = new St.Entry({
@@ -223,7 +206,10 @@ const UnitConverterModule = new Lang.Class({
             hint_text: _("Type your Expression"),
             style_class: "expression-entry",
             track_hover: true,
-            can_focus: true
+            can_focus: true,
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
         this._expressionEntry.clutter_text.connect('key-press-event', Lang.bind(this, this._expressionEntryKeyPress));
         this._expressionEntry.clutter_text.connect('text-changed', Lang.bind(this, this._expressionChanged));
@@ -233,145 +219,122 @@ const UnitConverterModule = new Lang.Class({
         this._availableUnitsInfoBox = new St.BoxLayout({
             style_class: 'available-units-info',
             vertical: true,
-            visible: false
+            visible: false,
+            x_expand: true,
+            y_expand: true,
+            y_align: St.Align.START
         });
 
         this._availableUnitsLabel = new St.Label({
             text: _("Available units for conversion")+":",
-            style_class: "info-label"
+            style_class: "info-label",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
         
         this._availableUnitListBox = new St.BoxLayout({
             style_class: 'unit-list',
             vertical: true,
-            visible: true
-        });
-
-
-        this._availableUnitsInfoBox.add(this._availableUnitsLabel, {
-            expand: true,
-            x_align: St.Align.START,
+            visible: true,
+            x_expand: true,
+            y_expand: true,
             y_align: St.Align.START
         });
 
-        this._availableUnitsInfoBox.add(this._availableUnitListBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+
+        this._availableUnitsInfoBox.add(this._availableUnitsLabel);
+        this._availableUnitsInfoBox.add(this._availableUnitListBox);
 
         // Conv Result
         this._resultBox = new St.BoxLayout({
             style_class: 'result-box',
             vertical: true,
-            visible: false
+            visible: false,
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
         this._resultTitleLabel = new St.Label({
             text: _("Conversion result")+":",
-            style_class: "result-title"
+            style_class: "result-title",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._resultHBox = new St.BoxLayout({
             style_class: '',
             vertical: false,
-            visible: true
-        });
-
-        this._resultBox.add(this._resultTitleLabel, {
-            expand: true,
-            x_align: St.Align.START,
+            visible: true,
+            x_expand: true,
+            y_expand: false,
             y_align: St.Align.START
         });
 
-        this._resultBox.add(this._resultHBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._resultBox.add(this._resultTitleLabel);
+        this._resultBox.add(this._resultHBox);
 
 
         this._resultLabel = new St.Label({
             text: "",
-            style_class: "result-label"
+            style_class: "result-label",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._btnCopyResult = new St.Button({
             label: _("Copy"),
-            style_class: "result-btn-copy"
+            style_class: "result-btn-copy",
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.START
         });
         this._btnCopyResult.connect("clicked", Lang.bind(this, this._copyMainResult));
 
-        this._resultHBox.add(this._resultLabel, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._resultHBox.add(this._resultLabel);
 
-        this._resultHBox.add(this._btnCopyResult, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });        
+        this._resultHBox.add(this._btnCopyResult);
 
         // Additional conv
         this._additionalConvBox = new St.BoxLayout({
             style_class: 'extra-conv',
             vertical: true,
-            visible: false
+            visible: false,
+            x_expand: true,
+            y_expand: true,
+            y_align: St.Align.START
         });
 
         this._additionalConvLabel = new St.Label({
             text: _("Additional Conversion")+":",
-            style_class: "extra-conv-title"
+            style_class: "extra-conv-title",
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
         
         this._additionalConvListBox = new St.BoxLayout({
             style_class: "conv-list",
             vertical: true,
-            visible: true
-        });
-
-        this._additionalConvBox.add(this._additionalConvLabel, {
-            expand: true,
-            x_align: St.Align.START,
+            visible: true,
+            x_expand: true,
+            y_expand: true,
             y_align: St.Align.START
         });
 
-        this._additionalConvBox.add(this._additionalConvListBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._additionalConvBox.add(this._additionalConvLabel);
+        this._additionalConvBox.add(this._additionalConvListBox);
+        this._conversionPage.add(this._expressionLabel);
+        this._conversionPage.add(this._expressionEntry);
+        this._conversionPage.add(this._availableUnitsInfoBox);
 
-        //
-        this._conversionPage.add(this._expressionLabel, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-        this._conversionPage.add(this._expressionEntry, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-        this._conversionPage.add(this._availableUnitsInfoBox, {
-            expand: true,
-            x_fill: true,
-            y_fill: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this._conversionPage.add(this._resultBox);
+        this._conversionPage.add(this._additionalConvBox);
 
-        this._conversionPage.add(this._resultBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
-        this._conversionPage.add(this._additionalConvBox, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+
+        this.actor.add(this._conversionPage);
 
     },
 
@@ -386,11 +349,7 @@ const UnitConverterModule = new Lang.Class({
 
             let availableUnitInfoActor = this._loadMeasurementInfo();
             if(availableUnitInfoActor !== null){
-                this._availableUnitListBox.add(availableUnitInfoActor, {
-                    expand: true,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });   
+                this._availableUnitListBox.add(availableUnitInfoActor);
             }
         }
     },
@@ -417,18 +376,24 @@ const UnitConverterModule = new Lang.Class({
             // create it
             let infoBox = new St.BoxLayout({
                 style_class: "",
-                vertical: false
+                vertical: false,
+                x_expand: true,
+                y_align: St.Align.START
             });
 
             if(measurement.hasOwnProperty('available_units') && measurement.available_units.length > 0){
                 
                 let symbolBox = new St.BoxLayout({
                     style_class: "symbol-box",
-                    vertical: true
+                    vertical: true,
+                    x_expand: true,
+                    y_align: St.Align.START
                 });
                 let nameBox = new St.BoxLayout({
                     style_class: "name-box",
-                    vertical: true
+                    vertical: true,
+                    x_expand: true,
+                    y_align: St.Align.START
                 });
 
                 let units = measurement.available_units;
@@ -441,12 +406,16 @@ const UnitConverterModule = new Lang.Class({
 
                     let symbolLabel = new St.Label({
                         text: symbol,
-                        style_class: "l-symbol"
+                        style_class: "l-symbol",
+                        x_expand: true,
+                        y_align: St.Align.START
                     });
                     
                     let nameLabel = new St.Label({
                         text: _(units[k].name),
-                        style_class: "l-name"
+                        style_class: "l-name",
+                        x_expand: true,
+                        y_align: St.Align.START
                     });
                     
                     if(k % 2 == 0){
@@ -457,35 +426,19 @@ const UnitConverterModule = new Lang.Class({
                         nameLabel.add_style_pseudo_class('odd');
                     }
 
-                    symbolBox.add(symbolLabel, {
-                        expand: false,
-                        x_align: St.Align.START,
-                        y_align: St.Align.START
-                    });
-
-                    nameBox.add(nameLabel, {
-                        expand: true,
-                        x_align: St.Align.START,
-                        y_align: St.Align.START
-                    });
+                    symbolBox.add(symbolLabel);
+                    nameBox.add(nameLabel);
                 }
 
-                infoBox.add(symbolBox, {
-                    expand: false,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });
-
-                infoBox.add(nameBox, {
-                    expand: true,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });
+                infoBox.add(symbolBox);
+                infoBox.add(nameBox);
 
             } else {
                 let label = new St.Label({
                     text: _("The active measurement doesn't have information about available units"),
-                    style_class: "empty-list-info"
+                    style_class: "empty-list-info",
+                    x_expand: true,
+                    y_align: St.Align.START
                 });
 
                 label.clutter_text.set_single_line_mode(false);
@@ -493,11 +446,7 @@ const UnitConverterModule = new Lang.Class({
                 label.clutter_text.set_ellipsize(Pango.EllipsizeMode.NONE);
                 label.clutter_text.set_line_wrap(true);
 
-                infoBox.add(label, {
-                    expand: true,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });
+                infoBox.add(label);
             }
 
             // store for future use
@@ -526,7 +475,9 @@ const UnitConverterModule = new Lang.Class({
 
                 let label = new St.Label({
                     text: conv_result,
-                    style_class: "list-item"
+                    style_class: "list-item",
+                    x_expand: true,
+                    y_align: St.Align.START
                 });
                 
                 if(k % 2 == 0){
@@ -535,11 +486,7 @@ const UnitConverterModule = new Lang.Class({
                     label.add_style_pseudo_class('odd');
                 }
 
-                this._additionalConvListBox.add(label, {
-                    expand: true,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });
+                this._additionalConvListBox.add(label);
             }
         }
     },
@@ -557,17 +504,16 @@ const UnitConverterModule = new Lang.Class({
 
                     let listButton = new St.Button({
                         label: measurement.name,
-                        style_class: 'list-item'
+                        style_class: 'list-item',
+                        x_expand: false,
+                        y_expand: false,
+                        y_align: St.Align.START
                     });
                     listButton.connect("clicked", Lang.bind(this, function(){
                         this._setActiveMeasurement(listButton.label);
                     }));
 
-                    this._measurementListBox.add(listButton, {
-                        expand: false,
-                        x_align: St.Align.START,
-                        y_align: St.Align.START
-                    });
+                    this._measurementListBox.add(listButton);
                     
                     this._measurementListButton[i] = listButton;
                 }

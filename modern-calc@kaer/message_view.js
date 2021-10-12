@@ -48,7 +48,7 @@ const ButtonType = {
     INFO: 'info'
 };
 
-const MessageView = new Lang.Class({
+var MessageView = new Lang.Class({
     Name: "MessageView",
 
     _init: function(params) {
@@ -72,40 +72,43 @@ const MessageView = new Lang.Class({
 
         this._messageGroupLayout = new St.BoxLayout({
             style_class: 'mbox',
-            vertical: true
+            vertical: true,
+            x_expand: true,
+            y_align: St.Align.START
         });
 
         // title
         this._titleLabel = new St.Label({
             style_class: 'm-title',
-            text: ''
+            text: '',
+            x_expand: true,
+            y_align: St.Align.START
         });
         this._titleLabel.clutter_text.set_single_line_mode(false);
         this._titleLabel.clutter_text.set_line_wrap(true);
         this._titleLabel.clutter_text.set_line_wrap_mode(Pango.WrapMode.WORD);
 
         this._messageGroupLayout.add_child(this._titleLabel);
-        /*this._messageGroupLayout.add_child(this._titleLabel, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
 
         // content
         this._messageContentGroup = new St.BoxLayout({
             style_class: 'm-group',
-            vertical: false
+            vertical: false,
+            x_expand: true
         });
 
         this._icon = new St.Icon({
             icon_name: '',
             style_class: 'icon',
-            visible: true
+            visible: true,
+            x_expand: false,
+            y_align: St.Align.START
         });
 
         this._contentLabel = new St.Label({
             style_class: 'm-content',
-            text: ''
+            text: '',
+            x_expand: true,
         });
         this._contentLabel.clutter_text.set_single_line_mode(false);
         this._contentLabel.clutter_text.set_line_wrap(true);
@@ -113,45 +116,38 @@ const MessageView = new Lang.Class({
 
 
         this._messageContentGroup.add_child(this._icon);
-        /*this._messageContentGroup.add_child(this._icon, {
-            expand: false,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
-
         this._messageContentGroup.add_child(this._contentLabel);
-        /*this._messageContentGroup.add_child(this._contentLabel, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
-
+        
         this._messageGroupLayout.add_child(this._messageContentGroup);
-        /*this._messageGroupLayout.add_child(this._messageContentGroup, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
+    
 
         // buttons
         this._buttonGroupLayout = new St.BoxLayout({
             style_class: 'button-group',
-            vertical: false
+            vertical: false,
+            x_expand: true,
+            y_align: St.Align.START
         });
 
 
         this._okButton = new St.Button({
-            label: _("Ok"), style_class: 'm-button'
+            label: _("Ok"), style_class: 'm-button',
+            x_expand: false,
+            x_align: St.Align.MIDDLE
         });
         this._okButton.connect("clicked", Lang.bind(this, this._okButtonClick));
 
         this._yesButton = new St.Button({
-            label: _("Yes"), style_class: 'm-button'
+            label: _("Yes"), style_class: 'm-button',
+            x_expand: false,
+            x_align: St.Align.MIDDLE
         });
         this._yesButton.connect("clicked", Lang.bind(this, this._yesButtonClick));
 
         this._noButton = new St.Button({
-            label: _("No"), style_class: 'm-button'
+            label: _("No"), style_class: 'm-button',
+            x_expand: false,
+            x_align: St.Align.MIDDLE
         });
         this._noButton.connect("clicked", Lang.bind(this, this._noButtonClick));
 
@@ -160,62 +156,17 @@ const MessageView = new Lang.Class({
         this._bcNo = new St.BoxLayout({style_class: 'button-container', visible: false });
 
         this._bcOk.add_child(this._okButton);
-        /*this._bcOk.add_child(this._okButton, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
-
         this._bcYes.add_child(this._yesButton);
-        /*this._bcYes.add_child(this._yesButton, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
-
         this._bcNo.add_child(this._noButton);
-        /*this._bcNo.add_child(this._noButton, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
-
 
         this._buttonGroupLayout.add_child(this._bcOk);
-        /*this._buttonGroupLayout.add_child(this._bcOk, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });*/
-
         this._buttonGroupLayout.add_child(this._bcYes);
-        /*this._buttonGroupLayout.add_child(this._bcYes, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });*/
-
         this._buttonGroupLayout.add_child(this._bcNo);
-        /*this._buttonGroupLayout.add_child(this._bcNo, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });*/
 
 
         this._messageGroupLayout.add_child(this._buttonGroupLayout);
-        /*this._messageGroupLayout.add_child(this._buttonGroupLayout, {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });*/
 
         this.actor.add_child(this._messageGroupLayout);
-        /*this.actor.add_child(this._messageGroupLayout, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });*/
     },
 
     _okButtonClick: function(){

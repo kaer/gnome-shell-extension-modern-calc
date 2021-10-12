@@ -37,7 +37,7 @@ const CLIPBOARD_TYPE = St.ClipboardType.CLIPBOARD;
 
 
 
-const ModernCalcModule = new Lang.Class({
+var ModernCalcModule = new Lang.Class({
     Name: "ModernCalcModule",
 
     _init: function(params) {
@@ -59,12 +59,13 @@ const ModernCalcModule = new Lang.Class({
 
         this._actor = new St.BoxLayout({
             style_class: this.params.style_class,
-            vertical: this.params.vertical_mode
+            vertical: this.params.vertical_mode,
+            x_expand: true,
+            y_expand: false,
+            y_align: St.Align.START
         });
 
         this._prepareInterface();
-
-
     },
 
     _prepareToolbarButton: function(label){

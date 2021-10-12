@@ -38,7 +38,7 @@ const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 
 
-const Display = new Lang.Class({
+var Display = new Lang.Class({
     Name: "Display",
     
     _init: function(params) {
@@ -65,33 +65,25 @@ const Display = new Lang.Class({
             style_class: "calc-entry",
             hint_text: _("Type your Expression"),
             track_hover: true,
-            can_focus: true
+            can_focus: true,
+            x_expand: true,
+            y_align: St.Align.START
         });
-        
         
         this._expression_entry.clutter_text.connect('key-press-event', Lang.bind(this, this._entryKeyPress));
         this._expression_entry.clutter_text.connect('text-changed', Lang.bind(this, this._expressionChanged));
 
         this._display_result = new St.Label({
             style_class: 'display-result',
-            text: '0'
+            text: '0',
+            x_expand: true,
+            y_align: St.Align.START
         });
-
     },
 
     _initInterface: function(){
-
-        this.actor.add(this._expression_entry,{
-            expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
-
-        this.actor.add(this._display_result,{
-             expand: true,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this.actor.add(this._expression_entry);
+        this.actor.add(this._display_result);
     },
 
 

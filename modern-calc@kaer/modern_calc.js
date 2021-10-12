@@ -54,7 +54,7 @@ const _ = Gettext.gettext;
 let CalculatorModule;
 let UnitConverterModule;
 
-const ModernCalc = new Lang.Class({
+var ModernCalc = new Lang.Class({
     Name: "ModernCalc",
     Extends: Dialog.Dialog,
 
@@ -78,6 +78,7 @@ const ModernCalc = new Lang.Class({
         this._messageView = new MessageView.MessageView({
             app: this
         });
+
 
         this._appHeader = null;
         this._statusBar = null;
@@ -110,20 +111,18 @@ const ModernCalc = new Lang.Class({
         /*this._appHeader = new AppHeader.AppHeader();
         this.boxLayout.add(this._appHeader.actor, {
             expand: false,
-            x_align: St.Align.MIDDLE,
             y_align: St.Align.MIDDLE
         });*/
 
-        this.boxLayout.add(this._messageView.actor, {
-            expand: false,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });
+        this.boxLayout.add(this._messageView.actor);
 
         // add toolbar
         this._toolbar = new St.BoxLayout({
             style_class: 'toolbar',
-            vertical: false
+            vertical: false,
+            x_expand: false,
+            y_expand: false,
+            y_align: St.Align.MIDDLE
         });
 
         this._prefButton = new St.Button({
@@ -136,41 +135,28 @@ const ModernCalc = new Lang.Class({
         }));
 
 
-        this.boxLayout.add(this._toolbar, {
-            expand: false,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this.boxLayout.add(this._toolbar);
 
 
         this._moduleContainer = new St.BoxLayout({
             style_class: 'module-container',
-            vertical: true
+            vertical: true,
+            x_expand: true,
+            y_expand: true,
+            y_align: St.Align.START
         });
 
         // load modules
         this._loadModules();
 
-        this.boxLayout.add(this._moduleContainer, {
-            expand: true,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.START
-        });
+        this.boxLayout.add(this._moduleContainer);
 
         // spacer
-        this.boxLayout.add(new St.Label({ text: '' }), {
-            expand: true,
-            x_align: St.Align.START,
-            y_align: St.Align.START
-        });
+        this.boxLayout.add(new St.Label({ text: '', x_expand: true, y_expand: true }));
 
         // status
         this._statusBar = new StatusBar.StatusBar({ calc_app: this });
-        this.boxLayout.add(this._statusBar.actor, {
-            expand: false,
-            x_align: St.Align.START,
-            y_align: St.Align.END
-        });
+        this.boxLayout.add(this._statusBar.actor);
     },
 
     _loadModules: function(){
@@ -236,28 +222,16 @@ const ModernCalc = new Lang.Class({
                 if(currModule){
                     toolbarButton = currModule.get_toolbar_button();
 
-                    this._toolbar.add(toolbarButton, {
-                        expand: false,
-                        x_align: St.Align.START,
-                        y_align: St.Align.START
-                    });
+                    this._toolbar.add(toolbarButton);
                 }
             }
         }
 
         // spacer
-        this._toolbar.add(new St.Label({ text: '' }), {
-                expand: true,
-                x_align: St.Align.MIDDLE,
-                y_align: St.Align.MIDDLE
-            });
+        this._toolbar.add(new St.Label({ text: '', x_expand: true, y_expand: true }));
 
         // preferences button
-        this._toolbar.add(this._prefButton, {
-                expand: false,
-                x_align: St.Align.END,
-                y_align: St.Align.START
-            });
+        this._toolbar.add(this._prefButton);
     },
 
     _removeActiveModule: function(){
@@ -291,11 +265,7 @@ const ModernCalc = new Lang.Class({
             if(module !== null){
 
                 // load the found module
-                this._moduleContainer.add(module.actor, {
-                    expand: false,
-                    x_align: St.Align.START,
-                    y_align: St.Align.START
-                });
+                this._moduleContainer.add(module.actor);
 
                 // highlight module's toolbar button
                 let toolbarButton = module.get_toolbar_button();

@@ -26,18 +26,18 @@
  */
 
 // FOR SETTINGS ----------------------------------------------------------
-const THEMES = {
+var THEMES = {
     DEFAULT: 'default-theme',
     LIGHT: 'light-theme'
 };
 
-const MODULES = {
+var MODULES = {
 	CALCULATOR: 'calculator',
 	UNIT_CONVERTER: 'unit_converter'
 };
 
 // CALC
-const DECIMAL_MARK = {
+var DECIMAL_MARK = {
     UNSET: '',
     DOT: '.',
     COMMA: ','

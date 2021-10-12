@@ -42,7 +42,7 @@ const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 const Convenience = Me.imports.convenience;
 
-const PrefsGrid = new GObject.Class({
+var PrefsGrid = new GObject.Class({
     Name: 'Prefs.Grid',
     GTypeName: 'PrefsGrid',
     Extends: Gtk.Grid,

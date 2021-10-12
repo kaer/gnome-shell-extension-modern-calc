@@ -36,7 +36,7 @@ const Utils = Me.imports.utils;
 const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 
-const BasicCalcButtonGrid = new Lang.Class({
+var BasicCalcButtonGrid = new Lang.Class({
     Name: "BasicCalcButtonGrid",
     
     _init: function(params) {
@@ -45,7 +45,9 @@ const BasicCalcButtonGrid = new Lang.Class({
         });
 
         this.actor = new St.BoxLayout({
-            vertical: true
+            vertical: true,
+            x_expand: true,
+            y_align: St.Align.START
         });
 
         this._initButtons();
@@ -54,164 +56,81 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._lastValidResult = false;
     },
 
+    _newPushValueButton: function(label, className, pushValue){
+        let btn = new St.Button({
+            label: label, style_class: className, x_expand: true
+        });
+
+        btn.connect("clicked", Lang.bind(this, function(){ this._pushValue(pushValue); }));
+
+        return btn;
+    },
+
+    _newCallbackButton: function(label, className, callback){
+        let btn = new St.Button({
+            label: label, style_class: className, x_expand: true
+        });
+
+        btn.connect("clicked", Lang.bind(this, callback));
+
+        return btn;
+    },
+
     _initButtons: function(){
 
-        this._btn0 = new St.Button({
-            label: '0', style_class: 'normal-button'
-        });
-        this._btn0.connect("clicked", Lang.bind(this, function(){ this._pushValue('0');}));
-        
-        this._btn1 = new St.Button({
-            label: '1', style_class: 'normal-button'
-        });
-        this._btn1.connect("clicked", Lang.bind(this, function(){ this._pushValue('1');}));
-
-        this._btn2 = new St.Button({label: '2', style_class: 'normal-button'});
-        this._btn2.connect("clicked", Lang.bind(this, function(){ this._pushValue('2');}));
-
-        this._btn3 = new St.Button({
-            label: '3', style_class: 'normal-button'
-        });
-        this._btn3.connect("clicked", Lang.bind(this, function(){ this._pushValue('3');}));
-
-        this._btn4 = new St.Button({
-            label: '4', style_class: 'normal-button'
-        });
-        this._btn4.connect("clicked", Lang.bind(this, function(){ this._pushValue('4');}));
-
-        this._btn5 = new St.Button({
-            label: '5', style_class: 'normal-button'
-        });
-        this._btn5.connect("clicked", Lang.bind(this, function(){ this._pushValue('5');}));
-
-        this._btn6 = new St.Button({
-            label: '6', style_class: 'normal-button'
-        });
-        this._btn6.connect("clicked", Lang.bind(this, function(){ this._pushValue('6');}));
-
-        this._btn7 = new St.Button({
-            label: '7', style_class: 'normal-button'
-        });
-        this._btn7.connect("clicked", Lang.bind(this, function(){ this._pushValue('7');}));
-
-        this._btn8 = new St.Button({
-            label: '8', style_class: 'normal-button'
-        });
-        this._btn8.connect("clicked", Lang.bind(this, function(){ this._pushValue('8');}));
-
-        this._btn9 = new St.Button({
-            label: '9', style_class: 'normal-button'
-        });
-        this._btn9.connect("clicked", Lang.bind(this, function(){ this._pushValue('9');}));
+        this._btn0 = this._newPushValueButton('0', 'normal-button', '0');
+        this._btn1 = this._newPushValueButton('1', 'normal-button', '1');
+        this._btn2 = this._newPushValueButton('2', 'normal-button', '2');
+        this._btn3 = this._newPushValueButton('3', 'normal-button', '3');
+        this._btn4 = this._newPushValueButton('4', 'normal-button', '4');
+        this._btn5 = this._newPushValueButton('5', 'normal-button', '5');
+        this._btn6 = this._newPushValueButton('6', 'normal-button', '6');
+        this._btn7 = this._newPushValueButton('7', 'normal-button', '7');
+        this._btn8 = this._newPushValueButton('8', 'normal-button', '8');
+        this._btn9 = this._newPushValueButton('9', 'normal-button', '9');
 
 
         // auxiliary buttons
-        this._btnExp = new St.Button({
-            label: _("EXP"), style_class: 'normal-button'
-        });
-        this._btnExp.connect("clicked", Lang.bind(this, this._btnExpClick));
+        this._btnExp = this._newCallbackButton(_("EXP"), 'normal-button', this._btnExpClick);
 
         let dMark = this.params.calc_app.decimal_mark;
         if(dMark == '') dMark = '.';
-        this._btnDecimalSep = new St.Button({
-            label: dMark, style_class: 'normal-button'
-        });
-        this._btnDecimalSep.connect("clicked", Lang.bind(this, function(){ this._pushValue(dMark);}));
+        this._btnDecimalSep = this._newPushValueButton(dMark, 'normal-button', dMark);
 
-        
+
         // delete buttons
-        this._btnClearLastChar = new St.Button({
-            label: _("C"), style_class: 'delete-button'
-        });
-        this._btnClearLastChar.connect("clicked", Lang.bind(this, this._btnClearLastCharClick));
+        this._btnClearLastChar = this._newCallbackButton(_("C"), 'delete-button', this._btnClearLastCharClick);
 
-        this._btnclearExpression = new St.Button({
-            label: _("Clear"), style_class: 'delete-button'
-        });
+        this._btnclearExpression = this._newCallbackButton(_("Clear"), 'delete-button', this._btnClearExpressionClick);
         this._btnclearExpression.child = new St.Icon({icon_name: 'edit-clear-symbolic', style_class: 'button-icon'});
-        this._btnclearExpression.connect("clicked", Lang.bind(this, this._btnClearExpressionClick));
 
 
         // special buttons 
-        this._btnPercent = new St.Button({
-            label: '%', style_class: 'special-button'
-        });
-        this._btnPercent.connect("clicked", Lang.bind(this, function(){ this._pushValue('%');}));
-
-        this._btnPI = new St.Button({
-            label: 'π', style_class: 'special-button'
-        });
-        this._btnPI.connect("clicked", Lang.bind(this, function(){ this._pushValue('π');}));
-
-
-        this._btnSquareRoot = new St.Button({
-            label: '√', style_class: 'special-button'
-        });
-        this._btnSquareRoot.connect("clicked", Lang.bind(this, function(){ this._pushValue('√');}));
-
-        this._btnPow2 = new St.Button({
-            label: 'x²', style_class: 'special-button'
-        });
-        this._btnPow2.connect("clicked", Lang.bind(this, function(){ this._pushValue('²');}));
-
-        this._btnOpenBracket = new St.Button({
-            label: '(', style_class: 'special-button'
-        });
-        this._btnOpenBracket.connect("clicked", Lang.bind(this, function(){ this._pushValue('(');}));
-
-        this._btnCloseBracket = new St.Button({
-            label: ')', style_class: 'special-button'
-        });
-        this._btnCloseBracket.connect("clicked", Lang.bind(this, function(){ this._pushValue(')');}));
+        this._btnPercent = this._newPushValueButton('%', 'special-button', '%');
+        this._btnPI = this._newPushValueButton('π', 'special-button', 'π');
+        this._btnSquareRoot = this._newPushValueButton('√', 'special-button', '√');
+        this._btnPow2 = this._newPushValueButton('x²', 'special-button', '²');
+        this._btnOpenBracket = this._newPushValueButton('(', 'special-button', '(');
+        this._btnCloseBracket = this._newPushValueButton(')', 'special-button', ')');
 
 
         // clipboard buttons
-        this._btnCopyToClipboard = new St.Button({
-            label: _("copy"), style_class: 'clipboard-button'
-        });
+        this._btnCopyToClipboard = this._newCallbackButton(_("copy"), 'clipboard-button', this._btnClipboardCopyClick);
         this._btnCopyToClipboard.child = new St.Icon({icon_name: 'edit-copy-symbolic', style_class: 'button-icon'});
-        this._btnCopyToClipboard.connect("clicked", Lang.bind(this, this._btnClipboardCopyClick));
-
-        this._btnPasteFromClipboard = new St.Button({
-            label: _("paste"), style_class: 'clipboard-button'
-        });
+        
+        this._btnPasteFromClipboard = this._newCallbackButton(_("paste"), 'clipboard-button', this._btnClipboardPasteClick);
         this._btnPasteFromClipboard.child = new St.Icon({icon_name: 'edit-paste-symbolic', style_class: 'button-icon'});
-        this._btnPasteFromClipboard.connect("clicked", Lang.bind(this, this._btnClipboardPasteClick));
-
-
 
 
         // action buttons
-        this._btnMinus = new St.Button({
-            label: '-', style_class: 'normal-button'
-        });
-        this._btnMinus.connect("clicked", Lang.bind(this, function(){ this._pushValue('-');}));
+        this._btnMinus = this._newPushValueButton('-', 'normal-button', '-');
+        this._btnSum = this._newPushValueButton('+', 'normal-button', '+');
+        this._btnTimes = this._newPushValueButton('\u00D7', 'normal-button', '*');
+        this._btnDiv = this._newPushValueButton('\u00F7', 'normal-button', '/');
 
-        this._btnSum = new St.Button({
-            label: '+', style_class: 'normal-button'
-        });
-        this._btnSum.connect("clicked", Lang.bind(this, function(){ this._pushValue('+');}));
+        this._btnEqual = this._newCallbackButton('=', 'normal-button', this._btnEqualClick);
 
-        this._btnTimes = new St.Button({
-            label: '\u00D7', style_class: 'normal-button'
-        });
-        this._btnTimes.connect("clicked", Lang.bind(this, function(){ this._pushValue('*');}));
-
-        this._btnDiv = new St.Button({
-            label: '\u00F7', style_class: 'normal-button'
-        });
-        this._btnDiv.connect("clicked", Lang.bind(this, function(){ this._pushValue('/');}));
-
-
-        this._btnEqual = new St.Button({
-            label: '=', style_class: 'normal-button'
-        });
-        this._btnEqual.connect("clicked", Lang.bind(this, this._btnEqualClick));
-
-        this._btnANS = new St.Button({
-            label: _("ANS"), style_class: 'ans-button'
-        });
-        this._btnANS.connect("clicked", Lang.bind(this, function(){ this._pushValue('ANS');}));
+        this._btnANS = this._newPushValueButton(_("ANS"), 'ans-button', 'ANS');
 
     },
 
@@ -255,7 +174,6 @@ const BasicCalcButtonGrid = new Lang.Class({
         }
     },
 
-
     _btnEqualClick: function(){
 
         if(this.params.calc_app){
@@ -277,15 +195,14 @@ const BasicCalcButtonGrid = new Lang.Class({
         }
     },
 
-    
-
     _initInterface: function(){
 
         this._buttonGrid = new St.Widget({
             style_class: 'bc-button-group',
-            layout_manager: new Clutter.GridLayout()
+            layout_manager: new Clutter.GridLayout(),
+            x_expand: false,
+            y_align: St.Align.START
         });
-
         
         let line_first = 0,
             line_second = 1,
@@ -342,11 +259,7 @@ const BasicCalcButtonGrid = new Lang.Class({
         this._addToGrid(this._btnPasteFromClipboard, line_first, 3, 1, 1);
         
         // add to actor
-        this.actor.add(this._buttonGrid, { 
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this.actor.add(this._buttonGrid);
 
     },
 

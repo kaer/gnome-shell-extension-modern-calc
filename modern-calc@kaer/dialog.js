@@ -26,12 +26,11 @@
  *    NOTE: This file is credited to the creator of Gnote/Tomboy Integration
  *    few changes were made: animation type, layout type and reveal direction
  */
- 
+
 const St = imports.gi.St;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Shell = imports.gi.Shell;
-const Tweener = imports.ui.tweener;
 const Clutter = imports.gi.Clutter;
 const Panel = imports.ui.panel;
 const Params = imports.misc.params;
@@ -40,7 +39,7 @@ const CONNECTION_IDS = {
     captured_event: 0
 };
 
-const Dialog = new Lang.Class({
+var Dialog = new Lang.Class({
     Name: "Dialog",
 
     _init: function(params) {
@@ -75,7 +74,7 @@ const Dialog = new Lang.Class({
             style_class: this.params.style_class,
             vertical: true
         });
-        this.actor.add_child(this.boxLayout);
+        this.actor.add(this.boxLayout);
 
         this._open = false;
         this.resize();
@@ -139,7 +138,7 @@ const Dialog = new Lang.Class({
         // primary monitor
         let monitor = Main.layoutManager.primaryMonitor;
 
-        let available_height = monitor.height - Main.panel.actor.height;
+        let available_height = monitor.height - Main.panel.height;
 
         let my_width = monitor.width / 100 * this.params.width_percents;
         let my_height = available_height / 100 * this.params.height_percents;
@@ -148,11 +147,11 @@ const Dialog = new Lang.Class({
         this._target_x = this._hidden_x - my_width;
 
         this._hidden_y = monitor.y - my_height;
-        this._target_y = this._hidden_y + Main.panel.actor.height + my_height;
+        this._target_y = this._hidden_y + Main.panel.height + my_height;
 
         if(Main.layoutManager.monitors.length == 1){
             this.actor.x = this._hidden_x;
-            this.actor.y = Main.panel.actor.height;
+            this.actor.y = Main.panel.height;
         } else {
             this.actor.x = (monitor.width + monitor.x) - my_width;
             this.actor.y = this._hidden_y;
@@ -169,10 +168,8 @@ const Dialog = new Lang.Class({
     show: function(animation, on_complete) {
         if(this._open) return;
 
-        animation = animation ===
-            undefined
-            ? true
-            : animation;
+        animation = (animation === undefined)? true : animation;
+        
         let push_result = Main.pushModal(this.actor, {
             actionMode: Shell.ActionMode.NORMAL
         });
@@ -184,27 +181,24 @@ const Dialog = new Lang.Class({
         this.resize();
 
         if(this.params.enable_reveal_animation && animation) {
+
+            let animationParams = {
+                transition: 'easeOutExpo',
+                onComplete: Lang.bind(this, function() {
+                    if(typeof on_complete === 'function') on_complete();
+                })
+            };
+            
             if(Main.layoutManager.monitors.length == 1){
-                Tweener.removeTweens(this.actor);
-                Tweener.addTween(this.actor, {
-                    time: this.params.animation_time,
-                    transition: 'easeOutExpo',
-                    x: this._target_x,
-                    onComplete: Lang.bind(this, function() {
-                        if(typeof on_complete === 'function') on_complete();
-                    })
-                });
+                animationParams.x = this._target_x;
             } else {
-                Tweener.removeTweens(this.actor);
-                Tweener.addTween(this.actor, {
-                    time: this.params.animation_time,
-                    transition: 'easeOutExpo',
-                    y: this._target_y,
-                    onComplete: Lang.bind(this, function() {
-                        if(typeof on_complete === 'function') on_complete();
-                    })
-                });
+                animationParams.y = this._target_y;
             }
+
+            animationParams.time = this.params.animation_time;
+            animationParams.transition = Clutter.AnimationMode.EASE_OUT_QUAD;
+            this.actor.ease(animationParams);
+            
         }
         else {
             if(Main.layoutManager.monitors.length == 1){
@@ -225,35 +219,28 @@ const Dialog = new Lang.Class({
         Main.popModal(this.actor);
         this._open = false;
         this._disconnect_captured_event();
-        animation = animation ===
-            undefined
-            ? true
-            : animation;
+        animation = (animation === undefined) ? true : animation;
 
         if(this.params.enable_reveal_animation && animation) {
+
+            let animationParams = {
+                transition: 'easeInOutQuint',
+                onComplete: Lang.bind(this, function() {
+                    this.actor.hide();
+                    if(typeof on_complete === 'function') on_complete();
+                })
+            };
+
             if(Main.layoutManager.monitors.length == 1){
-                Tweener.removeTweens(this.actor);
-                Tweener.addTween(this.actor, {
-                    time: this.params.animation_time,
-                    transition: 'easeInOutQuint',
-                    x: this._hidden_x,
-                    onComplete: Lang.bind(this, function() {
-                        this.actor.hide();
-                        if(typeof on_complete === 'function') on_complete();
-                    })
-                });
+                animationParams.x = this._hidden_x;
             } else {
-                Tweener.removeTweens(this.actor);
-                Tweener.addTween(this.actor, {
-                    time: this.params.animation_time,
-                    transition: 'easeInOutQuint',
-                    y: this._hidden_y,
-                    onComplete: Lang.bind(this, function() {
-                        this.actor.hide();
-                        if(typeof on_complete === 'function') on_complete();
-                    })
-                });
+                animationParams.y = this._hidden_y;
             }
+
+            animationParams.time = this.params.animation_time;
+            animationParams.transition = Clutter.AnimationMode.EASE_IN_QUAD;
+            this.actor.ease(animationParams);
+
         }
         else {
             this.actor.hide();

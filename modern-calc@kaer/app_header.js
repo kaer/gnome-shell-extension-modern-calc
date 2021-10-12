@@ -33,7 +33,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 
-const AppHeader = new Lang.Class({
+var AppHeader = new Lang.Class({
     Name: "AppHeader",
     
     _init: function(params) {
@@ -54,9 +54,8 @@ const AppHeader = new Lang.Class({
         });
 
         this.actor.add(this._appNameLabel,{
-            expand: false,
+            x_expand: false,
             y_align: St.Align.START,
-            x_align: St.Align.START
         });
     },
 

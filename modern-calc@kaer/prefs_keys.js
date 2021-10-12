@@ -26,26 +26,26 @@
  */
 
 // appearance
-const THEME_KEY = 'theme';
-const ENABLE_INDICATOR_KEY = 'enable-indicator';
-const ENABLE_TRANSPARENCY_KEY = 'enable-transparency';
-const WINDOW_OPACITY_VALUE_KEY = 'opacity-value';
-const WINDOW_WIDTH_VALUE_KEY = 'window-width-value'; 
-const ENABLE_REVEAL_ANIMATION_KEY = 'enable-reveal-animation';
-const ENABLE_BACKGROUND_TRANSPARENCY_KEY = 'enable-background-transparency';
-const BACKGROUND_OPACITY_VALUE_KEY = 'background-opacity-value';
+var THEME_KEY = 'theme';
+var ENABLE_INDICATOR_KEY = 'enable-indicator';
+var ENABLE_TRANSPARENCY_KEY = 'enable-transparency';
+var WINDOW_OPACITY_VALUE_KEY = 'opacity-value';
+var WINDOW_WIDTH_VALUE_KEY = 'window-width-value'; 
+var ENABLE_REVEAL_ANIMATION_KEY = 'enable-reveal-animation';
+var ENABLE_BACKGROUND_TRANSPARENCY_KEY = 'enable-background-transparency';
+var BACKGROUND_OPACITY_VALUE_KEY = 'background-opacity-value';
 
 // modules
-const DEFAULT_MODULE_KEY = 'default-module';
-const CALCULATOR_ENABLED_KEY = 'calculator-enabled';
-const UNIT_CONVERTER_ENABLED_KEY = 'unit-converter-enabled';
+var DEFAULT_MODULE_KEY = 'default-module';
+var CALCULATOR_ENABLED_KEY = 'calculator-enabled';
+var UNIT_CONVERTER_ENABLED_KEY = 'unit-converter-enabled';
 
 // shortcuts
-const ENABLE_SHORTCUTS_KEY = 'enable-shortcuts';
-const SHOW_APP_SHORTCUT_KEY = 'show-app-shortcut';
+var ENABLE_SHORTCUTS_KEY = 'enable-shortcuts';
+var SHOW_APP_SHORTCUT_KEY = 'show-app-shortcut';
 
-const CALC_CLEAR_SHORTCUT_KEY = 'calc-clear-shortcut';
-const CALC_COPY_RESULT_SHORTCUT_KEY = 'calc-copy-result-shortcut';
+var CALC_CLEAR_SHORTCUT_KEY = 'calc-clear-shortcut';
+var CALC_COPY_RESULT_SHORTCUT_KEY = 'calc-copy-result-shortcut';
 
 // Calc
-const CALC_DECIMAL_MARK_KEY = 'decimal-mark';
+var CALC_DECIMAL_MARK_KEY = 'decimal-mark';

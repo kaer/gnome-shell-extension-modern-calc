@@ -34,7 +34,7 @@ const Gio = imports.gi.Gio;
 const Gettext = imports.gettext.domain('modern-calc');
 const _ = Gettext.gettext;
 
-const SETTINGS = getSettings();
+var SETTINGS = getSettings();
 
 
 

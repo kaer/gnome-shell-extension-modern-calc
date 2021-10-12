@@ -70,7 +70,7 @@ let prefixes = {
 };
 
 
-const CalculatorModule = new Lang.Class({
+var CalculatorModule = new Lang.Class({
     Name: "CalculatorModule",
     Extends: ModernCalcModule.ModernCalcModule,
 
@@ -103,33 +103,20 @@ const CalculatorModule = new Lang.Class({
         this._history = new CalculusHistory.CalculusHistory({
             calc_app: this
         });
-        this.actor.add(this._history.actor, {
-            expand: false,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
+        this.actor.add(this._history.actor);
 
         // add display
         this._display = new Display.Display({
             calc_app: this
         });
-        this.actor.add(this._display.actor, {
-            expand: false,
-            y_align: St.Align.START,
-            x_align: St.Align.START
-        });
+        this.actor.add(this._display.actor);
 
         // add button grid
         this._basicCalcButtonGrid = new BasicCalcButtonGrid.BasicCalcButtonGrid({
             calc_app: this
         });
 
-        this.actor.add(this._basicCalcButtonGrid.actor, {
-            expand: false,
-            x_align: St.Align.MIDDLE,
-            y_align: St.Align.MIDDLE
-        });
-       
+        this.actor.add(this._basicCalcButtonGrid.actor);
     },
 
     flag_exp: function(){
