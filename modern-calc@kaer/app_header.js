@@ -50,13 +50,12 @@ var AppHeader = new Lang.Class({
 
         this._appNameLabel = new St.Label({
             style_class: 'app-name',
-            text: _("Modern Calc")+' v0.0.1' //TODO get version
+            text: _("Modern Calc")+' v'+ Me.metadata.version,
+            x_expand: true,
+            y_align: St.Align.START
         });
 
-        this.actor.add(this._appNameLabel,{
-            x_expand: false,
-            y_align: St.Align.START,
-        });
+        this.actor.add(this._appNameLabel);
     },
 
     destroy: function(){

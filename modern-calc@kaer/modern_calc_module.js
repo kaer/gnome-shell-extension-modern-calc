@@ -47,7 +47,7 @@ var ModernCalcModule = new Lang.Class({
             module_name: 'abstract_module',
             style_class: 'module',
             vertical_mode: true,
-            toolbar_button_label: 'button' //TODO change button settings later and put icon
+            toolbar_button_label: 'button' //FIXME change button settings later and put icon
         });
 
         this._moduleName = this.params.module_name;

@@ -108,11 +108,8 @@ var ModernCalc = new Lang.Class({
 
     _prepareInterface: function(){
         // add header
-        /*this._appHeader = new AppHeader.AppHeader();
-        this.boxLayout.add(this._appHeader.actor, {
-            expand: false,
-            y_align: St.Align.MIDDLE
-        });*/
+        //this._appHeader = new AppHeader.AppHeader();
+        //this.boxLayout.add(this._appHeader.actor);
 
         this.boxLayout.add(this._messageView.actor);
 
@@ -242,7 +239,6 @@ var ModernCalc = new Lang.Class({
             // shortcuts don't work
             this.actor.grab_key_focus();
 
-            //TODO animate
             this._activeModule.on_deactivate();
             this._moduleContainer.remove_child(this._activeModule.actor);
 

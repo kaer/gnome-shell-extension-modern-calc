@@ -95,8 +95,8 @@ var UnitConverterModule = new Lang.Class({
         this._conversionInfoBox = new St.BoxLayout({
             style_class: "conv-info-box",
             vertical: false,
-            x_expand: false,//TODO ver se eh false
-            y_expand: false,//TODO ver se eh false
+            x_expand: false,
+            y_expand: false,
             y_align: St.Align.START
         });
 

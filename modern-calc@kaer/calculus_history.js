@@ -68,7 +68,7 @@ var CalculusHistory = new Lang.Class({
         this.actor.add_child(this._historyTitle);
 
         // buttons
-        this._btnHistClear = new St.Button({ //TODO how to not hide the button text when it have an icon
+        this._btnHistClear = new St.Button({
             child: new St.Icon({icon_name: 'user-trash-symbolic', style_class: 'button-icon'}),
             label: _("clear history"), style_class: 'history-btn-clear',
             x_expand: true
@@ -176,7 +176,6 @@ var CalculusHistory = new Lang.Class({
     },
 
     _enable_button: function(button){
-        //TODO checar o tipo
         if(button !== null){
             button.set_reactive(true);
             button.remove_style_pseudo_class('disabled');
@@ -184,7 +183,6 @@ var CalculusHistory = new Lang.Class({
     },
 
     _disable_button: function(button){
-        //TODO checar o tipo
         if(button !== null){
             button.set_reactive(false);
             button.add_style_pseudo_class('disabled');
@@ -299,7 +297,7 @@ var CalculusHistory = new Lang.Class({
 
     push_calculus: function(calc_object){
 
-        if(this._calculus_history == false){  //TODO ver se é feito dessa forma
+        if(this._calculus_history == false){
             this._calculus_history = new Array();
         }
 
